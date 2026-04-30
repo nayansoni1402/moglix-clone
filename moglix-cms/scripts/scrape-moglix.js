@@ -139,48 +139,35 @@ async function processCategory(catData, page, parentId = null) {
         where: { externalId: prod.msn }
       });
 
+      const productData = {
+        name: prod.productName,
+        slug: slugify(prod.productName, { lower: true, strict: true }),
+        price: parseFloat(prod.salesPrice) || 0,
+        mrp: parseFloat(prod.mrp) || 0,
+        discount: prod.mrp ? Math.round(((prod.mrp - prod.salesPrice) / prod.mrp) * 100) : 0,
+        externalId: prod.msn,
+        url: prod.fullUrl,
+        publishedAt: new Date(),
+      };
+
       if (existingProd) {
-        console.log(`  Skipping Product (Already exists): ${prod.productName}`);
+        console.log(`  Updating Product: ${prod.productName}`);
+        await strapi.documents('api::product.product').update({
+          documentId: existingProd.documentId,
+          data: productData,
+          status: 'published'
+        });
         continue;
       }
 
       console.log(`  Adding Product: ${prod.productName}`);
-
-      let brandId = null;
-      if (prod.brandName) {
-        const existingBrand = await strapi.documents('api::brand.brand').findFirst({
-          where: { name: prod.brandName }
-        });
-        if (existingBrand) {
-          brandId = existingBrand.id;
-        } else {
-          const newBrand = await strapi.documents('api::brand.brand').create({
-            data: {
-              name: prod.brandName,
-              slug: prod.brandName.toLowerCase().replace(/ /g, '-').replace(/[^\w-]+/g, ''),
-              publishedAt: new Date(),
-            }
-          });
-          brandId = newBrand.id;
-        }
-      }
-
       const image = await downloadAndUploadImage(prod.mainImageLink, prod.productName);
+      if (image) productData.images = [image.id];
+      productData.category = category.id;
+      productData.brand = brandId;
 
       await strapi.documents('api::product.product').create({
-        data: {
-          name: prod.productName,
-          slug: slugify(prod.productName, { lower: true, strict: true }),
-          price: parseFloat(prod.salesPrice) || 0,
-          mrp: parseFloat(prod.mrp) || 0,
-          discount: prod.mrp ? Math.round(((prod.mrp - prod.salesPrice) / prod.mrp) * 100) : 0,
-          images: image ? [image.id] : [],
-          category: category.id,
-          brand: brandId,
-          externalId: prod.msn,
-          url: prod.fullUrl,
-          publishedAt: new Date(),
-        },
+        data: productData,
         status: 'published'
       });
     }
