@@ -13,6 +13,22 @@ export interface ProductSpecification extends Struct.ComponentSchema {
   };
 }
 
+export interface ProductVariant extends Struct.ComponentSchema {
+  collectionName: 'components_product_variants';
+  info: {
+    description: '';
+    displayName: 'Variant';
+    icon: 'shopping-cart';
+  };
+  attributes: {
+    discount: Schema.Attribute.Integer;
+    mrp: Schema.Attribute.Decimal;
+    name: Schema.Attribute.String & Schema.Attribute.Required;
+    price: Schema.Attribute.Decimal;
+    url: Schema.Attribute.String;
+  };
+}
+
 export interface SharedMedia extends Struct.ComponentSchema {
   collectionName: 'components_shared_media';
   info: {
@@ -79,6 +95,7 @@ declare module '@strapi/strapi' {
   export module Public {
     export interface ComponentSchemas {
       'product.specification': ProductSpecification;
+      'product.variant': ProductVariant;
       'shared.media': SharedMedia;
       'shared.quote': SharedQuote;
       'shared.rich-text': SharedRichText;

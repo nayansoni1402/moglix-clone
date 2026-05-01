@@ -65,6 +65,19 @@
     },
     "url": {
       "type": "string"
+    },
+    "seo": {
+      "type": "component",
+      "repeatable": false,
+      "component": "shared.seo"
+    },
+    "variants": {
+      "type": "component",
+      "repeatable": true,
+      "component": "product.variant"
+    },
+    "features": {
+      "type": "richtext"
     }
   }
 }

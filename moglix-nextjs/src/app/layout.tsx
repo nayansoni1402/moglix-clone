@@ -13,6 +13,8 @@ export const metadata: Metadata = {
 };
 
 import QueryProvider from "@/providers/QueryProvider";
+import { Header } from "@/components/layout/Header";
+import { Footer } from "@/components/layout/Footer";
 
 export default function RootLayout({
   children,
@@ -24,9 +26,13 @@ export default function RootLayout({
       lang="en"
       className={`${redHatDisplay.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">
+      <body className="min-h-full flex flex-col font-sans">
         <QueryProvider>
-          {children}
+          <Header />
+          <main className="flex-grow bg-gray-50">
+            {children}
+          </main>
+          <Footer />
         </QueryProvider>
       </body>
     </html>
