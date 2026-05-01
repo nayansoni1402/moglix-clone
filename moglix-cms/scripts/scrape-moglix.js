@@ -84,8 +84,8 @@ async function scrapeProductsFromPage(page, categoryUrl) {
 
         return {
           productName: titleEl?.innerText.trim(),
-          salesPrice: priceEl?.innerText.replace(/[^0-9.]/g, ''),
-          mrp: mrpEl?.innerText.replace(/[^0-9.]/g, ''),
+          salesPrice: priceEl?.innerText.replace(/[^0-9.]/g, '').replace(/,/g, ''),
+          mrp: mrpEl?.innerText.replace(/[^0-9.]/g, '').replace(/,/g, ''),
           mainImageLink: imgEl?.src || imgEl?.dataset?.src,
           msn: linkEl?.href.split('/').filter(p => p).pop(),
           fullUrl: linkEl?.href, // Capture the full actual URL
@@ -164,7 +164,20 @@ async function processCategory(catData, page, parentId = null) {
       const image = await downloadAndUploadImage(prod.mainImageLink, prod.productName);
       if (image) productData.images = [image.id];
       productData.category = category.id;
-      productData.brand = brandId;
+
+      // Ensure brand exists
+      let brand;
+      if (prod.brandName) {
+        brand = await strapi.documents('api::brand.brand').findFirst({
+          where: { name: prod.brandName }
+        });
+        if (!brand) {
+          brand = await strapi.documents('api::brand.brand').create({
+            data: { name: prod.brandName, slug: slugify(prod.brandName, { lower: true }) }
+          });
+        }
+      }
+      if (brand) productData.brand = brand.documentId;
 
       await strapi.documents('api::product.product').create({
         data: productData,
