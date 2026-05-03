@@ -8,7 +8,7 @@ interface ProductCardProps {
 }
 
 export default function ProductCard({ product }: ProductCardProps) {
-  const imageUrl = product.images?.[0]?.url ? getImageUrl(product.images[0].url) : '/placeholder.jpg';
+  const imageUrl = product.mainImageUrl || (product.images?.[0]?.url ? getImageUrl(product.images[0].url) : '/placeholder.jpg');
 
   return (
     <div className="group relative flex flex-col overflow-hidden rounded-lg border border-gray-200 bg-white shadow-sm transition-all hover:shadow-md">

@@ -42,15 +42,21 @@
       "multiple": true,
       "allowedTypes": ["images"]
     },
+    "mainImageUrl": {
+      "type": "string"
+    },
+    "pdfUrl": {
+      "type": "string"
+    },
     "brand": {
       "type": "relation",
       "relation": "manyToOne",
       "target": "api::brand.brand",
       "inversedBy": "products"
     },
-    "category": {
+    "categories": {
       "type": "relation",
-      "relation": "manyToOne",
+      "relation": "manyToMany",
       "target": "api::category.category",
       "inversedBy": "products"
     },

@@ -70,9 +70,11 @@ export default async function ProductPage({ params }: Props) {
     }),
   };
 
+  const primaryCategory = product.categories?.[0];
+
   const breadcrumbItems = [
-    ...(product.category?.parent ? [{ label: product.category.parent.name, href: '#' }] : []),
-    ...(product.category ? [{ label: product.category.name, href: '#' }] : []),
+    ...(primaryCategory?.parent ? [{ label: primaryCategory.parent.name, href: '#' }] : []),
+    ...(primaryCategory ? [{ label: primaryCategory.name, href: '#' }] : []),
     { label: product.name },
   ];
 
@@ -129,7 +131,9 @@ export default async function ProductPage({ params }: Props) {
               </div>
               <div className="flex items-center space-x-2 mt-1">
                 <span className="text-gray-500 line-through">MRP {formatCurrency(product.mrp)}</span>
-                <span className="text-green-600 font-semibold">{product.discount}% OFF</span>
+                {product.discount > 0 && (
+                  <span className="text-green-600 font-semibold">{product.discount}% OFF</span>
+                )}
               </div>
             </div>
 

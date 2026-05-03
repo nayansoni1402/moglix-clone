@@ -27,8 +27,10 @@ export interface Product {
   rating: number;
   reviewCount: number;
   images?: StrapiImage[];
+  mainImageUrl?: string;
+  pdfUrl?: string;
   brand?: Brand;
-  category?: Category;
+  categories?: Category[];
   externalId: string;
   url: string;
 }
