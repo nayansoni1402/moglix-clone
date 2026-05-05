@@ -1,105 +1,88 @@
+"use client";
 import React from "react";
-import HeroCarousel from "./HeroCarousel";
-import HeroFeature from "./HeroFeature";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Autoplay, Pagination, Navigation } from "swiper/modules";
+import Link from "next/link";
 import Image from "next/image";
+
+import "swiper/css";
+import "swiper/css/pagination";
+import "swiper/css/navigation";
+
+// Replace these with actual image paths from your backend/CMS
+const banners = [
+  { id: 1, image: "/images/hero/main-banner-1.png", link: "/category/power-tools" },
+  { id: 2, image: "/images/hero/main-banner-2.png", link: "/category/safety" },
+];
+
+const rightBanners = [
+  { id: 1, image: "/images/hero/side-banner-1.png", link: "/mogli-express" },
+  { id: 2, image: "/images/hero/side-banner-2.png", link: "/bulk-orders" },
+];
 
 const Hero = () => {
   return (
-    <section className="overflow-hidden pb-10 lg:pb-12.5 xl:pb-15 pt-57.5 sm:pt-45 lg:pt-30 xl:pt-51.5 bg-[#E5EAF4]">
-      <div className="max-w-[1170px] w-full mx-auto px-4 sm:px-8 xl:px-0">
-        <div className="flex flex-wrap gap-5">
-          <div className="xl:max-w-[757px] w-full">
-            <div className="relative z-1 rounded-[10px] bg-white overflow-hidden">
-              {/* <!-- bg shapes --> */}
-              <Image
-                src="/images/hero/hero-bg.png"
-                alt="hero bg shapes"
-                className="absolute right-0 bottom-0 -z-1"
-                width={534}
-                height={520}
-              />
+    <section className="w-full bg-[#F4F5F9] py-4">
+      <div className="max-w-[1300px] mx-auto px-4 sm:px-8 xl:px-0 flex flex-col md:flex-row gap-4">
 
-              <HeroCarousel />
-            </div>
-          </div>
-
-          <div className="xl:max-w-[393px] w-full">
-            <div className="flex flex-col sm:flex-row xl:flex-col gap-5">
-              <div className="w-full relative rounded-[10px] bg-white p-4 sm:p-7.5">
-                <div className="flex items-center gap-14">
-                  <div>
-                    <h2 className="max-w-[153px] font-semibold text-dark text-xl mb-20">
-                      <a href="#"> iPhone 14 Plus & 14 Pro Max </a>
-                    </h2>
-
-                    <div>
-                      <p className="font-medium text-dark-4 text-custom-sm mb-1.5">
-                        limited time offer
-                      </p>
-                      <span className="flex items-center gap-3">
-                        <span className="font-medium text-heading-5 text-red">
-                          $699
-                        </span>
-                        <span className="font-medium text-2xl text-dark-4 line-through">
-                          $999
-                        </span>
-                      </span>
-                    </div>
+        {/* Main Carousel (Image Based) */}
+        <div className="w-full md:w-[74%] h-[260px] sm:h-[320px] md:h-[380px] rounded-xl overflow-hidden relative shadow-md">
+          <Swiper
+            spaceBetween={0}
+            centeredSlides={true}
+            autoplay={{ delay: 4000, disableOnInteraction: false }}
+            pagination={{ clickable: true }}
+            navigation={true}
+            loop={true}
+            modules={[Autoplay, Pagination, Navigation]}
+            className="w-full h-full moglix-hero-swiper"
+          >
+            {banners.map((banner) => (
+              <SwiperSlide key={banner.id}>
+                <Link href={banner.link} className="block w-full h-full relative bg-gray-3">
+                  <Image
+                    src={banner.image}
+                    alt={`Promo Banner ${banner.id}`}
+                    fill
+                    className="object-cover"
+                    priority={banner.id === 1}
+                  />
+                  {/* Fallback overlay text in case image doesn't load/exist locally */}
+                  <div className="absolute inset-0 flex items-center justify-center opacity-0 hover:opacity-10 transition-opacity bg-black">
+                     Banner Image Placeholder
                   </div>
-
-                  <div>
-                    <Image
-                      src="/images/hero/hero-02.png"
-                      alt="mobile image"
-                      width={123}
-                      height={161}
-                    />
-                  </div>
-                </div>
-              </div>
-              <div className="w-full relative rounded-[10px] bg-white p-4 sm:p-7.5">
-                <div className="flex items-center gap-14">
-                  <div>
-                    <h2 className="max-w-[153px] font-semibold text-dark text-xl mb-20">
-                      <a href="#"> Wireless Headphone </a>
-                    </h2>
-
-                    <div>
-                      <p className="font-medium text-dark-4 text-custom-sm mb-1.5">
-                        limited time offer
-                      </p>
-                      <span className="flex items-center gap-3">
-                        <span className="font-medium text-heading-5 text-red">
-                          $699
-                        </span>
-                        <span className="font-medium text-2xl text-dark-4 line-through">
-                          $999
-                        </span>
-                      </span>
-                    </div>
-                  </div>
-
-                  <div>
-                    <Image
-                      src="/images/hero/hero-01.png"
-                      alt="mobile image"
-                      width={123}
-                      height={161}
-                    />
-                  </div>
-                </div>
-              </div>
-
-              
-            </div>
-          </div>
+                </Link>
+              </SwiperSlide>
+            ))}
+          </Swiper>
         </div>
-      </div>
 
-      {/* <!-- Hero features --> */}
-      <HeroFeature />
+        {/* Right Side Banners (Image Based) */}
+        <div className="w-full md:w-[26%] flex flex-row md:flex-col gap-4">
+          {rightBanners.map((b) => (
+            <Link
+              key={b.id}
+              href={b.link}
+              className="flex-1 md:flex-none md:h-[calc(50%-8px)] rounded-xl overflow-hidden relative shadow-sm hover:shadow-md transition-shadow group bg-gray-3 block"
+            >
+              <Image
+                src={b.image}
+                alt={`Side Banner ${b.id}`}
+                fill
+                className="object-cover group-hover:scale-105 transition-transform duration-500"
+              />
+               {/* Fallback overlay text */}
+               <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-10 transition-opacity bg-black">
+                 Side Banner Placeholder
+              </div>
+            </Link>
+          ))}
+        </div>
+
+      </div>
     </section>
   );
 };
 
 export default Hero;
+

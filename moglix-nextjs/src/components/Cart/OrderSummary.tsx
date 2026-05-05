@@ -2,63 +2,80 @@ import { selectTotalPrice } from "@/redux/features/cart-slice";
 import { useAppSelector } from "@/redux/store";
 import React from "react";
 import { useSelector } from "react-redux";
+import Link from "next/link";
 
 const OrderSummary = () => {
   const cartItems = useAppSelector((state) => state.cartReducer.items);
   const totalPrice = useSelector(selectTotalPrice);
+  const shipping = totalPrice > 999 ? 0 : 99;
+  const grandTotal = totalPrice + shipping;
 
   return (
     <div className="lg:max-w-[455px] w-full">
-      {/* <!-- order list box --> */}
-      <div className="bg-white shadow-1 rounded-[10px]">
-        <div className="border-b border-gray-3 py-5 px-4 sm:px-8.5">
-          <h3 className="font-medium text-xl text-dark">Order Summary</h3>
+      <div className="bg-white rounded-xl border border-gray-3 shadow-sm overflow-hidden">
+        {/* Header */}
+        <div className="bg-blue px-5 py-4">
+          <h3 className="font-bold text-white text-base">Order Summary</h3>
         </div>
 
-        <div className="pt-2.5 pb-8.5 px-4 sm:px-8.5">
-          {/* <!-- title --> */}
-          <div className="flex items-center justify-between py-5 border-b border-gray-3">
-            <div>
-              <h4 className="font-medium text-dark">Product</h4>
-            </div>
-            <div>
-              <h4 className="font-medium text-dark text-right">Subtotal</h4>
-            </div>
-          </div>
-
-          {/* <!-- product item --> */}
-          {cartItems.map((item, key) => (
-            <div key={key} className="flex items-center justify-between py-5 border-b border-gray-3">
-              <div>
-                <p className="text-dark">{item.title}</p>
-              </div>
-              <div>
-                <p className="text-dark text-right">
-                  ${item.discountedPrice * item.quantity}
+        <div className="p-5">
+          {/* Item List */}
+          <div className="space-y-2 mb-4 max-h-[200px] overflow-y-auto">
+            {cartItems.map((item, key) => (
+              <div key={key} className="flex items-center justify-between text-sm">
+                <p className="text-dark-4 truncate max-w-[220px]">
+                  {item.title}
+                  <span className="text-dark-5 ml-1">×{item.quantity}</span>
+                </p>
+                <p className="text-dark font-medium whitespace-nowrap">
+                  ₹{(item.discountedPrice * item.quantity).toLocaleString("en-IN")}
                 </p>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
 
-          {/* <!-- total --> */}
-          <div className="flex items-center justify-between pt-5">
-            <div>
-              <p className="font-medium text-lg text-dark">Total</p>
+          {/* Divider */}
+          <div className="border-t border-gray-3 pt-4 space-y-2">
+            <div className="flex justify-between text-sm text-dark-4">
+              <span>Subtotal</span>
+              <span className="font-medium text-dark">₹{totalPrice.toLocaleString("en-IN")}</span>
             </div>
-            <div>
-              <p className="font-medium text-lg text-dark text-right">
-                ${totalPrice}
-              </p>
+            <div className="flex justify-between text-sm text-dark-4">
+              <span>Shipping</span>
+              <span className={`font-medium ${shipping === 0 ? "text-green-600" : "text-dark"}`}>
+                {shipping === 0 ? "🎉 FREE" : `₹${shipping}`}
+              </span>
+            </div>
+            <div className="flex justify-between text-sm text-dark-4">
+              <span>Taxes (18% GST)</span>
+              <span className="font-medium text-dark">
+                ₹{Math.round(totalPrice * 0.18).toLocaleString("en-IN")}
+              </span>
             </div>
           </div>
 
-          {/* <!-- checkout button --> */}
-          <button
-            type="submit"
-            className="w-full flex justify-center font-medium text-white bg-blue py-3 px-6 rounded-md ease-out duration-200 hover:bg-blue-dark mt-7.5"
+          {/* Total */}
+          <div className="flex justify-between items-center border-t border-gray-3 pt-4 mt-4">
+            <p className="font-bold text-dark text-base">Total</p>
+            <p className="font-bold text-blue text-xl">
+              ₹{(grandTotal + Math.round(totalPrice * 0.18)).toLocaleString("en-IN")}
+            </p>
+          </div>
+
+          {/* Checkout Button */}
+          <Link
+            href="/checkout"
+            className="w-full flex justify-center items-center gap-2 font-bold text-white bg-blue py-3 px-6 rounded-lg transition-all duration-200 hover:bg-blue-dark mt-5 shadow-sm"
           >
-            Process to Checkout
-          </button>
+            Proceed to Checkout →
+          </Link>
+
+          {/* Trust Badges */}
+          <div className="flex items-center justify-center gap-4 mt-4 pt-4 border-t border-gray-3">
+            <span className="flex items-center gap-1 text-xs text-dark-4">🔒 Secure</span>
+            <span className="flex items-center gap-1 text-xs text-dark-4">🚚 Fast Delivery</span>
+            <span className="flex items-center gap-1 text-xs text-dark-4">↩️ Easy Returns</span>
+          </div>
         </div>
       </div>
     </div>
