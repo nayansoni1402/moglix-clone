@@ -31,7 +31,7 @@ import {
 type SubItem = { label: string; href: string };
 type Col = { heading: string; href: string; items: SubItem[] };
 type NavItem = {
-  name: string; link: string; icon: string; highlight?: boolean;
+  name: string; link: string; icon: React.ReactNode; highlight?: boolean;
   subs?: SubItem[];
   mega?: Col[];
 };
