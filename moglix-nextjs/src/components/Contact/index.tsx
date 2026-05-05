@@ -1,6 +1,18 @@
 import React from "react";
 import Breadcrumb from "../Common/Breadcrumb";
 import Link from "next/link";
+import { 
+  Mail, 
+  MapPin, 
+  Map, 
+  Phone, 
+  Building, 
+  Factory, 
+  Timer, 
+  Send,
+  ChevronRight 
+} from "lucide-react";
+
 
 const inputClass =
   "rounded-lg border border-gray-3 bg-[#F4F5F9] placeholder:text-dark-5 w-full py-2.5 px-4 text-sm outline-none transition-all focus:border-blue focus:ring-2 focus:ring-blue/20";
@@ -28,9 +40,10 @@ const Contact = () => {
               {/* Contact Form Card */}
               <div className="bg-white rounded-xl border border-gray-3 shadow-sm overflow-hidden mb-5">
                 <div className="flex items-center gap-3 px-5 py-3 border-b border-gray-3 bg-[#F4F5F9]">
-                  <span className="w-6 h-6 rounded-full bg-blue text-white text-xs flex items-center justify-center font-bold">✉</span>
+                  <span className="w-6 h-6 rounded-full bg-blue text-white text-xs flex items-center justify-center font-bold"><Mail size={14} /></span>
                   <h3 className="font-bold text-dark text-sm">Send us a Message</h3>
                 </div>
+
                 <div className="p-5 sm:p-7">
                   <form>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
@@ -81,10 +94,12 @@ const Contact = () => {
 
                     <button
                       type="submit"
-                      className="flex items-center gap-2 font-bold text-white bg-blue py-3 px-8 rounded-lg transition-all duration-200 hover:bg-blue-dark shadow-sm text-sm"
+                      className="flex items-center gap-2 font-bold text-white bg-blue py-3 px-8 rounded-lg transition-all duration-200 hover:bg-blue-dark shadow-sm text-sm uppercase tracking-wider"
                     >
-                      Send Message →
+                      Send Message <Send size={16} />
                     </button>
+
+
                   </form>
                 </div>
               </div>
@@ -92,15 +107,16 @@ const Contact = () => {
               {/* Map / Location Card */}
               <div className="bg-white rounded-xl border border-gray-3 shadow-sm overflow-hidden">
                 <div className="flex items-center gap-3 px-5 py-3 border-b border-gray-3 bg-[#F4F5F9]">
-                  <span className="text-base">📍</span>
+                  <span className="text-blue"><MapPin size={20} /></span>
                   <h3 className="font-bold text-dark text-sm">Our Location</h3>
                 </div>
+
                 <div className="p-5">
                   <div className="w-full h-[200px] bg-[#F4F5F9] rounded-lg flex items-center justify-center border border-gray-3">
-                    <div className="text-center">
-                      <span className="text-3xl">🗺️</span>
-                      <p className="text-sm text-dark-4 mt-2">Moglix India Headquarters</p>
-                      <p className="text-xs text-dark-5">B-25, Sector 58, Noida, Uttar Pradesh 201301</p>
+                    <div className="flex flex-col items-center text-center">
+                      <span className="text-blue/40 mb-3"><Map size={48} /></span>
+                      <p className="text-sm text-dark-4 font-bold">Moglix India Headquarters</p>
+                      <p className="text-xs text-dark-5 mt-1">B-25, Sector 58, Noida, Uttar Pradesh 201301</p>
                     </div>
                   </div>
                 </div>
@@ -117,7 +133,8 @@ const Contact = () => {
                   <h3 className="font-bold text-base mb-4">Contact Information</h3>
                   <ul className="space-y-4">
                     <li className="flex items-start gap-3">
-                      <span className="text-xl mt-0.5">📞</span>
+                      <span className="text-white/70 mt-0.5"><Phone size={20} /></span>
+
                       <div>
                         <p className="font-semibold text-sm">Phone / WhatsApp</p>
                         <p className="text-white/80 text-sm">+91 1800-XXX-XXXX</p>
@@ -125,7 +142,8 @@ const Contact = () => {
                       </div>
                     </li>
                     <li className="flex items-start gap-3">
-                      <span className="text-xl mt-0.5">✉️</span>
+                      <span className="text-white/70 mt-0.5"><Mail size={20} /></span>
+
                       <div>
                         <p className="font-semibold text-sm">Email Support</p>
                         <p className="text-white/80 text-sm">support@moglix.com</p>
@@ -133,14 +151,16 @@ const Contact = () => {
                       </div>
                     </li>
                     <li className="flex items-start gap-3">
-                      <span className="text-xl mt-0.5">🏢</span>
+                      <span className="text-white/70 mt-0.5"><Building size={20} /></span>
+
                       <div>
                         <p className="font-semibold text-sm">Head Office</p>
                         <p className="text-white/80 text-sm leading-5">B-25, Sector 58, Noida,<br />Uttar Pradesh 201301</p>
                       </div>
                     </li>
                     <li className="flex items-start gap-3">
-                      <span className="text-xl mt-0.5">🏭</span>
+                      <span className="text-white/70 mt-0.5"><Factory size={20} /></span>
+
                       <div>
                         <p className="font-semibold text-sm">B2B / Enterprise</p>
                         <p className="text-white/80 text-sm">b2b@moglix.com</p>
@@ -152,7 +172,10 @@ const Contact = () => {
 
                 {/* Response Time */}
                 <div className="bg-white rounded-xl border border-gray-3 shadow-sm p-5">
-                  <h3 className="font-bold text-dark text-sm mb-3">⏱ Response Times</h3>
+                  <h3 className="font-bold text-dark text-sm mb-3 flex items-center gap-2">
+                    <Timer size={18} className="text-blue" /> Response Times
+                  </h3>
+
                   <ul className="space-y-2.5 text-sm">
                     {[
                       { channel: "Live Chat", time: "Under 5 mins", dot: "bg-green-400" },
@@ -176,8 +199,9 @@ const Contact = () => {
                   <h3 className="font-bold text-dark text-sm mb-3">Quick Help</h3>
                   <ul className="space-y-2 text-sm">
                     {[["Track My Order", "/my-account"], ["Return / Refund", "/refund-policy"], ["FAQ's", "/faq"], ["Privacy Policy", "/privacy-policy"]].map(([label, href]) => (
-                      <li key={href}><Link href={href} className="text-blue hover:underline">→ {label}</Link></li>
+                      <li key={href}><Link href={href} className="text-blue hover:underline flex items-center gap-1"><ChevronRight size={14} /> {label}</Link></li>
                     ))}
+
                   </ul>
                 </div>
 

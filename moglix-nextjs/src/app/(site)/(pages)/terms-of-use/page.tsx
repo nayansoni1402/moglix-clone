@@ -1,5 +1,6 @@
 import Breadcrumb from "@/components/Common/Breadcrumb";
 import Link from "next/link";
+import { Calendar, ChevronRight } from "lucide-react";
 
 export const metadata = { title: "Terms of Use | Moglix" };
 
@@ -22,9 +23,10 @@ export default function TermsOfUsePage() {
         <div className="max-w-[1170px] w-full mx-auto px-4 sm:px-8 xl:px-0">
 
           <div className="mb-8">
-            <p className="text-xs text-dark-4 bg-white inline-block px-3 py-1.5 rounded-full border border-gray-3">
-              📅 Effective Date: May 1, 2025
+            <p className="text-xs text-dark-4 bg-white inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-gray-3">
+              <Calendar size={14} /> Effective Date: May 1, 2025
             </p>
+
             <h1 className="text-2xl font-bold text-dark mt-3 mb-2">Terms of Use</h1>
             <p className="text-dark-4 text-sm max-w-[600px]">
               Please read these terms carefully before using Moglix. By using our platform, you agree to these terms and conditions.
@@ -69,15 +71,17 @@ export default function TermsOfUsePage() {
                 <h3 className="font-bold text-sm mb-1">Have a Question?</h3>
                 <p className="text-white/80 text-xs mb-3 leading-5">If anything in our Terms is unclear, please reach out.</p>
                 <Link href="/contact" className="inline-flex items-center gap-2 bg-white text-blue font-bold text-sm px-4 py-2 rounded-lg hover:bg-gray-1 transition-colors">
-                  Contact Us →
+                  Contact Us <ChevronRight size={14} />
                 </Link>
+
               </div>
               <div className="bg-white rounded-xl border border-gray-3 p-5">
                 <h3 className="font-bold text-dark text-sm mb-3">Related Policies</h3>
                 <ul className="space-y-2 text-sm">
                   {[["Privacy Policy", "/privacy-policy"], ["Refund Policy", "/refund-policy"], ["FAQ's", "/faq"]].map(([label, href]) => (
-                    <li key={href}><Link href={href} className="text-blue hover:underline">→ {label}</Link></li>
+                    <li key={href}><Link href={href} className="text-blue hover:underline flex items-center gap-1"><ChevronRight size={14} /> {label}</Link></li>
                   ))}
+
                 </ul>
               </div>
             </div>

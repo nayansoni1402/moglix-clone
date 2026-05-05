@@ -1,12 +1,31 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
-import CustomSelect from "./CustomSelect";
 import { useAppSelector } from "@/redux/store";
 import { useSelector } from "react-redux";
 import { selectTotalPrice } from "@/redux/features/cart-slice";
 import { useCartModalContext } from "@/app/context/CartSidebarModalContext";
 import Image from "next/image";
+import {
+  Zap,
+  Wrench,
+  ShieldCheck,
+  Lightbulb,
+  TestTube2,
+  Building2,
+  FileBox,
+  Sprout,
+  Car,
+  Rocket,
+  User,
+  Heart,
+  ShoppingCart,
+  Search,
+  X,
+  Menu as MenuIcon,
+  ChevronDown
+} from "lucide-react";
+
 
 // ── Mega Menu Data ──────────────────────────────────────────
 type SubItem = { label: string; href: string };
@@ -23,7 +42,16 @@ const navItems: NavItem[] = [
   //   subs: [{ label: "Same Day Dispatch", href: "#" }, { label: "Express Shipping", href: "#" }, { label: "Track Order", href: "/my-account" }],
   // },
   {
+<<<<<<< HEAD
     name: "Power Tools", link: "/category/power-tools", icon: "/images/menu/tools.webp",
+=======
+    name: "24 Hrs Delivery", link: "#", icon: <Zap size={16} />, highlight: true,
+    subs: [{ label: "Same Day Dispatch", href: "#" }, { label: "Express Shipping", href: "#" }, { label: "Track Order", href: "/my-account" }],
+  },
+  {
+    name: "Power Tools", link: "/category/power-tools", icon: <Wrench size={16} />,
+
+>>>>>>> 0e6e4780fd7453be76c969519cb32c3ee1fadbc2
     mega: [
       { heading: "Drills & Drivers", href: "/category/power-tools", items: [
         { label: "Cordless Drills", href: "/category/power-tools" },
@@ -56,7 +84,12 @@ const navItems: NavItem[] = [
     ],
   },
   {
+<<<<<<< HEAD
     name: "Safety Gear", link: "/category/safety", icon: "/images/menu/safety-ppe-supplies.webp",
+=======
+    name: "Safety Gear", link: "/category/safety", icon: <ShieldCheck size={16} />,
+
+>>>>>>> 0e6e4780fd7453be76c969519cb32c3ee1fadbc2
     mega: [
       { heading: "Head & Face", href: "/category/safety", items: [
         { label: "Safety Helmets", href: "/category/safety" },
@@ -85,7 +118,12 @@ const navItems: NavItem[] = [
     ],
   },
   {
+<<<<<<< HEAD
     name: "Electrical", link: "/category/electrical", icon: "/images/menu/tools-equipment.webp",
+=======
+    name: "Electrical", link: "/category/electrical", icon: <Lightbulb size={16} />,
+
+>>>>>>> 0e6e4780fd7453be76c969519cb32c3ee1fadbc2
     mega: [
       { heading: "Wires & Cables", href: "/category/electrical", items: [
         { label: "House Wires", href: "/category/electrical" },
@@ -114,7 +152,12 @@ const navItems: NavItem[] = [
     ],
   },
   {
+<<<<<<< HEAD
     name: "Medical", link: "/category/medical", icon: "/images/menu/medicalimage-min.webp",
+=======
+    name: "Medical", link: "/category/medical", icon: <TestTube2 size={16} />,
+
+>>>>>>> 0e6e4780fd7453be76c969519cb32c3ee1fadbc2
     subs: [
       { label: "First Aid Kits", href: "/category/medical" },
       { label: "Surgical Gloves", href: "/category/medical" },
@@ -122,7 +165,12 @@ const navItems: NavItem[] = [
     ],
   },
   {
+<<<<<<< HEAD
     name: "Construction", link: "/category/construction", icon: "/images/menu/hardware-plumbing-supplies.webp",
+=======
+    name: "Construction", link: "/category/construction", icon: <Building2 size={16} />,
+
+>>>>>>> 0e6e4780fd7453be76c969519cb32c3ee1fadbc2
     subs: [
       { label: "Cement & Adhesives", href: "/category/construction" },
       { label: "Hand Tools", href: "/category/construction" },
@@ -130,30 +178,53 @@ const navItems: NavItem[] = [
     ],
   },
   {
+<<<<<<< HEAD
     name: "Office", link: "/category/office", icon: "/images/menu/office-stationery-supplies.webp",
+=======
+    name: "Office", link: "/category/office", icon: <FileBox size={16} />,
+
+>>>>>>> 0e6e4780fd7453be76c969519cb32c3ee1fadbc2
     subs: [
       { label: "Stationery", href: "/category/office" },
       { label: "Printers", href: "/category/office" },
     ],
   },
   {
+<<<<<<< HEAD
     name: "Agri & Garden", link: "/category/agri", icon: "/images/menu/agriculture-farming-equipment.webp",
+=======
+    name: "Agri & Garden", link: "/category/agri", icon: <Sprout size={16} />,
+
+>>>>>>> 0e6e4780fd7453be76c969519cb32c3ee1fadbc2
     subs: [
       { label: "Seeds", href: "/category/agri" },
       { label: "Garden Tools", href: "/category/agri" },
     ],
   },
   {
+<<<<<<< HEAD
     name: "Automotive", link: "/category/automotive", icon: "/images/menu/automotive-supplies.webp",
+=======
+    name: "Automotive", link: "/category/automotive", icon: <Car size={16} />,
+
+>>>>>>> 0e6e4780fd7453be76c969519cb32c3ee1fadbc2
     subs: [
       { label: "Lubricants", href: "/category/automotive" },
       { label: "Batteries", href: "/category/automotive" },
     ],
   },
+<<<<<<< HEAD
   // {
   //   name: "Moglix Express", link: "#", icon: "🚀", highlight: true,
   //   subs: [{ label: "Priority Delivery", href: "#" }],
   // },
+=======
+  {
+    name: "Moglix Express", link: "#", icon: <Rocket size={16} />, highlight: true,
+
+    subs: [{ label: "Priority Delivery", href: "#" }],
+  },
+>>>>>>> 0e6e4780fd7453be76c969519cb32c3ee1fadbc2
 ];
 
 const Header = () => {
@@ -182,9 +253,13 @@ const Header = () => {
           {/* Mobile Toggle & Logo */}
           <div className="flex items-center gap-4">
             <button onClick={() => setNavigationOpen(!navigationOpen)} className="lg:hidden text-dark text-2xl p-1 hover:bg-gray-1 rounded transition-colors">
-              {navigationOpen ? "✕" : "☰"}
+              {navigationOpen ? <X size={24} /> : <MenuIcon size={24} />}
             </button>
+<<<<<<< HEAD
             
+=======
+
+>>>>>>> 0e6e4780fd7453be76c969519cb32c3ee1fadbc2
             <Link className="flex-shrink-0" href="/">
               <Image src="/images/logo/logo1.png" alt="Logo" width={180} height={30} className="w-auto h-7 sm:h-9" />
             </Link>
@@ -199,15 +274,17 @@ const Header = () => {
                 className="w-full bg-gray-1 border border-gray-3 py-2.5 px-4 rounded-md text-sm outline-none focus:ring-1 focus:ring-blue/30 pr-12"
               />
               <button className="absolute right-4 top-1/2 -translate-y-1/2 hover:text-blue transition-colors">
-                <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M17.2687 15.6656L12.6281 11.8969C14.5406 9.28123 14.3437 5.5406 11.9531 3.1781C10.6875 1.91248 8.99995 1.20935 7.19995 1.20935C5.39995 1.20935 3.71245 1.91248 2.44683 3.1781C-0.168799 5.79373 -0.168799 10.0687 2.44683 12.6844C3.71245 13.95 5.39995 14.6531 7.19995 14.6531C8.91558 14.6531 10.5187 14.0062 11.7843 12.8531L16.4812 16.65C16.5937 16.7344 16.7343 16.7906 16.875 16.7906C17.0718 16.7906 17.2406 16.7062 17.3531 16.5656ZM7.19995 13.3875C5.73745 13.3875 4.38745 12.825 3.34683 11.7844C1.20933 9.64685 1.20933 6.18748 3.34683 4.0781C4.38745 3.03748 5.73745 2.47498 7.19995 2.47498C8.66245 2.47498 10.0125 3.03748 11.0531 4.0781C13.1906 6.2156 13.1906 9.67498 11.0531 11.7844C10.0406 12.825 8.66245 13.3875 7.19995 13.3875Z" fill="currentColor"/></svg>
+                <Search size={18} />
               </button>
+
             </div>
           </div>
 
           {/* User Icons */}
           <div className="flex items-center gap-5 sm:gap-8">
             <Link href="/signin" className="flex items-center gap-3 group">
-              <span className="text-xl group-hover:scale-110 transition-transform">👤</span>
+              <span className="text-xl group-hover:scale-110 transition-transform"><User size={24} /></span>
+
               <div className="hidden sm:block">
                 <span className="block text-[10px] text-dark-4 uppercase font-bold leading-none">account</span>
                 <p className="font-bold text-xs text-dark group-hover:text-blue transition-colors">Sign In</p>
@@ -217,7 +294,8 @@ const Header = () => {
             {/* Wishlist Icon */}
             <Link href="/wishlist" className="flex items-center gap-3 group">
               <div className="relative text-xl group-hover:scale-110 transition-transform">
-                ❤️
+                <Heart size={24} />
+
                 <span className="absolute -right-2 -top-2 bg-red text-white text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center">
                   {wishlistItems.length}
                 </span>
@@ -230,7 +308,8 @@ const Header = () => {
 
             <button onClick={openCartModal} className="flex items-center gap-3 group">
               <div className="relative text-xl group-hover:scale-110 transition-transform">
-                🛒
+                <ShoppingCart size={24} />
+
                 <span className="absolute -right-2 -top-2 bg-blue text-white text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center">
                   {product.length}
                 </span>
@@ -247,8 +326,9 @@ const Header = () => {
         <div className="lg:hidden pb-4">
           <div className="relative">
             <input type="text" placeholder="Search industrial products..." className="w-full bg-gray-1 border border-gray-3 py-2.5 px-4 rounded-md text-sm outline-none" />
-            <button className="absolute right-3 top-1/2 -translate-y-1/2 text-dark-4">🔍</button>
+            <button className="absolute right-3 top-1/2 -translate-y-1/2 text-dark-4"><Search size={20} /></button>
           </div>
+
         </div>
       </div>
 
@@ -321,8 +401,9 @@ const Header = () => {
         <div className={`absolute top-0 left-0 bottom-0 w-[300px] bg-white shadow-2xl transition-transform duration-300 transform ${navigationOpen ? "translate-x-0" : "-translate-x-full"}`}>
           <div className="p-5 border-b flex justify-between items-center bg-gray-1">
             <span className="font-bold text-dark">Categories</span>
-            <button onClick={() => setNavigationOpen(false)} className="text-xl">✕</button>
+            <button onClick={() => setNavigationOpen(false)} className="text-xl"><X size={24} /></button>
           </div>
+
           <div className="overflow-y-auto h-full pb-24">
             {navItems.map((item, index) => (
               <div key={index} className="border-b border-gray-2">
@@ -330,8 +411,9 @@ const Header = () => {
                   <Link href={item.link} className={`flex items-center gap-3 font-bold text-sm ${item.highlight ? "text-red" : "text-dark"}`} onClick={(e) => (item.mega || item.subs) && e.preventDefault()}>
                     <span className="text-lg">{item.icon}</span> {item.name}
                   </Link>
-                  {(item.mega || item.subs) && <span className={`text-xs transition-transform ${mobileMenuOpen === item.name ? "rotate-180" : ""}`}>▼</span>}
+                  {(item.mega || item.subs) && <span className={`text-xs transition-transform ${mobileMenuOpen === item.name ? "rotate-180" : ""}`}><ChevronDown size={14} /></span>}
                 </div>
+
                 {(item.mega || item.subs) && mobileMenuOpen === item.name && (
                   <div className="bg-gray-1 px-5 py-3">
                     {item.mega ? item.mega.map((col, ci) => (

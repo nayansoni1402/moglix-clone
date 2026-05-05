@@ -1,19 +1,32 @@
-import React from "react";
 import Link from "next/link";
+import {
+  Zap,
+  Lightbulb,
+  Wrench,
+  FileBox,
+  Sprout,
+  TestTube2,
+  Building2,
+  ShieldCheck,
+  Car,
+  Package,
+  Rocket
+} from "lucide-react";
 
 const categories = [
-  { name: "24 Hrs Delivery", link: "#", icon: "⚡", highlight: true },
-  { name: "Electrical", link: "/category/electrical", icon: "💡" },
-  { name: "Power Tools", link: "/category/power-tools", icon: "🔧" },
-  { name: "Office Supplies", link: "/category/office", icon: "🗂️" },
-  { name: "Agri & Garden", link: "/category/agri", icon: "🌱" },
-  { name: "Medical & Lab", link: "/category/medical", icon: "🧪" },
-  { name: "Construction", link: "/category/construction", icon: "🏗️" },
-  { name: "Safety Gear", link: "/category/safety", icon: "🦺" },
-  { name: "Automotive", link: "/category/automotive", icon: "🚗" },
-  { name: "Packaging", link: "/category/packaging", icon: "📦" },
-  { name: "Mogli Express", link: "#", icon: "🚀", highlight: true },
+  { name: "24 Hrs Delivery", link: "#", icon: <Zap size={16} />, highlight: true },
+  { name: "Electrical", link: "/category/electrical", icon: <Lightbulb size={16} /> },
+  { name: "Power Tools", link: "/category/power-tools", icon: <Wrench size={16} /> },
+  { name: "Office Supplies", link: "/category/office", icon: <FileBox size={16} /> },
+  { name: "Agri & Garden", link: "/category/agri", icon: <Sprout size={16} /> },
+  { name: "Medical & Lab", link: "/category/medical", icon: <TestTube2 size={16} /> },
+  { name: "Construction", link: "/category/construction", icon: <Building2 size={16} /> },
+  { name: "Safety Gear", link: "/category/safety", icon: <ShieldCheck size={16} /> },
+  { name: "Automotive", link: "/category/automotive", icon: <Car size={16} /> },
+  { name: "Packaging", link: "/category/packaging", icon: <Package size={16} /> },
+  { name: "Mogli Express", link: "#", icon: <Rocket size={16} />, highlight: true },
 ];
+
 
 const CategoryStrip = () => {
   return (

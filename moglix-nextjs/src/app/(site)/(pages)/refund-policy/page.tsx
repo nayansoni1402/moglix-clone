@@ -1,5 +1,6 @@
 import Breadcrumb from "@/components/Common/Breadcrumb";
 import Link from "next/link";
+import { Calendar, RotateCcw, Zap, Truck, X, ChevronRight } from "lucide-react";
 
 export const metadata = { title: "Refund Policy | Moglix" };
 
@@ -12,8 +13,8 @@ export default function RefundPolicyPage() {
 
           {/* Header */}
           <div className="mb-8">
-            <p className="text-xs text-dark-4 bg-white inline-block px-3 py-1.5 rounded-full border border-gray-3">
-              📅 Last Updated: May 1, 2025
+            <p className="text-xs text-dark-4 bg-white inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-gray-3">
+              <Calendar size={14} /> Last Updated: May 1, 2025
             </p>
             <h1 className="text-2xl font-bold text-dark mt-3 mb-2">Refund & Return Policy</h1>
             <p className="text-dark-4 text-sm max-w-[600px]">
@@ -24,12 +25,12 @@ export default function RefundPolicyPage() {
           {/* Quick stats */}
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
             {[
-              { icon: "↩️", title: "7-Day Returns", desc: "Return within 7 days of delivery for a full refund" },
-              { icon: "⚡", title: "5–7 Day Refunds", desc: "Refund credited to your original payment method" },
-              { icon: "🚚", title: "Free Pickup", desc: "We arrange pickup from your doorstep at no cost" },
+              { icon: <RotateCcw size={24} />, title: "7-Day Returns", desc: "Return within 7 days of delivery for a full refund" },
+              { icon: <Zap size={24} />, title: "5–7 Day Refunds", desc: "Refund credited to your original payment method" },
+              { icon: <Truck size={24} />, title: "Free Pickup", desc: "We arrange pickup from your doorstep at no cost" },
             ].map((item) => (
               <div key={item.title} className="bg-white rounded-xl border border-gray-3 shadow-sm px-5 py-4 flex gap-4 items-start">
-                <span className="text-2xl mt-0.5">{item.icon}</span>
+                <span className="text-blue mt-0.5">{item.icon}</span>
                 <div>
                   <h3 className="font-bold text-dark text-sm">{item.title}</h3>
                   <p className="text-xs text-dark-4 mt-0.5 leading-5">{item.desc}</p>
@@ -37,6 +38,7 @@ export default function RefundPolicyPage() {
               </div>
             ))}
           </div>
+
 
           {/* Main Content */}
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
@@ -78,23 +80,26 @@ export default function RefundPolicyPage() {
                 <h3 className="font-bold text-base mb-1">Need Help with a Return?</h3>
                 <p className="text-white/80 text-sm mb-4">Our support team is available 24/7 to help you with your return request.</p>
                 <Link href="/contact" className="inline-flex items-center gap-2 bg-white text-blue font-bold text-sm px-4 py-2.5 rounded-lg hover:bg-gray-1 transition-colors">
-                  Contact Support →
+                  Contact Support <ChevronRight size={14} />
                 </Link>
+
               </div>
               <div className="bg-white rounded-xl border border-gray-3 p-5">
                 <h3 className="font-bold text-dark text-sm mb-3">Items Not Eligible</h3>
                 <ul className="space-y-2 text-sm text-dark-3">
                   {["Custom-cut cables & wires", "Consumables (blades, bits)", "Items marked non-returnable", "Used / damaged by buyer"].map((item) => (
-                    <li key={item} className="flex items-center gap-2"><span className="text-red">✗</span> {item}</li>
+                    <li key={item} className="flex items-center gap-2"><span className="text-red"><X size={14} /></span> {item}</li>
                   ))}
                 </ul>
+
               </div>
               <div className="bg-white rounded-xl border border-gray-3 p-5">
                 <h3 className="font-bold text-dark text-sm mb-3">Quick Links</h3>
                 <ul className="space-y-2 text-sm">
                   {[["Privacy Policy", "/privacy-policy"], ["Terms of Use", "/terms-of-use"], ["FAQ's", "/faq"]].map(([label, href]) => (
-                    <li key={href}><Link href={href} className="text-blue hover:underline">→ {label}</Link></li>
+                    <li key={href}><Link href={href} className="text-blue hover:underline flex items-center gap-1"><ChevronRight size={14} /> {label}</Link></li>
                   ))}
+
                 </ul>
               </div>
             </div>

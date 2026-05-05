@@ -8,6 +8,8 @@ import { AppDispatch } from "@/redux/store";
 import SingleItem from "./SingleItem";
 import Link from "next/link";
 import EmptyCart from "./EmptyCart";
+import { ChevronRight, Sparkles, CheckCircle2, ShoppingBag, X } from "lucide-react";
+
 
 const CartSidebarModal = () => {
   const { isCartModalOpen, closeCartModal } = useCartModalContext();
@@ -47,13 +49,10 @@ const CartSidebarModal = () => {
         {/* Header */}
         <div className="flex items-center justify-between px-6 py-4 border-b border-gray-3 bg-white">
           <div className="flex items-center gap-3">
-            <div className="w-8 h-8 rounded-full bg-blue flex items-center justify-center">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-                <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                <line x1="3" y1="6" x2="21" y2="6" stroke="white" strokeWidth="2"/>
-                <path d="M16 10a4 4 0 01-8 0" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-              </svg>
+            <div className="w-8 h-8 rounded-full bg-blue flex items-center justify-center text-white">
+              <ShoppingBag size={18} />
             </div>
+
             <div>
               <h2 className="font-bold text-dark text-base">Shopping Cart</h2>
               <p className="text-xs text-dark-4">{cartItems.length} item{cartItems.length !== 1 ? "s" : ""}</p>
@@ -63,18 +62,18 @@ const CartSidebarModal = () => {
             onClick={closeCartModal}
             className="w-8 h-8 rounded-full bg-gray-2 flex items-center justify-center hover:bg-red-light-6 hover:text-red transition-all duration-200"
           >
-            <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-              <path d="M1 1l12 12M13 1L1 13" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
-            </svg>
+            <X size={16} />
           </button>
+
         </div>
 
         {/* Free Shipping Banner */}
         {totalPrice > 0 && totalPrice < 999 && (
           <div className="mx-4 mt-3 px-4 py-2 bg-blue/10 border border-blue/30 rounded-lg">
-            <p className="text-xs text-blue font-medium text-center">
-              🎉 Add ₹{999 - totalPrice} more for <strong>FREE Shipping!</strong>
+            <p className="text-xs text-blue font-medium text-center flex items-center justify-center gap-1.5">
+              <Sparkles size={14} /> Add ₹{999 - totalPrice} more for <strong>FREE Shipping!</strong>
             </p>
+
             <div className="mt-1.5 bg-gray-3 rounded-full h-1.5">
               <div
                 className="bg-blue h-1.5 rounded-full transition-all duration-500"
@@ -85,8 +84,11 @@ const CartSidebarModal = () => {
         )}
         {totalPrice >= 999 && (
           <div className="mx-4 mt-3 px-4 py-2 bg-green-50 border border-green-300 rounded-lg">
-            <p className="text-xs text-green-700 font-medium text-center">✅ You got FREE Shipping!</p>
+            <p className="text-xs text-green-700 font-medium text-center flex items-center justify-center gap-1.5">
+              <CheckCircle2 size={14} /> You got FREE Shipping!
+            </p>
           </div>
+
         )}
 
         {/* Cart Items */}
@@ -139,10 +141,11 @@ const CartSidebarModal = () => {
               <Link
                 onClick={closeCartModal}
                 href="/checkout"
-                className="flex-1 flex justify-center items-center font-semibold text-white bg-blue py-2.5 px-4 rounded-lg transition-all duration-200 hover:bg-blue-dark text-sm shadow-sm"
+                className="flex-1 flex justify-center items-center gap-2 font-semibold text-white bg-blue py-2.5 px-4 rounded-lg transition-all duration-200 hover:bg-blue-dark text-sm shadow-sm"
               >
-                Checkout →
+                Checkout <ChevronRight size={16} />
               </Link>
+
             </div>
           </div>
         )}

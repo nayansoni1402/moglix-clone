@@ -3,6 +3,8 @@ import { useAppSelector } from "@/redux/store";
 import React from "react";
 import { useSelector } from "react-redux";
 import Link from "next/link";
+import { ChevronRight, Sparkles, Lock, Truck, RotateCcw } from "lucide-react";
+
 
 const OrderSummary = () => {
   const cartItems = useAppSelector((state) => state.cartReducer.items);
@@ -42,9 +44,10 @@ const OrderSummary = () => {
             </div>
             <div className="flex justify-between text-sm text-dark-4">
               <span>Shipping</span>
-              <span className={`font-medium ${shipping === 0 ? "text-green-600" : "text-dark"}`}>
-                {shipping === 0 ? "🎉 FREE" : `₹${shipping}`}
+              <span className={`font-medium flex items-center gap-1 ${shipping === 0 ? "text-green-600" : "text-dark"}`}>
+                {shipping === 0 ? <><Sparkles size={14} /> FREE</> : `₹${shipping}`}
               </span>
+
             </div>
             <div className="flex justify-between text-sm text-dark-4">
               <span>Taxes (18% GST)</span>
@@ -65,17 +68,19 @@ const OrderSummary = () => {
           {/* Checkout Button */}
           <Link
             href="/checkout"
-            className="w-full flex justify-center items-center gap-2 font-bold text-white bg-blue py-3 px-6 rounded-lg transition-all duration-200 hover:bg-blue-dark mt-5 shadow-sm"
+            className="w-full flex justify-center items-center gap-2 font-bold text-white bg-blue py-3 px-6 rounded-lg transition-all duration-200 hover:bg-blue-dark mt-5 shadow-sm uppercase tracking-wider"
           >
-            Proceed to Checkout →
+            Proceed to Checkout <ChevronRight size={18} />
           </Link>
+
 
           {/* Trust Badges */}
           <div className="flex items-center justify-center gap-4 mt-4 pt-4 border-t border-gray-3">
-            <span className="flex items-center gap-1 text-xs text-dark-4">🔒 Secure</span>
-            <span className="flex items-center gap-1 text-xs text-dark-4">🚚 Fast Delivery</span>
-            <span className="flex items-center gap-1 text-xs text-dark-4">↩️ Easy Returns</span>
+            <span className="flex items-center gap-1 text-[10px] font-bold uppercase text-dark-4"><Lock size={12} className="text-green-600" /> Secure</span>
+            <span className="flex items-center gap-1 text-[10px] font-bold uppercase text-dark-4"><Truck size={12} className="text-blue" /> Fast Delivery</span>
+            <span className="flex items-center gap-1 text-[10px] font-bold uppercase text-dark-4"><RotateCcw size={12} className="text-orange-500" /> Easy Returns</span>
           </div>
+
         </div>
       </div>
     </div>

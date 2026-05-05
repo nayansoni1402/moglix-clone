@@ -1,5 +1,6 @@
 import React from "react";
 import Link from "next/link";
+import { ChevronRight } from "lucide-react";
 
 interface Props {
   title?: string;
@@ -12,6 +13,7 @@ const PromoBanner = ({
   subtitle = "Next Day Delivery on Top Brands", 
   bgColor = "bg-green-light-5 text-green-dark" 
 }: Props) => {
+
 
   // Map the basic bgColors passed from Home to rich gradients
   const isGreen = bgColor.includes("green");
@@ -47,10 +49,11 @@ const PromoBanner = ({
           <div className="relative z-10 flex gap-4">
             <Link
               href="/shop-with-sidebar"
-              className="inline-flex font-bold text-sm text-dark bg-white py-3.5 px-8 rounded-lg shadow-lg hover:bg-gray-1 hover:scale-105 hover:shadow-xl transition-all duration-300"
+              className="inline-flex items-center gap-2 font-bold text-sm text-dark bg-white py-3.5 px-8 rounded-lg shadow-lg hover:bg-gray-1 hover:scale-105 hover:shadow-xl transition-all duration-300"
             >
-              Shop Now →
+              Shop Now <ChevronRight size={18} />
             </Link>
+
           </div>
           
           {/* Subtle pattern overlay */}

@@ -1,12 +1,14 @@
 "use client";
+import React, { useState } from "react";
 import Breadcrumb from "@/components/Common/Breadcrumb";
 import Link from "next/link";
-import { useState } from "react";
+import { Truck, RotateCcw, CreditCard, Wrench, ChevronRight } from "lucide-react";
+
 
 const faqs = [
   {
     category: "Orders & Shipping",
-    icon: "🚚",
+    icon: <Truck size={18} />,
     items: [
       { q: "How do I track my order?", a: "Once your order is shipped, you will receive an SMS and email with your tracking number. You can also track your order from the 'My Orders' section in your account." },
       { q: "What are the delivery timeframes?", a: "Standard delivery takes 3–5 business days. Express delivery takes 1–2 business days. Same-day delivery is available in select metro cities for orders placed before 12 PM." },
@@ -15,7 +17,7 @@ const faqs = [
   },
   {
     category: "Returns & Refunds",
-    icon: "↩️",
+    icon: <RotateCcw size={18} />,
     items: [
       { q: "What is your return policy?", a: "We offer a 7-day return window for most products. Items must be unused, in original packaging with all accessories. Visit our Refund Policy page for complete details." },
       { q: "How long do refunds take?", a: "Once we receive and inspect your return, refunds are processed within 5–7 business days to your original payment method." },
@@ -23,7 +25,7 @@ const faqs = [
   },
   {
     category: "Payments",
-    icon: "💳",
+    icon: <CreditCard size={18} />,
     items: [
       { q: "What payment methods do you accept?", a: "We accept UPI (Google Pay, PhonePe, Paytm), credit/debit cards, net banking, EMI, and cash on delivery for select pin codes." },
       { q: "Is it safe to enter my card details?", a: "Absolutely. Our payment gateway is PCI-DSS compliant and uses 256-bit SSL encryption. We never store your card details on our servers." },
@@ -32,13 +34,14 @@ const faqs = [
   },
   {
     category: "Products & Brands",
-    icon: "🔧",
+    icon: <Wrench size={18} />,
     items: [
       { q: "Are the products genuine?", a: "Yes, all products on Moglix are 100% genuine and sourced directly from brands or authorized distributors. We guarantee authenticity on every purchase." },
       { q: "Do products come with a manufacturer warranty?", a: "Most products come with a standard manufacturer warranty. The warranty period is mentioned on each product page. Contact our support team to claim a warranty." },
     ],
   },
 ];
+
 
 export default function FAQPage() {
   const [openKey, setOpenKey] = useState<string | null>(null);
@@ -124,8 +127,9 @@ export default function FAQPage() {
                 <h3 className="font-bold text-base mb-1">Still Need Help?</h3>
                 <p className="text-white/80 text-sm mb-4 leading-5">Can't find your answer? Our support team is available 24/7.</p>
                 <Link href="/contact" className="flex items-center justify-center gap-2 bg-white text-blue font-bold text-sm px-4 py-2.5 rounded-lg hover:bg-gray-1 transition-colors">
-                  Contact Support →
+                  Contact Support <ChevronRight size={14} />
                 </Link>
+
               </div>
 
               <div className="bg-white rounded-xl border border-gray-3 shadow-sm p-5">
@@ -149,8 +153,9 @@ export default function FAQPage() {
                 <h3 className="font-bold text-dark text-sm mb-3">Related Pages</h3>
                 <ul className="space-y-2 text-sm">
                   {[["Refund Policy", "/refund-policy"], ["Privacy Policy", "/privacy-policy"], ["Terms of Use", "/terms-of-use"]].map(([label, href]) => (
-                    <li key={href}><Link href={href} className="text-blue hover:underline">→ {label}</Link></li>
+                    <li key={href}><Link href={href} className="text-blue hover:underline flex items-center gap-1"><ChevronRight size={14} /> {label}</Link></li>
                   ))}
+
                 </ul>
               </div>
             </div>
