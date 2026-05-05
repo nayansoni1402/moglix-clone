@@ -1,6 +1,8 @@
 import React from "react";
 import Hero from "./Hero";
 import TopBrandsStrip from "./TopBrandsStrip";
+import OfferStrip from "./offerStrip";
+
 import NewArrival from "./NewArrivals";
 import PromoBanner from "./PromoBanner";
 import HomeSeoDescription from "./HomeSeoDescription";
@@ -9,7 +11,8 @@ const Home = () => {
   return (
     <main className="bg-[#F4F5F9] pt-[180px]">
       <Hero />
-      <TopBrandsStrip />
+      
+      <OfferStrip />
       
       {/* Product Carousels and Banners */}
       <div className="flex flex-col mt-4">

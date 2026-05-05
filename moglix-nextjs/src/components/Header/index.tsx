@@ -18,12 +18,12 @@ type NavItem = {
 };
 
 const navItems: NavItem[] = [
+  // {
+  //   name: "24 Hrs Delivery", link: "#", icon: "⚡", highlight: true,
+  //   subs: [{ label: "Same Day Dispatch", href: "#" }, { label: "Express Shipping", href: "#" }, { label: "Track Order", href: "/my-account" }],
+  // },
   {
-    name: "24 Hrs Delivery", link: "#", icon: "⚡", highlight: true,
-    subs: [{ label: "Same Day Dispatch", href: "#" }, { label: "Express Shipping", href: "#" }, { label: "Track Order", href: "/my-account" }],
-  },
-  {
-    name: "Power Tools", link: "/category/power-tools", icon: "🔧",
+    name: "Power Tools", link: "/category/power-tools", icon: "/images/menu/tools.webp",
     mega: [
       { heading: "Drills & Drivers", href: "/category/power-tools", items: [
         { label: "Cordless Drills", href: "/category/power-tools" },
@@ -56,7 +56,7 @@ const navItems: NavItem[] = [
     ],
   },
   {
-    name: "Safety Gear", link: "/category/safety", icon: "🦺",
+    name: "Safety Gear", link: "/category/safety", icon: "/images/menu/safety-ppe-supplies.webp",
     mega: [
       { heading: "Head & Face", href: "/category/safety", items: [
         { label: "Safety Helmets", href: "/category/safety" },
@@ -85,7 +85,7 @@ const navItems: NavItem[] = [
     ],
   },
   {
-    name: "Electrical", link: "/category/electrical", icon: "💡",
+    name: "Electrical", link: "/category/electrical", icon: "/images/menu/tools-equipment.webp",
     mega: [
       { heading: "Wires & Cables", href: "/category/electrical", items: [
         { label: "House Wires", href: "/category/electrical" },
@@ -114,7 +114,7 @@ const navItems: NavItem[] = [
     ],
   },
   {
-    name: "Medical", link: "/category/medical", icon: "🧪",
+    name: "Medical", link: "/category/medical", icon: "/images/menu/medicalimage-min.webp",
     subs: [
       { label: "First Aid Kits", href: "/category/medical" },
       { label: "Surgical Gloves", href: "/category/medical" },
@@ -122,7 +122,7 @@ const navItems: NavItem[] = [
     ],
   },
   {
-    name: "Construction", link: "/category/construction", icon: "🏗️",
+    name: "Construction", link: "/category/construction", icon: "/images/menu/hardware-plumbing-supplies.webp",
     subs: [
       { label: "Cement & Adhesives", href: "/category/construction" },
       { label: "Hand Tools", href: "/category/construction" },
@@ -130,30 +130,30 @@ const navItems: NavItem[] = [
     ],
   },
   {
-    name: "Office", link: "/category/office", icon: "🗂️",
+    name: "Office", link: "/category/office", icon: "/images/menu/office-stationery-supplies.webp",
     subs: [
       { label: "Stationery", href: "/category/office" },
       { label: "Printers", href: "/category/office" },
     ],
   },
   {
-    name: "Agri & Garden", link: "/category/agri", icon: "🌱",
+    name: "Agri & Garden", link: "/category/agri", icon: "/images/menu/agriculture-farming-equipment.webp",
     subs: [
       { label: "Seeds", href: "/category/agri" },
       { label: "Garden Tools", href: "/category/agri" },
     ],
   },
   {
-    name: "Automotive", link: "/category/automotive", icon: "🚗",
+    name: "Automotive", link: "/category/automotive", icon: "/images/menu/automotive-supplies.webp",
     subs: [
       { label: "Lubricants", href: "/category/automotive" },
       { label: "Batteries", href: "/category/automotive" },
     ],
   },
-  {
-    name: "Moglix Express", link: "#", icon: "🚀", highlight: true,
-    subs: [{ label: "Priority Delivery", href: "#" }],
-  },
+  // {
+  //   name: "Moglix Express", link: "#", icon: "🚀", highlight: true,
+  //   subs: [{ label: "Priority Delivery", href: "#" }],
+  // },
 ];
 
 const Header = () => {
@@ -184,8 +184,9 @@ const Header = () => {
             <button onClick={() => setNavigationOpen(!navigationOpen)} className="lg:hidden text-dark text-2xl p-1 hover:bg-gray-1 rounded transition-colors">
               {navigationOpen ? "✕" : "☰"}
             </button>
+            
             <Link className="flex-shrink-0" href="/">
-              <Image src="/images/logo/logo.svg" alt="Logo" width={180} height={30} className="w-auto h-7 sm:h-9" />
+              <Image src="/images/logo/logo1.png" alt="Logo" width={180} height={30} className="w-auto h-7 sm:h-9" />
             </Link>
           </div>
 
@@ -258,13 +259,24 @@ const Header = () => {
             {navItems.map((item, index) => (
               <div key={index} className="relative group" onMouseEnter={() => setMegaOpen(item.mega ? item.name : null)}>
                 <Link
-                  href={item.link}
-                  className={`flex items-center gap-1.5 py-3.5 text-xs xl:text-sm font-bold border-b-2 transition-all duration-200 ${
-                    item.highlight ? "text-red border-transparent hover:border-red" : `text-dark-2 border-transparent ${megaOpen === item.name ? "text-blue border-blue" : "group-hover:text-blue group-hover:border-blue"}`
-                  }`}
-                >
-                  <span className="text-sm xl:text-base">{item.icon}</span> {item.name}
-                </Link>
+  href={item.link}
+  className={`flex flex-col items-center justify-center gap-1 py-3.5 text-xs xl:text-sm font-bold border-b-2 transition-all duration-200 ${
+    item.highlight
+      ? "text-red border-transparent hover:border-red"
+      : `text-dark-2 border-transparent ${
+          megaOpen === item.name
+            ? "text-blue border-blue"
+            : "group-hover:text-blue group-hover:border-blue"
+        }`
+  }`}
+>
+<img
+  src={item.icon}
+  alt={item.name}
+  className="w-6 h-6 xl:w-8 xl:h-8 object-contain"
+/>
+  <span className="text-center leading-tight">{item.name}</span>
+</Link>
 
                 {item.subs && !item.mega && (
                   <div className="absolute top-full left-0 pt-2 z-50 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 translate-y-1 group-hover:translate-y-0">
