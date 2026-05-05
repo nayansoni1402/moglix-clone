@@ -206,14 +206,13 @@ const Header = () => {
         stickyMenu && "shadow-md"
       }`}
     >
-      <div className="max-w-[1170px] mx-auto px-4 sm:px-7.5 xl:px-0">
-        {/* Header Top */}
+      <div className="max-w-[1300px] mx-auto px-4 sm:px-7.5 xl:px-0">
         <div className={`flex flex-col lg:flex-row gap-5 items-end lg:items-center xl:justify-between ease-out duration-200 ${
           stickyMenu ? "py-3" : "py-5"
         }`}>
           <div className="xl:w-auto flex-col sm:flex-row w-full flex sm:justify-between sm:items-center gap-5 sm:gap-10">
             <Link className="flex-shrink-0" href="/">
-              <Image src="/images/logo/logo.svg" alt="Logo" width={180} height={30} />
+              <Image src="/images/logo/logo.svg" alt="Logo" width={219} height={36} />
             </Link>
 
             <div className="max-w-[475px] w-full">
@@ -227,11 +226,11 @@ const Header = () => {
                       value={searchQuery}
                       type="search"
                       placeholder="I am shopping for..."
-                      className="w-full rounded-r-[5px] bg-gray-1 !border-l-0 border border-gray-3 py-2.5 pl-4 pr-10 outline-none focus:ring-1 focus:ring-blue/30 transition-all"
+                      className="custom-search w-full rounded-r-[5px] bg-gray-1 !border-l-0 border border-gray-3 py-2.5 pl-4 pr-10 outline-none ease-in duration-200 focus:ring-1 focus:ring-blue/30"
                     />
-                    <button className="absolute right-3 top-1/2 -translate-y-1/2 hover:text-blue transition-colors">
-                      <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M17.2687 15.6656L12.6281 11.8969C14.5406 9.28123 14.3437 5.5406 11.9531 3.1781C10.6875 1.91248 8.99995 1.20935 7.19995 1.20935C5.39995 1.20935 3.71245 1.91248 2.44683 3.1781C-0.168799 5.79373 -0.168799 10.0687 2.44683 12.6844C3.71245 13.95 5.39995 14.6531 7.19995 14.6531C8.91558 14.6531 10.5187 14.0062 11.7843 12.8531L16.4812 16.65C16.5937 16.7344 16.7343 16.7906 16.875 16.7906C17.0718 16.7906 17.2406 16.7062 17.3531 16.5656C17.5781 16.2844 17.55 15.8906 17.2687 15.6656ZM7.19995 13.3875C5.73745 13.3875 4.38745 12.825 3.34683 11.7844C1.20933 9.64685 1.20933 6.18748 3.34683 4.0781C4.38745 3.03748 5.73745 2.47498 7.19995 2.47498C8.66245 2.47498 10.0125 3.03748 11.0531 4.0781C13.1906 6.2156 13.1906 9.67498 11.0531 11.7844C10.0406 12.825 8.66245 13.3875 7.19995 13.3875Z" fill="currentColor"/>
+                    <button className="flex items-center justify-center absolute right-3 top-1/2 -translate-y-1/2 ease-in duration-200 hover:text-blue">
+                      <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+                        <path d="M17.2687 15.6656L12.6281 11.8969C14.5406 9.28123 14.3437 5.5406 11.9531 3.1781C10.6875 1.91248 8.99995 1.20935 7.19995 1.20935C5.39995 1.20935 3.71245 1.91248 2.44683 3.1781C-0.168799 5.79373 -0.168799 10.0687 2.44683 12.6844C3.71245 13.95 5.39995 14.6531 7.19995 14.6531C8.91558 14.6531 10.5187 14.0062 11.7843 12.8531L16.4812 16.65C16.5937 16.7344 16.7343 16.7906 16.875 16.7906C17.0718 16.7906 17.2406 16.7062 17.3531 16.5656ZM7.19995 13.3875C5.73745 13.3875 4.38745 12.825 3.34683 11.7844C1.20933 9.64685 1.20933 6.18748 3.34683 4.0781C4.38745 3.03748 5.73745 2.47498 7.19995 2.47498C8.66245 2.47498 10.0125 3.03748 11.0531 4.0781C13.1906 6.2156 13.1906 9.67498 11.0531 11.7844C10.0406 12.825 8.66245 13.3875 7.19995 13.3875Z" fill="currentColor"/>
                       </svg>
                     </button>
                   </div>
@@ -240,32 +239,32 @@ const Header = () => {
             </div>
           </div>
 
-          <div className="flex items-center gap-6">
-            <div className="hidden xl:flex items-center gap-3">
+          <div className="flex items-center gap-7.5">
+            <div className="hidden xl:flex items-center gap-3.5">
               <span className="text-xl">📞</span>
               <div>
-                <span className="block text-[10px] text-dark-4 uppercase leading-none">24/7 SUPPORT</span>
-                <p className="font-bold text-xs text-dark">1800-XXX-XXXX</p>
+                <span className="block text-2xs text-dark-4 uppercase">24/7 SUPPORT</span>
+                <p className="font-medium text-custom-sm text-dark">(+91) 1800-XXX-XXXX</p>
               </div>
             </div>
             <div className="flex items-center gap-5">
               <Link href="/signin" className="flex items-center gap-2.5 group">
                 <span className="text-xl group-hover:scale-110 transition-transform">👤</span>
                 <div>
-                  <span className="block text-[10px] text-dark-4 uppercase leading-none">account</span>
-                  <p className="font-bold text-xs text-dark group-hover:text-blue transition-colors">Sign In</p>
+                  <span className="block text-2xs text-dark-4 uppercase">account</span>
+                  <p className="font-medium text-custom-sm text-dark group-hover:text-blue transition-colors">Sign In</p>
                 </div>
               </Link>
               <button onClick={handleOpenCartModal} className="flex items-center gap-2.5 group">
                 <span className="relative text-xl group-hover:scale-110 transition-transform">
                   🛒
-                  <span className="absolute -right-2 -top-2 bg-blue text-white text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center">
+                  <span className="absolute -right-2 -top-2.5 bg-blue text-white text-2xs font-bold w-4.5 h-4.5 rounded-full flex items-center justify-center">
                     {product.length}
                   </span>
                 </span>
                 <div>
-                  <span className="block text-[10px] text-dark-4 uppercase leading-none">cart</span>
-                  <p className="font-bold text-xs text-dark">${totalPrice}</p>
+                  <span className="block text-2xs text-dark-4 uppercase">cart</span>
+                  <p className="font-medium text-custom-sm text-dark">${totalPrice}</p>
                 </div>
               </button>
             </div>
@@ -273,9 +272,8 @@ const Header = () => {
         </div>
       </div>
 
-      {/* Navigation Bar */}
       <div className="border-t border-gray-3 bg-white hidden lg:block" onMouseLeave={() => setMegaOpen(null)}>
-        <div className="max-w-[1170px] mx-auto px-4 xl:px-0 relative">
+        <div className="max-w-[1300px] mx-auto px-4 xl:px-0 relative">
           <div className="flex items-center justify-between">
             {navItems.map((item, index) => (
               <div
@@ -285,29 +283,28 @@ const Header = () => {
               >
                 <Link
                   href={item.link}
-                  className={`flex items-center gap-1.5 py-3 text-xs font-bold transition-all ${
+                  className={`flex items-center gap-1.5 py-3 text-xs xl:text-sm font-semibold border-b-2 transition-all duration-200 ${
                     item.highlight
-                      ? "text-red hover:text-red-600"
-                      : `text-dark-2 hover:text-blue ${megaOpen === item.name ? "text-blue border-b-2 border-blue" : "border-b-2 border-transparent"}`
+                      ? "text-red border-transparent hover:border-red hover:text-red"
+                      : `text-dark-2 border-transparent ${megaOpen === item.name ? "border-blue text-blue" : "group-hover:border-blue group-hover:text-blue"}`
                   }`}
                 >
-                  <span className="text-sm">{item.icon}</span>
+                  <span className="text-sm xl:text-base">{item.icon}</span>
                   {item.name}
                   {(item.subs || item.mega) && (
-                    <svg className={`w-2.5 h-2.5 ml-0.5 transition-transform ${megaOpen === item.name ? "rotate-180" : ""}`} fill="none" viewBox="0 0 10 6">
-                      <path d="M1 1l4 4 4-4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                    <svg className={`w-3 h-3 ml-0.5 transition-transform duration-200 ${megaOpen === item.name ? "rotate-180" : ""}`} fill="none" viewBox="0 0 10 6">
+                      <path d="M1 1l4 4 4-4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
                     </svg>
                   )}
                 </Link>
 
-                {/* Simple Dropdown - CLEAN VERSION */}
                 {item.subs && !item.mega && (
-                  <div className="absolute top-full left-0 pt-1 z-50 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 translate-y-1 group-hover:translate-y-0">
-                    <div className="bg-white rounded-xl shadow-xl border border-gray-2 min-w-[200px] py-2">
+                  <div className="absolute top-full left-1/2 -translate-x-1/2 pt-2 z-50 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 translate-y-1 group-hover:translate-y-0">
+                    <div className="bg-white rounded-2xl shadow-2xl border border-gray-2 min-w-[210px] overflow-hidden py-2">
                       <ul className="space-y-0.5">
                         {item.subs.map((sub, si) => (
                           <li key={si}>
-                            <Link href={sub.href} className="block px-4 py-2 text-sm text-dark-3 hover:bg-[#F4F5F9] hover:text-blue transition-colors">
+                            <Link href={sub.href} className="block px-4 py-2 text-sm text-dark-3 hover:bg-[#F4F5F9] hover:text-blue transition-all">
                               {sub.label}
                             </Link>
                           </li>
@@ -320,28 +317,29 @@ const Header = () => {
             ))}
           </div>
 
-          {/* Mega Menu Panel - CLEAN VERSION (No Blue Header) */}
           {navItems.map((item) =>
             item.mega && megaOpen === item.name ? (
               <div key={item.name} className="absolute left-0 right-0 top-full z-50 pt-0" onMouseEnter={() => setMegaOpen(item.name)}>
-                <div className="bg-white border-x border-b border-gray-3 rounded-b-2xl shadow-2xl p-6 grid grid-cols-4 gap-8">
-                  {item.mega.map((col, ci) => (
-                    <div key={ci}>
-                      <h4 className="text-sm font-bold text-dark mb-4 pb-2 border-b border-[#F4F5F9] flex items-center gap-2">
-                        <span className="w-1 h-3 bg-blue rounded-full" />
-                        {col.heading}
-                      </h4>
-                      <ul className="space-y-2">
-                        {col.items.map((sub, si) => (
-                          <li key={si}>
-                            <Link href={sub.href} className="text-sm text-dark-4 hover:text-blue hover:translate-x-1 transition-all inline-block">
-                              {sub.label}
-                            </Link>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  ))}
+                <div className="bg-white border-x border-b border-gray-3 rounded-b-2xl shadow-2xl overflow-hidden">
+                  <div className="grid grid-cols-4 gap-0 divide-x divide-gray-3 px-0">
+                    {item.mega.map((col, ci) => (
+                      <div key={ci} className="p-6">
+                        <h4 className="text-sm font-bold text-dark mb-4 pb-2 border-b border-gray-2 flex items-center gap-2">
+                          <span className="w-1 h-3 bg-blue rounded-full flex-shrink-0" />
+                          {col.heading}
+                        </h4>
+                        <ul className="space-y-2">
+                          {col.items.map((sub, si) => (
+                            <li key={si}>
+                              <Link href={sub.href} className="flex items-center gap-2 text-sm text-dark-4 hover:text-blue hover:translate-x-1 transition-all">
+                                {sub.label}
+                              </Link>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    ))}
+                  </div>
                 </div>
               </div>
             ) : null
