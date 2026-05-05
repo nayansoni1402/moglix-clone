@@ -8,6 +8,20 @@ import { addItemToCart } from "@/redux/features/cart-slice";
 import { addItemToWishlist } from "@/redux/features/wishlist-slice";
 import Image from "next/image";
 import Link from "next/link";
+import {
+  Star,
+  Check,
+  Heart,
+  Truck,
+  CheckCircle2,
+  ThumbsUp,
+  ChevronLeft,
+  ChevronRight,
+  X,
+  Plus,
+  ShoppingCart
+} from "lucide-react";
+
 
 export default function ProductPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = React.use(params);
@@ -117,9 +131,10 @@ export default function ProductPage({ params }: { params: Promise<{ slug: string
 
             <div className="flex items-center gap-4 mb-4">
               <span className="text-blue font-bold text-sm hover:underline cursor-pointer">BOSCH</span>
-              <div className="flex items-center bg-green text-white px-2 py-0.5 rounded text-xs font-bold shadow-sm">
-                4.2 ★
+              <div className="flex items-center bg-green text-white px-2 py-0.5 rounded text-xs font-bold shadow-sm gap-1">
+                4.2 <Star size={12} fill="white" />
               </div>
+
               <span className="text-dark-4 text-sm font-medium">(124 Reviews)</span>
             </div>
 
@@ -127,7 +142,8 @@ export default function ProductPage({ params }: { params: Promise<{ slug: string
               <div className="flex items-end gap-3 mb-2">
                 <span className="text-3xl font-black text-dark">₹2,899</span>
                 <span className="text-lg text-dark-4 line-through">₹4,200</span>
-                <span className="bg-red/10 text-red px-2 py-0.5 rounded text-sm font-bold tracking-tight">31% OFF</span>
+                <span className="bg-blue/10 text-blue px-2 py-0.5 rounded text-sm font-bold tracking-tight">31% OFF</span>
+
               </div>
               <p className="text-xs text-dark-4 font-medium italic">Inclusive of all taxes & free shipping</p>
             </div>
@@ -149,7 +165,8 @@ export default function ProductPage({ params }: { params: Promise<{ slug: string
                     >
                        <span className={`text-xs font-black uppercase mb-1 ${variant.active ? "text-blue" : "text-dark-4"}`}>{variant.label}</span>
                        <span className="text-sm font-bold text-dark">₹{variant.price}</span>
-                       {variant.active && <span className="absolute top-2 right-2 text-blue text-[10px]">✓</span>}
+                       {variant.active && <span className="absolute top-2 right-2 text-blue text-[10px]"><Check size={12} /></span>}
+
                     </div>
                   ))}
                </div>
@@ -178,24 +195,28 @@ export default function ProductPage({ params }: { params: Promise<{ slug: string
                 onClick={() => {
                    dispatch(addItemToCart({ id: 101, title: "Bosch Drill", price: 4200, discountedPrice: 2899, quantity: qty, imgs: { previews: [activeImg], thumbnails: [activeImg] } }));
                 }}
-                className="flex-grow bg-red text-white py-4 rounded-lg font-black text-lg hover:bg-red-dark transition-all shadow-[0_4px_14px_0_rgba(239,68,68,0.39)] active:scale-95 uppercase"
+                className="flex-grow flex items-center justify-center gap-3 bg-blue text-white py-4 rounded-lg font-black text-lg hover:bg-blue-dark transition-all shadow-[0_4px_14px_0_rgba(46,49,146,0.3)] active:scale-95 uppercase"
               >
-                ADD TO CART
+                <ShoppingCart size={24} /> ADD TO CART
               </button>
+
+
 
               <button
                 onClick={() => dispatch(addItemToWishlist({ id: 101, title: "Bosch Drill", price: 4200, discountedPrice: 2899, quantity: 1, imgs: { previews: [activeImg], thumbnails: [activeImg] } }))}
                 className="w-14 h-14 flex items-center justify-center bg-white border border-gray-3 rounded-lg text-dark-4 hover:text-red hover:border-red transition-all shadow-sm group"
               >
-                <span className="text-2xl group-hover:scale-125 transition-transform">❤️</span>
+                <Heart size={24} className={addItemToWishlist ? "fill-red text-red" : ""} />
+
               </button>
             </div>
 
             {/* Delivery Info */}
             <div className="p-4 border border-blue/10 rounded-xl bg-blue/5">
               <h3 className="text-dark font-bold mb-3 text-sm flex items-center gap-2">
-                🚚 Check Delivery Details
+                <Truck size={18} /> Check Delivery Details
               </h3>
+
               <div className="flex max-w-sm shadow-sm">
                 <input
                   type="text"
@@ -237,10 +258,10 @@ export default function ProductPage({ params }: { params: Promise<{ slug: string
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                    <div className="p-6 bg-gray-1 rounded-xl">
                       <h4 className="font-black text-dark mb-4 uppercase text-sm">Main Advantages:</h4>
-                      <ul className="space-y-3 text-dark-3 text-sm font-medium">
-                        <li className="flex items-center gap-2">✅ Powerful 500W Reliable Motor</li>
-                        <li className="flex items-center gap-2">✅ Impact & Regular Mode Switch</li>
-                        <li className="flex items-center gap-2">✅ Ergonomic Soft Grip Handle</li>
+                       <ul className="space-y-3 text-dark-3 text-sm font-medium">
+                        <li className="flex items-center gap-2 text-green"><CheckCircle2 size={16} /> Powerful 500W Reliable Motor</li>
+                        <li className="flex items-center gap-2 text-green"><CheckCircle2 size={16} /> Impact & Regular Mode Switch</li>
+                        <li className="flex items-center gap-2 text-green"><CheckCircle2 size={16} /> Ergonomic Soft Grip Handle</li>
                       </ul>
                    </div>
                 </div>
@@ -274,8 +295,15 @@ export default function ProductPage({ params }: { params: Promise<{ slug: string
                    {/* Ratings Summary */}
                    <div className="lg:w-1/3 text-center lg:text-left">
                       <div className="text-6xl font-black text-dark mb-2">4.2 <span className="text-2xl text-dark-4 font-bold">/ 5</span></div>
-                      <div className="flex justify-center lg:justify-start gap-1 text-2xl text-yellow-500 mb-3">⭐⭐⭐⭐<span className="text-gray-300">⭐</span></div>
+                      <div className="flex justify-center lg:justify-start gap-1 text-2xl text-yellow-500 mb-3">
+                        <Star size={24} fill="currentColor" />
+                        <Star size={24} fill="currentColor" />
+                        <Star size={24} fill="currentColor" />
+                        <Star size={24} fill="currentColor" />
+                        <Star size={24} className="text-gray-300" />
+                      </div>
                       <p className="text-dark-4 text-xs font-black uppercase tracking-widest mb-6">124 Global Ratings</p>
+
                       <div className="space-y-4">
                          {[{ star: 5, perc: 65 }, { star: 4, perc: 20 }, { star: 3, perc: 8 }, { star: 2, perc: 4 }, { star: 1, perc: 3 }].map((row) => (
                            <div key={row.star} className="flex items-center gap-4 group">
@@ -310,13 +338,15 @@ export default function ProductPage({ params }: { params: Promise<{ slug: string
                                 onClick={() => toggleHelpful(rev.id)}
                                 className={`flex items-center gap-1.5 px-4 py-2 rounded-lg border text-[10px] font-black transition-all ${userVoted[rev.id] ? "bg-blue text-white border-blue shadow-lg scale-105" : "border-gray-3 text-dark-4 hover:border-blue hover:text-blue"}`}
                               >
-                                👍 HELPFUL ({helpfulCount[rev.id] || 0})
+                                 <ThumbsUp size={14} /> HELPFUL ({helpfulCount[rev.id] || 0})
                               </button>
+
                            </div>
-                           <div className="flex gap-0.5 text-xs text-yellow-500 mb-3">
-                              {Array.from({ length: 5 }).map((_, si) => (<span key={si}>{si < rev.rating ? "⭐" : "☆"}</span>))}
+                           <div className="flex gap-0.5 text-xs text-yellow-500 mb-3 items-center">
+                              {Array.from({ length: 5 }).map((_, si) => (<span key={si}>{si < rev.rating ? <Star size={14} fill="currentColor" /> : <Star size={14} />}</span>))}
                               {rev.verified && <span className="ml-3 bg-green/10 text-green px-2 py-0.5 rounded-[4px] text-[10px] font-black uppercase">Verified Purchase</span>}
                            </div>
+
                            <p className="text-dark-3 text-sm leading-relaxed font-medium mb-4">{rev.comment}</p>
                            {rev.images.length > 0 && (
                              <div className="flex gap-2">
@@ -354,19 +384,21 @@ export default function ProductPage({ params }: { params: Promise<{ slug: string
            
            <div className="relative w-full max-w-6xl h-[90vh] bg-white rounded-2xl shadow-2xl overflow-hidden flex flex-col lg:flex-row animate-zoomIn">
               {/* Close Button */}
-              <button 
+               <button 
                 onClick={() => setSelectedReviewIdx(null)} 
-                className="absolute top-4 right-4 w-10 h-10 flex items-center justify-center bg-gray-2 hover:bg-red hover:text-white rounded-full transition-all z-50 text-xl font-bold"
+                className="absolute top-4 right-4 w-10 h-10 flex items-center justify-center bg-gray-2 hover:bg-red hover:text-white rounded-full transition-all z-50"
               >
-                ✕
+                <X size={20} />
               </button>
+
 
               {/* Left Side: Big Image & Navigation */}
               <div className="w-full lg:w-2/3 h-2/3 lg:h-full bg-[#111] flex flex-col relative group">
                  {/* Prev Button */}
-                 <button onClick={prevImage} className="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-white/10 hover:bg-white/20 text-white rounded-full flex items-center justify-center transition-all z-50 opacity-0 group-hover:opacity-100">
-                    <span className="text-2xl">←</span>
-                 </button>
+                  <button onClick={prevImage} className="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-white/10 hover:bg-white/20 text-white rounded-full flex items-center justify-center transition-all z-50 opacity-0 group-hover:opacity-100">
+                     <ChevronLeft size={32} />
+                  </button>
+
                  
                  <div className="flex-grow relative flex items-center justify-center p-10">
                     <Image 
@@ -378,9 +410,10 @@ export default function ProductPage({ params }: { params: Promise<{ slug: string
                  </div>
 
                  {/* Next Button */}
-                 <button onClick={nextImage} className="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-white/10 hover:bg-white/20 text-white rounded-full flex items-center justify-center transition-all z-50 opacity-0 group-hover:opacity-100">
-                    <span className="text-2xl">→</span>
-                 </button>
+                  <button onClick={nextImage} className="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-white/10 hover:bg-white/20 text-white rounded-full flex items-center justify-center transition-all z-50 opacity-0 group-hover:opacity-100">
+                     <ChevronRight size={32} />
+                  </button>
+
 
                  <div className="h-24 bg-black/50 backdrop-blur-md flex items-center justify-center gap-3 p-4 border-t border-white/10 overflow-x-auto">
                     {galleryImages.map((gi, ti) => (
@@ -404,9 +437,10 @@ export default function ProductPage({ params }: { params: Promise<{ slug: string
                        </div>
                     </div>
                     <div className="flex items-center gap-2 mb-4">
-                       <div className="bg-green text-white px-2 py-0.5 rounded text-xs font-black flex items-center gap-1 shadow-sm">
-                          {galleryImages[selectedReviewIdx].review.rating} ★
-                       </div>
+                        <div className="bg-green text-white px-2 py-0.5 rounded text-xs font-black flex items-center gap-1 shadow-sm">
+                           {galleryImages[selectedReviewIdx].review.rating} <Star size={10} fill="white" />
+                        </div>
+
                        {galleryImages[selectedReviewIdx].review.verified && (
                          <span className="text-green text-[10px] font-black uppercase tracking-widest bg-green/10 px-2 py-0.5 rounded">Verified Purchase</span>
                        )}
@@ -421,8 +455,9 @@ export default function ProductPage({ params }: { params: Promise<{ slug: string
                       onClick={() => toggleHelpful(galleryImages[selectedReviewIdx].review.id)}
                       className={`w-full flex items-center justify-center gap-2 py-3 border-2 rounded-xl text-xs font-black uppercase tracking-widest transition-all active:scale-95 ${userVoted[galleryImages[selectedReviewIdx].review.id] ? "bg-blue text-white border-blue" : "border-gray-2 text-dark-4 hover:border-blue hover:text-blue"}`}
                     >
-                       👍 Helpful ({helpfulCount[galleryImages[selectedReviewIdx].review.id] || 0})
+                       <ThumbsUp size={14} /> Helpful ({helpfulCount[galleryImages[selectedReviewIdx].review.id] || 0})
                     </button>
+
                  </div>
               </div>
            </div>
@@ -436,10 +471,11 @@ export default function ProductPage({ params }: { params: Promise<{ slug: string
            <div className="relative bg-white w-full max-w-lg rounded-[24px] shadow-[0_20px_50px_rgba(0,0,0,0.2)] overflow-hidden animate-zoomIn border border-gray-1">
               
               {/* Header */}
-              <div className="px-8 py-5 border-b border-gray-1 flex justify-between items-center bg-white">
-                 <h3 className="text-xl font-black text-dark tracking-tight">Write a Review</h3>
-                 <button onClick={() => setShowReviewModal(false)} className="w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-1 text-dark-4 transition-colors">✕</button>
-              </div>
+               <div className="px-8 py-5 border-b border-gray-1 flex justify-between items-center bg-white">
+                  <h3 className="text-xl font-black text-dark tracking-tight">Write a Review</h3>
+                  <button onClick={() => setShowReviewModal(false)} className="w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-1 text-dark-4 transition-colors"><X size={20} /></button>
+               </div>
+
 
               <div className="p-8">
                  {/* Rating */}
@@ -447,13 +483,14 @@ export default function ProductPage({ params }: { params: Promise<{ slug: string
                     <label className="block text-xs font-black text-dark-4 mb-4 uppercase tracking-widest">Rate this product</label>
                     <div className="flex gap-3 text-4xl">
                        {[1, 2, 3, 4, 5].map((i) => (
-                         <span 
-                           key={i} 
-                           onClick={() => setUserRating(i)}
-                           className={`cursor-pointer transition-all hover:scale-110 ${i <= userRating ? "text-blue drop-shadow-sm" : "text-gray-200"}`}
-                         >
-                           ★
-                         </span>
+                          <span 
+                            key={i} 
+                            onClick={() => setUserRating(i)}
+                            className={`cursor-pointer transition-all hover:scale-110 ${i <= userRating ? "text-blue drop-shadow-sm" : "text-gray-200"}`}
+                          >
+                            <Star size={32} fill={i <= userRating ? "currentColor" : "none"} />
+                          </span>
+
                        ))}
                     </div>
                  </div>
@@ -466,19 +503,21 @@ export default function ProductPage({ params }: { params: Promise<{ slug: string
                          <div key={pi} className="relative w-20 h-20 rounded-xl border border-gray-1 overflow-hidden group shadow-sm bg-gray-1">
                             <Image src={p} alt="preview" fill className="object-cover" />
                             <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                               <button 
+                                <button 
                                  onClick={() => removeImage(pi)} 
-                                 className="w-8 h-8 bg-white/90 rounded-full flex items-center justify-center text-dark text-sm shadow-lg hover:bg-red hover:text-white transition-all"
+                                 className="w-8 h-8 bg-white/90 rounded-full flex items-center justify-center text-dark shadow-lg hover:bg-red hover:text-white transition-all"
                                >
-                                 ✕
+                                 <X size={14} />
                                </button>
+
                             </div>
                          </div>
                        ))}
-                       <label className="w-20 h-20 border-2 border-dashed border-gray-2 rounded-xl flex flex-col items-center justify-center cursor-pointer hover:border-blue hover:bg-blue/5 transition-all group">
-                          <span className="text-2xl text-gray-300 group-hover:text-blue transition-colors">+</span>
-                          <input type="file" className="hidden" multiple accept="image/*" onChange={handleImageUpload} />
-                       </label>
+                        <label className="w-20 h-20 border-2 border-dashed border-gray-2 rounded-xl flex flex-col items-center justify-center cursor-pointer hover:border-blue hover:bg-blue/5 transition-all group">
+                           <span className="text-2xl text-gray-300 group-hover:text-blue transition-colors"><Plus size={24} /></span>
+                           <input type="file" className="hidden" multiple accept="image/*" onChange={handleImageUpload} />
+                        </label>
+
                     </div>
                  </div>
 

@@ -1,5 +1,6 @@
 import Breadcrumb from "@/components/Common/Breadcrumb";
 import Link from "next/link";
+import { Calendar, ShieldCheck, Check, ChevronRight } from "lucide-react";
 
 export const metadata = { title: "Privacy Policy | Moglix" };
 
@@ -50,9 +51,10 @@ export default function PrivacyPolicyPage() {
 
           {/* Header */}
           <div className="mb-8">
-            <p className="text-xs text-dark-4 bg-white inline-block px-3 py-1.5 rounded-full border border-gray-3">
-              📅 Last Updated: May 1, 2025
+            <p className="text-xs text-dark-4 bg-white inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-gray-3">
+              <Calendar size={14} /> Last Updated: May 1, 2025
             </p>
+
             <h1 className="text-2xl font-bold text-dark mt-3 mb-2">Privacy Policy</h1>
             <p className="text-dark-4 text-sm max-w-[600px]">
               At Moglix, we are committed to protecting your privacy. This policy explains how we collect, use, and safeguard your personal information.
@@ -81,21 +83,25 @@ export default function PrivacyPolicyPage() {
             {/* Right — sidebar */}
             <div className="space-y-4">
               <div className="bg-blue rounded-xl p-5 text-white">
-                <h3 className="font-bold text-base mb-3">🔒 Your Data is Safe</h3>
+                <h3 className="font-bold text-base mb-3 flex items-center gap-2">
+                  <ShieldCheck size={20} /> Your Data is Safe
+                </h3>
                 <ul className="space-y-2 text-sm text-blue-light">
                   {["256-bit SSL Encryption", "PCI-DSS Compliant Payments", "No data sold to 3rd parties", "GDPR & IT Act compliant"].map((item) => (
                     <li key={item} className="flex items-center gap-2 text-white/90">
-                      <span className="text-green-300">✓</span> {item}
+                      <span className="text-green-300"><Check size={14} /></span> {item}
                     </li>
                   ))}
                 </ul>
               </div>
+
               <div className="bg-white rounded-xl border border-gray-3 p-5">
                 <h3 className="font-bold text-dark text-sm mb-3">Quick Links</h3>
                 <ul className="space-y-2 text-sm">
                   {[["Refund Policy", "/refund-policy"], ["Terms of Use", "/terms-of-use"], ["FAQ's", "/faq"], ["Contact Us", "/contact"]].map(([label, href]) => (
-                    <li key={href}><Link href={href} className="text-blue hover:underline">→ {label}</Link></li>
+                    <li key={href}><Link href={href} className="text-blue hover:underline flex items-center gap-1"><ChevronRight size={14} /> {label}</Link></li>
                   ))}
+
                 </ul>
               </div>
             </div>

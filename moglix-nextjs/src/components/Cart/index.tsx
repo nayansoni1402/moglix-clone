@@ -1,5 +1,4 @@
 "use client";
-import React from "react";
 import Discount from "./Discount";
 import OrderSummary from "./OrderSummary";
 import { useAppSelector } from "@/redux/store";
@@ -9,6 +8,8 @@ import Link from "next/link";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "@/redux/store";
 import { removeAllItemsFromCart } from "@/redux/features/cart-slice";
+import { Trash2, ChevronRight, ShoppingBag } from "lucide-react";
+
 
 const Cart = () => {
   const cartItems = useAppSelector((state) => state.cartReducer.items);
@@ -34,10 +35,11 @@ const Cart = () => {
               </div>
               <button
                 onClick={() => dispatch(removeAllItemsFromCart())}
-                className="text-sm text-red hover:underline font-medium flex items-center gap-1"
+                className="text-sm text-red hover:underline font-medium flex items-center gap-1.5"
               >
-                🗑 Clear Cart
+                <Trash2 size={16} /> Clear Cart
               </button>
+
             </div>
 
             {/* Cart Table */}
@@ -79,23 +81,21 @@ const Cart = () => {
           <div className="max-w-[1170px] w-full mx-auto px-4 sm:px-8 xl:px-0">
             <div className="bg-white rounded-xl border border-gray-3 shadow-sm px-6 py-16 text-center">
               {/* Empty Cart Icon */}
-              <div className="w-24 h-24 rounded-full bg-[#F4F5F9] flex items-center justify-center mx-auto mb-6">
-                <svg width="40" height="40" viewBox="0 0 24 24" fill="none">
-                  <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z" stroke="#8D93A5" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                  <line x1="3" y1="6" x2="21" y2="6" stroke="#8D93A5" strokeWidth="1.5"/>
-                  <path d="M16 10a4 4 0 01-8 0" stroke="#8D93A5" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>
+              <div className="w-24 h-24 rounded-full bg-[#F4F5F9] flex items-center justify-center mx-auto mb-6 text-dark-4">
+                <ShoppingBag size={48} strokeWidth={1.5} />
               </div>
+
               <h3 className="font-bold text-dark text-xl mb-2">Your cart is empty</h3>
               <p className="text-dark-4 text-sm mb-8 max-w-xs mx-auto">
                 Looks like you haven't added anything yet. Browse our wide range of industrial products!
               </p>
               <Link
                 href="/category/power-tools"
-                className="inline-flex items-center gap-2 font-bold text-white bg-blue py-3 px-8 rounded-lg transition-all duration-200 hover:bg-blue-dark shadow-sm"
+                className="inline-flex items-center gap-2 font-bold text-white bg-blue py-3 px-8 rounded-lg transition-all duration-200 hover:bg-blue-dark shadow-sm uppercase tracking-wider"
               >
-                Start Shopping →
+                Start Shopping <ChevronRight size={18} />
               </Link>
+
             </div>
           </div>
         </section>
