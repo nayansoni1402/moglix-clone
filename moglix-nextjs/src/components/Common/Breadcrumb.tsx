@@ -1,5 +1,7 @@
 import Link from "next/link";
 import React from "react";
+import { ChevronRight } from "lucide-react";
+
 
 const Breadcrumb = ({ title, pages }: { title: string; pages: string[] }) => {
   return (
@@ -14,8 +16,9 @@ const Breadcrumb = ({ title, pages }: { title: string; pages: string[] }) => {
           
           {pages.map((page, key) => (
             <React.Fragment key={key}>
-              <span>&gt;</span>
+              <ChevronRight size={14} className="text-gray-4" />
               <span className={`capitalize ${key === pages.length - 1 ? 'text-dark font-medium' : 'hover:text-blue cursor-pointer transition-colors'}`}>
+
                 {key === pages.length - 1 ? (
                   page
                 ) : (
