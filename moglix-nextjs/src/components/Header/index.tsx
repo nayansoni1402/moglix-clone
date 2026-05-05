@@ -5,6 +5,7 @@ import { useAppSelector } from "@/redux/store";
 import { useSelector } from "react-redux";
 import { selectTotalPrice } from "@/redux/features/cart-slice";
 import { useCartModalContext } from "@/app/context/CartSidebarModalContext";
+import { useConfig } from "@/app/context/ConfigContext";
 import Image from "next/image";
 import {
   Zap,
@@ -209,6 +210,7 @@ const navItems: NavItem[] = [
 ];
 
 const Header = () => {
+  const { logoUrl, isMobile, isDesktop } = useConfig();
   const [searchQuery, setSearchQuery] = useState("");
   const [navigationOpen, setNavigationOpen] = useState(false);
   const [stickyMenu, setStickyMenu] = useState(false);
@@ -238,7 +240,7 @@ const Header = () => {
             </button>
 
             <Link className="flex-shrink-0" href="/">
-              <Image src="/images/logo/logo.svg" alt="Logo" width={180} height={30} className="w-auto h-7 sm:h-9" />
+              <Image src={logoUrl || "/images/logo/logo.svg"} alt="Logo" width={180} height={30} className="w-auto h-7 sm:h-9" />
             </Link>
           </div>
 
