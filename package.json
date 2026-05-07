@@ -1,0 +1,15 @@
+{
+  "private": true,
+  "scripts": {
+    "dev:cms": "npm run dev -w moglix-cms",
+    "dev:nextjs": "npm run dev -w moglix-nextjs",
+    "dev": "concurrently \"npm run dev:cms\" \"npm run dev:nextjs\""
+  },
+  "workspaces": [
+    "moglix-cms",
+    "moglix-nextjs"
+  ],
+  "devDependencies": {
+    "concurrently": "^9.2.1"
+  }
+}
