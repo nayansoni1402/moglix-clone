@@ -1,108 +1,63 @@
 import React from "react";
-import Image from "next/image";
+import Link from "next/link";
+import { ChevronRight } from "lucide-react";
 
-const PromoBanner = () => {
+interface Props {
+  title?: string;
+  subtitle?: string;
+  bgColor?: string;
+}
+
+const PromoBanner = ({ 
+  title = "Mogli Express", 
+  subtitle = "Next Day Delivery on Top Brands", 
+  bgColor = "bg-green-light-5 text-green-dark" 
+}: Props) => {
+
+
+  // Map the basic bgColors passed from Home to rich gradients
+  const isGreen = bgColor.includes("green");
+  const isBlue = bgColor.includes("blue");
+  
+  const gradientClass = isGreen 
+    ? "bg-gradient-to-r from-green to-teal" 
+    : isBlue 
+      ? "bg-gradient-to-r from-blue to-blue-dark" 
+      : "bg-gradient-to-r from-dark to-dark-2";
+
   return (
-    <section className="overflow-hidden py-20">
-      <div className="max-w-[1170px] w-full mx-auto px-4 sm:px-8 xl:px-0">
-        {/* <!-- promo banner big --> */}
-        <div className="relative z-1 overflow-hidden rounded-lg bg-[#F5F5F7] py-12.5 lg:py-17.5 xl:py-22.5 px-4 sm:px-7.5 lg:px-14 xl:px-19 mb-7.5">
-          <div className="max-w-[550px] w-full">
-            <span className="block font-medium text-xl text-dark mb-3">
-              Apple iPhone 14 Plus
+    <section className="py-8">
+      <div className="max-w-[1300px] w-full mx-auto px-4 sm:px-8 xl:px-0">
+        <div className={`relative overflow-hidden rounded-2xl ${gradientClass} shadow-xl hover:shadow-2xl transition-shadow duration-300 py-10 px-8 sm:px-14 flex flex-col md:flex-row items-center justify-between group`}>
+          
+          {/* Decorative Background Elements */}
+          <div className="absolute right-0 top-0 w-64 h-64 bg-white opacity-10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/3 group-hover:opacity-20 transition-opacity duration-500" />
+          <div className="absolute left-0 bottom-0 w-40 h-40 bg-white opacity-10 rounded-full blur-2xl translate-y-1/2 -translate-x-1/4 group-hover:scale-110 transition-transform duration-500" />
+          
+          <div className="relative z-10 max-w-[600px] w-full text-center md:text-left mb-6 md:mb-0">
+            <span className="inline-block px-3 py-1 bg-white/20 text-white text-xs font-bold rounded-full mb-3 tracking-widest uppercase border border-white/30">
+              Limited Offer
             </span>
-
-            <h2 className="font-bold text-xl lg:text-heading-4 xl:text-heading-3 text-dark mb-5">
-              UP TO 30% OFF
+            <h2 className="font-black text-3xl md:text-4xl lg:text-5xl text-white mb-3 tracking-tight">
+              {title}
             </h2>
-
-            <p>
-              iPhone 14 has the same superspeedy chip that’s in iPhone 13 Pro,
-              A15 Bionic, with a 5‑core GPU, powers all the latest features.
+            <p className="font-medium text-lg text-white/90">
+              {subtitle}
             </p>
+          </div>
 
-            <a
-              href="#"
-              className="inline-flex font-medium text-custom-sm text-white bg-blue py-[11px] px-9.5 rounded-md ease-out duration-200 hover:bg-blue-dark mt-7.5"
+          <div className="relative z-10 flex gap-4">
+            <Link
+              href="/shop-with-sidebar"
+              className="inline-flex items-center gap-2 font-bold text-sm text-dark bg-white py-3.5 px-8 rounded-lg shadow-lg hover:bg-gray-1 hover:scale-105 hover:shadow-xl transition-all duration-300"
             >
-              Buy Now
-            </a>
+              Shop Now <ChevronRight size={18} />
+            </Link>
+
           </div>
-
-          <Image
-            src="/images/promo/promo-01.png"
-            alt="promo img"
-            className="absolute bottom-0 right-4 lg:right-26 -z-1"
-            width={274}
-            height={350}
-          />
-        </div>
-
-        <div className="grid gap-7.5 grid-cols-1 lg:grid-cols-2">
-          {/* <!-- promo banner small --> */}
-          <div className="relative z-1 overflow-hidden rounded-lg bg-[#DBF4F3] py-10 xl:py-16 px-4 sm:px-7.5 xl:px-10">
-            <Image
-              src="/images/promo/promo-02.png"
-              alt="promo img"
-              className="absolute top-1/2 -translate-y-1/2 left-3 sm:left-10 -z-1"
-              width={241}
-              height={241}
-            />
-
-            <div className="text-right">
-              <span className="block text-lg text-dark mb-1.5">
-                Foldable Motorised Treadmill
-              </span>
-
-              <h2 className="font-bold text-xl lg:text-heading-4 text-dark mb-2.5">
-                Workout At Home
-              </h2>
-
-              <p className="font-semibold text-custom-1 text-teal">
-                Flat 20% off
-              </p>
-
-              <a
-                href="#"
-                className="inline-flex font-medium text-custom-sm text-white bg-teal py-2.5 px-8.5 rounded-md ease-out duration-200 hover:bg-teal-dark mt-9"
-              >
-                Grab Now
-              </a>
-            </div>
-          </div>
-
-          {/* <!-- promo banner small --> */}
-          <div className="relative z-1 overflow-hidden rounded-lg bg-[#FFECE1] py-10 xl:py-16 px-4 sm:px-7.5 xl:px-10">
-            <Image
-              src="/images/promo/promo-03.png"
-              alt="promo img"
-              className="absolute top-1/2 -translate-y-1/2 right-3 sm:right-8.5 -z-1"
-              width={200}
-              height={200}
-            />
-
-            <div>
-              <span className="block text-lg text-dark mb-1.5">
-                Apple Watch Ultra
-              </span>
-
-              <h2 className="font-bold text-xl lg:text-heading-4 text-dark mb-2.5">
-                Up to <span className="text-orange">40%</span> off
-              </h2>
-
-              <p className="max-w-[285px] text-custom-sm">
-                The aerospace-grade titanium case strikes the perfect balance of
-                everything.
-              </p>
-
-              <a
-                href="#"
-                className="inline-flex font-medium text-custom-sm text-white bg-orange py-2.5 px-8.5 rounded-md ease-out duration-200 hover:bg-orange-dark mt-7.5"
-              >
-                Buy Now
-              </a>
-            </div>
-          </div>
+          
+          {/* Subtle pattern overlay */}
+          <div className="absolute inset-0 opacity-[0.03] pointer-events-none" style={{ backgroundImage: 'radial-gradient(#fff 1px, transparent 1px)', backgroundSize: '20px 20px' }}></div>
         </div>
       </div>
     </section>
@@ -110,3 +65,4 @@ const PromoBanner = () => {
 };
 
 export default PromoBanner;
+

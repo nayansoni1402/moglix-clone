@@ -203,29 +203,19 @@ const Footer = () => {
 
             <ul className="flex flex-col gap-3.5">
               <li>
-                <a className="ease-out duration-200 hover:text-blue" href="#">
-                  My Account
-                </a>
+                <a className="ease-out duration-200 hover:text-blue" href="/my-account">My Account</a>
               </li>
               <li>
-                <a className="ease-out duration-200 hover:text-blue" href="#">
-                  Login / Register
-                </a>
+                <a className="ease-out duration-200 hover:text-blue" href="/signin">Login / Register</a>
               </li>
               <li>
-                <a className="ease-out duration-200 hover:text-blue" href="#">
-                  Cart
-                </a>
+                <a className="ease-out duration-200 hover:text-blue" href="/cart">Cart</a>
               </li>
               <li>
-                <a className="ease-out duration-200 hover:text-blue" href="#">
-                  Wishlist
-                </a>
+                <a className="ease-out duration-200 hover:text-blue" href="/wishlist">Wishlist</a>
               </li>
               <li>
-                <a className="ease-out duration-200 hover:text-blue" href="#">
-                  Shop
-                </a>
+                <a className="ease-out duration-200 hover:text-blue" href="/category/power-tools">Shop</a>
               </li>
             </ul>
           </div>
@@ -237,29 +227,19 @@ const Footer = () => {
 
             <ul className="flex flex-col gap-3">
               <li>
-                <a className="ease-out duration-200 hover:text-blue" href="#">
-                  Privacy Policy
-                </a>
+                <a className="ease-out duration-200 hover:text-blue" href="/privacy-policy">Privacy Policy</a>
               </li>
               <li>
-                <a className="ease-out duration-200 hover:text-blue" href="#">
-                  Refund Policy
-                </a>
+                <a className="ease-out duration-200 hover:text-blue" href="/refund-policy">Refund Policy</a>
               </li>
               <li>
-                <a className="ease-out duration-200 hover:text-blue" href="#">
-                  Terms of Use
-                </a>
+                <a className="ease-out duration-200 hover:text-blue" href="/terms-of-use">Terms of Use</a>
               </li>
               <li>
-                <a className="ease-out duration-200 hover:text-blue" href="#">
-                  FAQ’s
-                </a>
+                <a className="ease-out duration-200 hover:text-blue" href="/faq">FAQ&apos;s</a>
               </li>
               <li>
-                <a className="ease-out duration-200 hover:text-blue" href="#">
-                  Contact
-                </a>
+                <a className="ease-out duration-200 hover:text-blue" href="/contact">Contact</a>
               </li>
             </ul>
           </div>

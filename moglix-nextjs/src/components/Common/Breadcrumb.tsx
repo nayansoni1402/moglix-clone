@@ -1,30 +1,36 @@
 import Link from "next/link";
 import React from "react";
+import { ChevronRight } from "lucide-react";
 
-const Breadcrumb = ({ title, pages }) => {
+
+const Breadcrumb = ({ title, pages }: { title: string; pages: string[] }) => {
   return (
-    <div className="overflow-hidden shadow-breadcrumb pt-[209px] sm:pt-[155px] lg:pt-[95px] xl:pt-[165px]">
-      <div className="border-t border-gray-3">
-        <div className="max-w-[1170px] w-full mx-auto px-4 sm:px-8 xl:px-0 py-5 xl:py-10">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-            <h1 className="font-semibold text-dark text-xl sm:text-2xl xl:text-custom-2">
-              {title}
-            </h1>
+    <div className="w-full pt-[160px] pb-0 bg-[#F4F5F9]">
+      <div className="max-w-[1170px] w-full mx-auto px-4 sm:px-8 xl:px-0">
+        
+        {/* Breadcrumb Trail */}
+        <div className="text-sm text-dark-3 flex items-center gap-2">
+          <Link href="/" className="hover:text-blue cursor-pointer transition-colors">
+            Home
+          </Link>
+          
+          {pages.map((page, key) => (
+            <React.Fragment key={key}>
+              <ChevronRight size={14} className="text-gray-4" />
+              <span className={`capitalize ${key === pages.length - 1 ? 'text-dark font-medium' : 'hover:text-blue cursor-pointer transition-colors'}`}>
 
-            <ul className="flex items-center gap-2">
-              <li className="text-custom-sm hover:text-blue">
-                <Link href="/">Home /</Link>
-              </li>
-
-              {pages.length > 0 &&
-                pages.map((page, key) => (
-                  <li className="text-custom-sm last:text-blue capitalize" key={key}>
-                    {page} 
-                  </li>
-                ))}
-            </ul>
-          </div>
+                {key === pages.length - 1 ? (
+                  page
+                ) : (
+                  <Link href={`/${page.toLowerCase().replace(/ /g, "-")}`}>
+                    {page}
+                  </Link>
+                )}
+              </span>
+            </React.Fragment>
+          ))}
         </div>
+
       </div>
     </div>
   );

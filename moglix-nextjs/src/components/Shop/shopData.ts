@@ -1,10 +1,11 @@
 import { Product } from "@/types/product";
+
 const shopData: Product[] = [
   {
-    title: "Havit HV-G69 USB Gamepad",
-    reviews: 15,
-    price: 59.0,
-    discountedPrice: 29.0,
+    title: "Bosch GSB 500 RE Professional Hammer Drill Kit",
+    reviews: 124,
+    price: 4200,
+    discountedPrice: 2899,
     id: 1,
     imgs: {
       thumbnails: [
@@ -18,10 +19,10 @@ const shopData: Product[] = [
     },
   },
   {
-    title: "iPhone 14 Plus , 6/128GB",
-    reviews: 5,
-    price: 899.0,
-    discountedPrice: 99.0,
+    title: "Stanley 3/8 Inch Drive Ratchet Socket Set - 34 Pieces",
+    reviews: 87,
+    price: 2500,
+    discountedPrice: 1749,
     id: 2,
     imgs: {
       thumbnails: [
@@ -35,10 +36,10 @@ const shopData: Product[] = [
     },
   },
   {
-    title: "Apple iMac M1 24-inch 2021",
-    reviews: 5,
-    price: 59.0,
-    discountedPrice: 29.0,
+    title: "3M N95 Particulate Respirator Mask - Pack of 10",
+    reviews: 203,
+    price: 1200,
+    discountedPrice: 899,
     id: 3,
     imgs: {
       thumbnails: [
@@ -52,10 +53,10 @@ const shopData: Product[] = [
     },
   },
   {
-    title: "MacBook Air M1 chip, 8/256GB",
-    reviews: 6,
-    price: 59.0,
-    discountedPrice: 29.0,
+    title: "Honeywell Safety Helmet Industrial Hard Hat - White",
+    reviews: 56,
+    price: 850,
+    discountedPrice: 599,
     id: 4,
     imgs: {
       thumbnails: [
@@ -69,10 +70,10 @@ const shopData: Product[] = [
     },
   },
   {
-    title: "Apple Watch Ultra",
-    reviews: 3,
-    price: 99.0,
-    discountedPrice: 29.0,
+    title: "Havells 25W LED Flood Light for Outdoor Industrial Use",
+    reviews: 44,
+    price: 1499,
+    discountedPrice: 999,
     id: 5,
     imgs: {
       thumbnails: [
@@ -86,10 +87,10 @@ const shopData: Product[] = [
     },
   },
   {
-    title: "Logitech MX Master 3 Mouse",
-    reviews: 15,
-    price: 59.0,
-    discountedPrice: 29.0,
+    title: "Makita 18V Cordless Drill Driver Set with 2 Batteries",
+    reviews: 98,
+    price: 8500,
+    discountedPrice: 6299,
     id: 6,
     imgs: {
       thumbnails: [
@@ -103,10 +104,10 @@ const shopData: Product[] = [
     },
   },
   {
-    title: "Apple iPad Air 5th Gen - 64GB",
-    reviews: 15,
-    price: 59.0,
-    discountedPrice: 29.0,
+    title: "Polycab 1.5 Sqmm FR PVC Insulated Wire - 90 Meters",
+    reviews: 312,
+    price: 1800,
+    discountedPrice: 1349,
     id: 7,
     imgs: {
       thumbnails: [
@@ -120,10 +121,10 @@ const shopData: Product[] = [
     },
   },
   {
-    title: "Asus RT Dual Band Router",
-    reviews: 15,
-    price: 59.0,
-    discountedPrice: 29.0,
+    title: "Karam Full Body Safety Harness with Double Lanyard",
+    reviews: 67,
+    price: 3200,
+    discountedPrice: 2199,
     id: 8,
     imgs: {
       thumbnails: [
@@ -132,7 +133,6 @@ const shopData: Product[] = [
       ],
       previews: [
         "/images/products/product-8-bg-1.png",
-        "/images/products/product-8-bg-2.png",
       ],
     },
   },
