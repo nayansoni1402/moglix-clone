@@ -8,6 +8,16 @@ const nextConfig = {
         port: "1337",
         pathname: "/uploads/**",
       },
+      {
+        protocol: "https",
+        hostname: "img.moglimg.com",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "cdn.moglix.com",
+        pathname: "/**",
+      },
     ],
   },
 };
