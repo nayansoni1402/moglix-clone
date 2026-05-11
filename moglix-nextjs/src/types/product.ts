@@ -258,3 +258,15 @@ export interface ProductApiResponse {
   message: string;
   data: ProductDetails;
 }
+
+export interface Product {
+  title: string;
+  reviews: number;
+  price: number;
+  discountedPrice: number;
+  id: number;
+  imgs: {
+    thumbnails: string[];
+    previews: string[];
+  };
+}
