@@ -17,7 +17,7 @@ const Home = () => {
       {/* Product Carousels and Banners */}
       <div className="flex flex-col mt-4">
         <NewArrival title="Deals of the Day" viewAllLink="/category/deals" />
-        <PromoBanner title="Mogli Express" subtitle="Next Day Delivery on Top Brands" bgColor="bg-green-light-5 text-green-dark" />
+        <PromoBanner title="Quant Procure" subtitle="Next Day Delivery on Top Brands" bgColor="bg-green-light-5 text-green-dark" />
         <NewArrival title="Top Selling Power Tools" viewAllLink="/category/power-tools" />
         <NewArrival title="Electrical & Appliances" viewAllLink="/category/electricals" />
         <PromoBanner title="Medical Supplies & Safety" subtitle="Upto 40% off on bulk orders" bgColor="bg-blue-light-5 text-blue-dark" />

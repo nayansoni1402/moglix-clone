@@ -2,7 +2,8 @@ export async function fetchStrapi(
   endpoint: string,
   queryParams?: Record<string, string | string[]>
 ) {
-  const url = new URL(`${process.env.NEXT_PUBLIC_STRAPI_API_URL}${endpoint}`);
+  const baseUrl = process.env.NEXT_PUBLIC_STRAPI_API_URL || "http://localhost:1337/api";
+  const url = new URL(`${baseUrl}${endpoint}`);
 
   if (queryParams) {
     Object.entries(queryParams).forEach(([key, value]) => {
@@ -18,6 +19,7 @@ export async function fetchStrapi(
   const response = await fetch(url.toString(), {
     headers: {
       "Content-Type": "application/json",
+      "Accept-Encoding": "identity",
     },
     next: { revalidate: 60 },
   });

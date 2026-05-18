@@ -3,6 +3,12 @@ import "./css/style.css";
 
 import type { Metadata } from "next";
 import { getGlobalData } from "@/utils/get-global";
+import { ReactQueryProvider } from "@/lib/query/provider";
+import { Geist } from "next/font/google";
+import { cn } from "@/lib/utils";
+
+const geist = Geist({subsets:['latin'],variable:'--font-sans'});
+
 
 export async function generateMetadata(): Promise<Metadata> {
   const g = await getGlobalData();
@@ -22,9 +28,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" suppressHydrationWarning={true}>
+    <html lang="en" suppressHydrationWarning={true} className={cn("font-sans", geist.variable)}>
       <body suppressHydrationWarning={true}>
-        {children}
+        <ReactQueryProvider>{children}</ReactQueryProvider>
       </body>
     </html>
   );

@@ -34,7 +34,7 @@ const NewArrival = ({ title = "New Arrivals", viewAllLink = "/shop-with-sidebar"
         {/* Section Header */}
         <div className="flex items-center justify-between mb-5">
           <div className="flex items-center gap-3">
-            {/* Accent bar like Moglix */}
+            {/* Accent bar like Quant Procure */}
             <span className="w-1.5 h-7 bg-blue rounded-full block flex-shrink-0" />
             <h2 className="font-bold text-xl text-dark">{title}</h2>
           </div>

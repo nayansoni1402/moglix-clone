@@ -1,5 +1,22 @@
-export type Category = {
-  title: string;
-  id: number;
-  img: string;
-};
+import { ProductTag, SimilarProduct } from "./product";
+
+export interface CategoryProduct extends SimilarProduct {}
+
+export interface CategoryResult {
+    products: CategoryProduct[];
+    totalProducts: number;
+}
+
+export interface CategoryData {
+    productSearchResult: CategoryResult;
+    categoryName: string;
+    categoryId: string; // Note: lowercase 'id' in API
+    taxonomy: string;
+    categoryDescription?: string;
+    categoryFaqs?: Array<{ question: string; answer: string }>;
+    categoryMainImageLink?: string;
+    redirectionLink?: string;
+}
+
+// Since the API returns the data directly without a status/data wrapper
+export interface CategoryApiResponse extends CategoryData {}

@@ -31,16 +31,17 @@ export const getGlobalData = cache(async (): Promise<GlobalData> => {
     console.log("[getGlobalData] API response:", resolveStrapiUrl(d?.logo?.url));
 
     return {
-      siteName: d?.siteName ?? "Moglix Clone - Industrial Products",
+      siteName: d?.siteName ?? "Quant Procure - Industrial Products",
       siteDescription:
         d?.siteDescription ?? "B2B E-commerce platform for industrial products",
       faviconUrl: resolveStrapiUrl(d?.favicon?.url),
       logoUrl: resolveStrapiUrl(d?.logo?.url),
     };
-  } catch (err) {
-    console.error("[getGlobalData]", err);
+  } catch (err: any) {
+    // Log as a warning instead of error to avoid triggering the Next.js dev error overlay
+    console.warn("[getGlobalData] CMS not available or endpoint forbidden, using fallback.", err.message);
     return {
-      siteName: "Moglix Clone - Industrial Products",
+      siteName: "Quant Procure - Industrial Products",
       siteDescription: "B2B E-commerce platform for industrial products",
       faviconUrl: null,
       logoUrl: null,
