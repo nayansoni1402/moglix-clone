@@ -28,7 +28,7 @@ function StarRating({ rating, count }: { rating: number; count?: number }) {
   );
 }
 
-export default function ProductInfo({ product, msn, tags }: ProductInfoProps) {
+export default function ProductInfo({ product, msn, tags }: any) {
   const { priceQuantityCountry: price } = product;
   const discountPct = calculateDiscount(price.mrp, price.sellingPrice);
 

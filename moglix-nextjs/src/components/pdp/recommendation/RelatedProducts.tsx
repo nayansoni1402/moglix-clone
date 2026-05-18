@@ -36,7 +36,7 @@ function ProductCard({ product }: { product: SimilarProduct }) {
       </Link>
       <WishlistButton
         product={{
-          msn: product.partNumber || "",
+          msn: product.moglixPartNumber || "",
           name: product.productName,
           price: product.mrp,
           discountedPrice: product.salesPrice,

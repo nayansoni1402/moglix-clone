@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useRef, useCallback } from "react";
+import React, { useRef, useCallback } from "react";
 import ProductItem from "@/components/Common/ProductItem";
 import { CategoryData } from "@/types/category";
 import { getCategoryData } from "@/lib/api/category";
@@ -8,10 +8,10 @@ import { mapCategoryProductToProductItem } from "@/utils/product";
 import { useInfiniteQuery } from "@tanstack/react-query";
 
 interface CategoryClientProps {
-    initialData: CategoryData;
-    slug: string;
-    categoryID: string;
-    initialPage: number;
+    initialData: any;
+    slug?: string;
+    categoryID?: string;
+    initialPage?: number;
 }
 
 export default function CategoryClient({ initialData, slug, categoryID, initialPage }: CategoryClientProps) {
@@ -28,7 +28,7 @@ export default function CategoryClient({ initialData, slug, categoryID, initialP
         getNextPageParam: (lastPage, allPages) => {
             const productsLoadedSoFar = allPages.reduce((acc, page) => acc + page.productSearchResult.products.length, 0);
             const totalProducts = lastPage.productSearchResult.totalProducts;
-            
+
             if (productsLoadedSoFar < totalProducts) {
                 return initialPage + allPages.length;
             }
@@ -81,7 +81,7 @@ export default function CategoryClient({ initialData, slug, categoryID, initialP
             {/* Product Grid */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
                 {allProducts.map((item, index) => (
-                    <div 
+                    <div
                         key={item.moglixPartNumber || index}
                         ref={index === allProducts.length - 1 ? lastProductElementRef : null}
                     >
@@ -105,7 +105,7 @@ export default function CategoryClient({ initialData, slug, categoryID, initialP
                     </div>
                 </div>
             )}
-            
+
             {status === "error" && (
                 <div className="mt-8 text-center text-red-500">
                     Error loading more products. Please refresh the page.
