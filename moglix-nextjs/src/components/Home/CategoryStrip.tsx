@@ -24,7 +24,7 @@ const categories = [
   { name: "Safety Gear", link: "/category/safety", icon: <ShieldCheck size={16} /> },
   { name: "Automotive", link: "/category/automotive", icon: <Car size={16} /> },
   { name: "Packaging", link: "/category/packaging", icon: <Package size={16} /> },
-  { name: "Mogli Express", link: "#", icon: <Rocket size={16} />, highlight: true },
+  { name: "Quant Procure", link: "#", icon: <Rocket size={16} />, highlight: true },
 ];
 
 

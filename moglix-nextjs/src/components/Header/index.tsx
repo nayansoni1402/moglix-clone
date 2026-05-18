@@ -240,7 +240,7 @@ const Header = () => {
             </button>
 
             <Link className="flex-shrink-0" href="/">
-              <Image src={logoUrl || "/images/logo/logo.svg"} alt="Logo" width={180} height={30} className="w-auto h-7 sm:h-9" />
+              <Image src={logoUrl || "/logo.png"} alt="Logo" width={180} height={30} className="w-auto h-7 sm:h-9" />
             </Link>
           </div>
 

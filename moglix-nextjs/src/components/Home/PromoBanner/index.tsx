@@ -9,7 +9,7 @@ interface Props {
 }
 
 const PromoBanner = ({ 
-  title = "Mogli Express", 
+  title = "Quant Procure", 
   subtitle = "Next Day Delivery on Top Brands", 
   bgColor = "bg-green-light-5 text-green-dark" 
 }: Props) => {
