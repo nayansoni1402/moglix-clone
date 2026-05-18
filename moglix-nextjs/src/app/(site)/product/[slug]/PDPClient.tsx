@@ -17,7 +17,7 @@ import FaqSection from "@/components/pdp/faq/FaqSection";
 import RelatedProducts from "@/components/pdp/recommendation/RelatedProducts";
 import StickyMobileBar from "@/components/pdp/mobile/StickyMobileBar";
 import VariantSelector from "@/components/pdp/variants/VariantSelector";
-import MoglixInsights from "@/components/pdp/insights/MoglixInsights";
+import QuantProcureInsights from "@/components/pdp/insights/QuantProcureInsights";
 
 interface PDPClientProps {
   data: ProductDetails;
@@ -91,7 +91,7 @@ export default function PDPClient({ data, msn }: PDPClientProps) {
                 <DeliveryChecker />
                 <OffersSection promo={applicablePromo} prepaidDiscount={prepaidDiscount} />
                 {data.productWidget && (
-                  <MoglixInsights widget={data.productWidget} />
+                  <QuantProcureInsights widget={data.productWidget} />
                 )}
               </div>
             </div>

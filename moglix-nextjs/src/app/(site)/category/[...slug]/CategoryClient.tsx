@@ -1,124 +1,116 @@
 "use client";
 
-import React, { useState } from "react";
-import FilterSidebar from "@/components/Category/FilterSidebar";
+import React, { useEffect, useRef, useCallback } from "react";
 import ProductItem from "@/components/Common/ProductItem";
-import { CategoryData, CategoryProduct } from "@/types/category";
-import { getProductImageUrl } from "@/lib/api/product";
+import { CategoryData } from "@/types/category";
+import { getCategoryData } from "@/lib/api/category";
+import { mapCategoryProductToProductItem } from "@/utils/product";
+import { useInfiniteQuery } from "@tanstack/react-query";
 
 interface CategoryClientProps {
     initialData: CategoryData;
     slug: string;
+    categoryID: string;
+    initialPage: number;
 }
 
-export default function CategoryClient({ initialData, slug }: CategoryClientProps) {
-    const [data, setData] = useState(initialData);
-    const [openFaq, setOpenFaq] = useState<number | null>(0);
+export default function CategoryClient({ initialData, slug, categoryID, initialPage }: CategoryClientProps) {
+    const {
+        data,
+        fetchNextPage,
+        hasNextPage,
+        isFetchingNextPage,
+        status,
+    } = useInfiniteQuery({
+        queryKey: ["categoryProducts", categoryID],
+        queryFn: ({ pageParam }) => getCategoryData(categoryID, pageParam as number),
+        initialPageParam: initialPage,
+        getNextPageParam: (lastPage, allPages) => {
+            const productsLoadedSoFar = allPages.reduce((acc, page) => acc + page.productSearchResult.products.length, 0);
+            const totalProducts = lastPage.productSearchResult.totalProducts;
+            
+            if (productsLoadedSoFar < totalProducts) {
+                return initialPage + allPages.length;
+            }
+            return undefined;
+        },
+        initialData: {
+            pages: [initialData],
+            pageParams: [initialPage],
+        },
+        staleTime: 1000 * 60 * 5, // 5 minutes
+    });
 
-    const products = data.productSearchResult.products;
-    const totalProducts = data.productSearchResult.totalProducts;
+    const observer = useRef<IntersectionObserver | null>(null);
+    const lastProductElementRef = useCallback(
+        (node: HTMLDivElement | null) => {
+            if (isFetchingNextPage) return;
+            if (observer.current) observer.current.disconnect();
+            observer.current = new IntersectionObserver((entries) => {
+                if (entries[0].isIntersecting && hasNextPage) {
+                    fetchNextPage();
+                }
+            });
+            if (node) observer.current.observe(node);
+        },
+        [isFetchingNextPage, hasNextPage, fetchNextPage]
+    );
 
-    const mapToProductType = (item: CategoryProduct) => {
-        return {
-            title: item.productName,
-            reviews: item.reviewCount || 0,
-            price: item.mrp,
-            discountedPrice: item.salesPrice,
-            id: parseInt(item.moglixPartNumber.replace(/[^0-9]/g, "")) || 0,
-            imgs: {
-                thumbnails: [getProductImageUrl(item.moglixImageNumber, "medium")],
-                previews: [getProductImageUrl(item.moglixImageNumber, "xxlarge")],
-            },
-        };
-    };
+    // Flatten products from all pages
+    const allProducts = data?.pages.flatMap(page => page.productSearchResult.products) || [];
+    const totalProducts = initialData.productSearchResult.totalProducts;
 
     return (
-        <main className="bg-[#F4F5F9] min-h-screen pt-[160px] pb-10">
-            <div className="max-w-[1300px] mx-auto px-4 sm:px-8 xl:px-0">
-                
-                {/* Breadcrumb & Header */}
-                <div className="mb-6">
-                    <div className="text-sm text-dark-3 mb-2">
-                        <span className="hover:text-blue cursor-pointer">Home</span> &gt; 
-                        <span className="hover:text-blue cursor-pointer ml-1">Categories</span> &gt; 
-                        <span className="text-dark font-medium capitalize ml-1">{data.categoryName || slug.replace(/-/g, " ")}</span>
-                    </div>
-                    <h1 className="text-2xl font-bold text-dark mb-3">
-                        {data.categoryName} <span className="text-sm font-normal text-dark-3 ml-2">({totalProducts} Products)</span>
-                    </h1>
-                    
-                    {data.categoryDescription && (
-                        <div className="bg-white border border-gray-3 p-4 rounded-md text-sm text-dark-3 leading-relaxed shadow-sm">
-                            <p dangerouslySetInnerHTML={{ __html: data.categoryDescription }} />
-                        </div>
-                    )}
-                </div>
-
-                <div className="flex flex-col lg:flex-row gap-8">
-                    <FilterSidebar />
-
-                    <div className="w-full lg:w-3/4 xl:w-[calc(100%-302px)]">
-                        {/* Sort Bar */}
-                        <div className="bg-white p-4 rounded-md border border-gray-3 shadow-sm mb-6 flex flex-col sm:flex-row items-center justify-between gap-4">
-                            <span className="text-dark-3 text-custom-sm">
-                                Showing 1-{products.length} of {totalProducts} results
-                            </span>
-                            <div className="flex items-center gap-3">
-                                <span className="text-dark text-custom-sm font-medium">Sort By:</span>
-                                <select className="border border-gray-3 rounded px-3 py-1.5 text-custom-sm text-dark outline-none focus:border-blue">
-                                    <option>Popularity</option>
-                                    <option>Price: Low to High</option>
-                                    <option>Price: High to Low</option>
-                                    <option>Newest Arrivals</option>
-                                </select>
-                            </div>
-                        </div>
-
-                        {/* Product Grid */}
-                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-                            {products.map((item, index) => (
-                                <div key={item.moglixPartNumber || index}>
-                                    <ProductItem item={mapToProductType(item)} />
-                                </div>
-                            ))}
-                        </div>
-
-                        {/* Pagination */}
-                        <div className="mt-10 flex justify-center">
-                            <button className="bg-white border border-blue text-blue font-medium px-8 py-2 rounded-md hover:bg-blue hover:text-white transition-colors">
-                                Load More
-                            </button>
-                        </div>
-                    </div>
+        <>
+            {/* Sort Bar */}
+            <div className="bg-white p-4 rounded-md border border-gray-3 shadow-sm mb-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+                <span className="text-dark-3 text-custom-sm">
+                    Showing {initialPage * 40 + 1}-{initialPage * 40 + allProducts.length} of {totalProducts} results
+                </span>
+                <div className="flex items-center gap-3">
+                    <span className="text-dark text-custom-sm font-medium">Sort By:</span>
+                    <select className="border border-gray-3 rounded px-3 py-1.5 text-custom-sm text-dark outline-none focus:border-blue">
+                        <option>Popularity</option>
+                        <option>Price: Low to High</option>
+                        <option>Price: High to Low</option>
+                        <option>Newest Arrivals</option>
+                    </select>
                 </div>
             </div>
 
-            {/* Category FAQ Section */}
-            {data.categoryFaqs && data.categoryFaqs.length > 0 && (
-                <section className="bg-white py-10 mt-15 border-t border-gray-3">
-                    <div className="max-w-[1300px] mx-auto px-4 sm:px-8 xl:px-0 text-sm text-dark-3">
-                        <h3 className="text-xl font-bold text-dark mb-6">Frequently Asked Questions</h3>
-                        <div className="space-y-3 max-w-3xl">
-                            {data.categoryFaqs.map((faq, index) => (
-                                <div key={index} className="border border-gray-3 rounded-md overflow-hidden">
-                                    <button 
-                                        onClick={() => setOpenFaq(openFaq === index ? null : index)}
-                                        className={`w-full flex items-center justify-between p-4 text-left text-sm font-semibold transition-colors ${openFaq === index ? "bg-gray-1 text-blue" : "bg-white text-dark hover:bg-gray-50"}`}
-                                    >
-                                        <span>{faq.question}</span>
-                                        <span className="text-lg">{openFaq === index ? "−" : "+"}</span>
-                                    </button>
-                                    {openFaq === index && (
-                                        <div className="p-4 pt-0 bg-gray-1">
-                                            <p className="text-dark-3 text-sm leading-relaxed">{faq.answer}</p>
-                                        </div>
-                                    )}
-                                </div>
-                            ))}
-                        </div>
+            {/* Product Grid */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+                {allProducts.map((item, index) => (
+                    <div 
+                        key={item.moglixPartNumber || index}
+                        ref={index === allProducts.length - 1 ? lastProductElementRef : null}
+                    >
+                        <ProductItem item={mapCategoryProductToProductItem(item)} />
                     </div>
-                </section>
+                ))}
+            </div>
+
+            {/* Loading Spinner */}
+            {isFetchingNextPage && (
+                <div className="mt-12 mb-8 flex flex-col items-center justify-center gap-4">
+                    <div className="h-12 w-12 animate-spin rounded-full border-4 border-gray-200 border-t-blue shadow-sm"></div>
+                    <span className="text-sm text-dark-3 font-medium animate-pulse text-blue">Loading more premium products...</span>
+                </div>
             )}
-        </main>
+
+            {!hasNextPage && allProducts.length > 0 && (
+                <div className="mt-12 mb-8 text-center">
+                    <div className="inline-block px-6 py-2 bg-white border border-gray-3 rounded-full shadow-sm text-dark-3 text-sm font-medium">
+                        You've reached the end of the collection
+                    </div>
+                </div>
+            )}
+            
+            {status === "error" && (
+                <div className="mt-8 text-center text-red-500">
+                    Error loading more products. Please refresh the page.
+                </div>
+            )}
+        </>
     );
 }

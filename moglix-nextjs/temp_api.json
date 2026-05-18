@@ -637,7 +637,7 @@
   },
   "applicablePromo": {
     "promoCode": "APP100",
-    "promoDescription": "flat Rs. 100 OFF on Moglix App",
+    "promoDescription": "flat Rs. 100 OFF on Quant Procure App",
     "minCartValue": 2000,
     "totalCoupons": 1
   },
@@ -3086,7 +3086,7 @@
       ]
     },
     {
-      "productTagName": "Moglix Choice",
+      "productTagName": "Quant Procure Choice",
       "productList": [
         {
           "moglixPartNumber": "MSN2KM1QMEGX9V",
@@ -3134,11 +3134,11 @@
           "productTags": [
             {
               "tagId": "MTI0035",
-              "tagName": "Moglix Choice",
+              "tagName": "Quant Procure Choice",
               "tagImageLink": "https://cdn.moglix.com/cms/utility/1714474163082-WyVB_e3EiLvfjhauFUibTfAD.png",
               "tagType": "image",
               "tagPriority": 5,
-              "tagDesc": "Moglix Choice"
+              "tagDesc": "Quant Procure Choice"
             }
           ],
           "filterableAttributes": {
@@ -3247,11 +3247,11 @@
           "productTags": [
             {
               "tagId": "MTI0035",
-              "tagName": "Moglix Choice",
+              "tagName": "Quant Procure Choice",
               "tagImageLink": "https://cdn.moglix.com/cms/utility/1714474163082-WyVB_e3EiLvfjhauFUibTfAD.png",
               "tagType": "image",
               "tagPriority": 5,
-              "tagDesc": "Moglix Choice"
+              "tagDesc": "Quant Procure Choice"
             }
           ],
           "filterableAttributes": {
@@ -10078,7 +10078,7 @@
         "reviewId": "8e002ddd-3356-4f33-b371-b4b6e2245904",
         "itemId": "MSNO5WN7R38W51",
         "reviewSubject": "copper wire ",
-        "reviewText": "pvc copper wire 1sqmm FAB company is good,\nthanks moglix ",
+        "reviewText": "pvc copper wire 1sqmm FAB company is good,\nthanks Quant Procure ",
         "userId": "2913748",
         "updatedAt": "2025-06-21T17:31:10.823+00:00",
         "rating": 5,
@@ -10095,7 +10095,7 @@
         "reviewId": "05eba666-52b8-4298-b8c6-cf5dbb0a812b",
         "itemId": "MSNO5WN7R38W51",
         "reviewSubject": "pvc copper wire ",
-        "reviewText": "good product thanku moglix ",
+        "reviewText": "good product thanku Quant Procure ",
         "userId": "2913748",
         "updatedAt": "2025-06-19T17:31:09.426+00:00",
         "rating": 5,
@@ -10112,7 +10112,7 @@
         "reviewId": "69dbfd16-443e-4d81-b6af-2a2ec80af1a7",
         "itemId": "MSNO5WN7R38W51",
         "reviewSubject": "very nice ",
-        "reviewText": "very nice 👍\nmind blowing\niam very happy\nthanks moglix ",
+        "reviewText": "very nice 👍\nmind blowing\niam very happy\nthanks Quant Procure ",
         "userId": "1695980",
         "updatedAt": "2025-06-19T17:30:49.840+00:00",
         "rating": 5,
@@ -10129,7 +10129,7 @@
         "reviewId": "d916e088-790d-449e-9f54-cad4366e2ad1",
         "itemId": "MSNO5WN7R38W51",
         "reviewSubject": "very nice ",
-        "reviewText": "very nice 👍\nmind blowing\nthanks moglix ",
+        "reviewText": "very nice 👍\nmind blowing\nthanks Quant Procure ",
         "userId": "1695980",
         "updatedAt": "2025-06-19T17:30:46.461+00:00",
         "rating": 5,
@@ -10496,7 +10496,7 @@
         "reviewId": "ecf67399-7990-4d46-875e-24a1f14ef5ad",
         "itemId": "MSNO5WN7R38W51",
         "reviewSubject": "pvc ccs copper wire ",
-        "reviewText": "pvc ccs copper wire 1sqmm good quality,\nthanks moglix ok ",
+        "reviewText": "pvc ccs copper wire 1sqmm good quality,\nthanks Quant Procure ok ",
         "userId": "2913748",
         "updatedAt": "2025-06-18T05:49:57.432+00:00",
         "rating": 5,
@@ -10513,7 +10513,7 @@
         "reviewId": "c929aab5-3690-4d51-a8d2-8e31d8e24c42",
         "itemId": "MSNO5WN7R38W51",
         "reviewSubject": "Best in this price ",
-        "reviewText": "i thought it's not safe to order from moglix after seeing so many bad reviews but unfortunately I was wrong. I got what I ordered. thanks you Moglix.",
+        "reviewText": "i thought it's not safe to order from Quant Procure after seeing so many bad reviews but unfortunately I was wrong. I got what I ordered. thanks you Moglix.",
         "userId": "7193060",
         "updatedAt": "2025-05-19T17:32:37.096+00:00",
         "rating": 5,
@@ -10532,7 +10532,7 @@
         "reviewId": "3961ded7-1252-4e86-b54f-d87f0a1cae45",
         "itemId": "MSNO5WN7R38W51",
         "reviewSubject": "Best in this price range",
-        "reviewText": "i thought it's not safe to order from moglix after seeing so many bad reviews but unfortunately I was wrong. i got what I ordered. Thank you Moglix.",
+        "reviewText": "i thought it's not safe to order from Quant Procure after seeing so many bad reviews but unfortunately I was wrong. i got what I ordered. Thank you Moglix.",
         "userId": "7193060",
         "updatedAt": "2025-05-19T17:32:35.330+00:00",
         "rating": 5,
@@ -10551,7 +10551,7 @@
         "reviewId": "996a36bc-5fb9-46ba-a076-068ea888a23b",
         "itemId": "MSNO5WN7R38W51",
         "reviewSubject": "Best in this price range",
-        "reviewText": "it was not safe to order from moglix after seeing so many bad reviews but unfortunately I was wrong. i got what I ordered thank you Moglix.",
+        "reviewText": "it was not safe to order from Quant Procure after seeing so many bad reviews but unfortunately I was wrong. i got what I ordered thank you Moglix.",
         "userId": "7193060",
         "updatedAt": "2025-05-19T17:32:33.533+00:00",
         "rating": 5,
@@ -10713,7 +10713,7 @@
         "reviewId": "a1a1d2cc-f89a-4bc3-a232-d355a70ef5ac",
         "itemId": "MSNO5WN7R38W51",
         "reviewSubject": "Wire quality is very good",
-        "reviewText": "Moglix is a better source for buying best material in cheapest price. Product is too good",
+        "reviewText": "Quant Procure is a better source for buying best material in cheapest price. Product is too good",
         "userId": "6881738",
         "updatedAt": "2025-05-02T06:32:11.721+00:00",
         "rating": 5,

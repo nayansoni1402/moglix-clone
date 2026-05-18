@@ -2,15 +2,15 @@ import Breadcrumb from "@/components/Common/Breadcrumb";
 import Link from "next/link";
 import { Calendar, ChevronRight } from "lucide-react";
 
-export const metadata = { title: "Terms of Use | Moglix" };
+export const metadata = { title: "Terms of Use | Quant Procure" };
 
 const sections = [
-  { title: "1. Acceptance of Terms", content: "By accessing or using the Moglix website and services, you agree to be bound by these Terms of Use. If you do not agree to these terms, please do not use our platform. Your continued use of the platform constitutes acceptance of any updates to these terms." },
-  { title: "2. Use of the Platform", bullets: ["Use the platform in any way that violates applicable laws or regulations.", "Attempt to gain unauthorized access to any portion of the platform.", "Submit false or misleading information during checkout or registration.", "Engage in any conduct that restricts or inhibits anyone's use or enjoyment of the platform."], intro: "You may use Moglix solely for lawful purposes. You agree not to:" },
-  { title: "3. Account Responsibility", content: "You are responsible for maintaining the confidentiality of your account credentials and for all activities that occur under your account. Notify us immediately of any unauthorized use at support@moglix.com." },
-  { title: "4. Intellectual Property", content: "All content on this platform, including text, images, logos, and product descriptions, is the property of Moglix or its content suppliers and is protected by Indian and international copyright laws. You may not reproduce or distribute any content without prior written permission." },
-  { title: "5. Pricing & Availability", content: "Moglix reserves the right to change product prices and availability at any time without notice. In the event of a pricing error, we reserve the right to cancel affected orders and issue a full refund." },
-  { title: "6. Limitation of Liability", content: "To the fullest extent permitted by law, Moglix shall not be liable for any indirect, incidental, special, or consequential damages arising from your use of or inability to use the platform or its services." },
+  { title: "1. Acceptance of Terms", content: "By accessing or using the Quant Procure website and services, you agree to be bound by these Terms of Use. If you do not agree to these terms, please do not use our platform. Your continued use of the platform constitutes acceptance of any updates to these terms." },
+  { title: "2. Use of the Platform", bullets: ["Use the platform in any way that violates applicable laws or regulations.", "Attempt to gain unauthorized access to any portion of the platform.", "Submit false or misleading information during checkout or registration.", "Engage in any conduct that restricts or inhibits anyone's use or enjoyment of the platform."], intro: "You may use Quant Procure solely for lawful purposes. You agree not to:" },
+  { title: "3. Account Responsibility", content: "You are responsible for maintaining the confidentiality of your account credentials and for all activities that occur under your account. Notify us immediately of any unauthorized use at support@quantprocure.com." },
+  { title: "4. Intellectual Property", content: "All content on this platform, including text, images, logos, and product descriptions, is the property of Quant Procure or its content suppliers and is protected by Indian and international copyright laws. You may not reproduce or distribute any content without prior written permission." },
+  { title: "5. Pricing & Availability", content: "Quant Procure reserves the right to change product prices and availability at any time without notice. In the event of a pricing error, we reserve the right to cancel affected orders and issue a full refund." },
+  { title: "6. Limitation of Liability", content: "To the fullest extent permitted by law, Quant Procure shall not be liable for any indirect, incidental, special, or consequential damages arising from your use of or inability to use the platform or its services." },
   { title: "7. Governing Law", content: "These Terms shall be governed by the laws of India. Any disputes shall be subject to the exclusive jurisdiction of the courts in New Delhi, India." },
   { title: "8. Changes to Terms", content: "We may update these Terms from time to time. We will notify you of significant changes by posting a notice on our website. Your continued use of the platform after changes are made constitutes your acceptance of the new Terms." },
 ];
@@ -29,7 +29,7 @@ export default function TermsOfUsePage() {
 
             <h1 className="text-2xl font-bold text-dark mt-3 mb-2">Terms of Use</h1>
             <p className="text-dark-4 text-sm max-w-[600px]">
-              Please read these terms carefully before using Moglix. By using our platform, you agree to these terms and conditions.
+              Please read these terms carefully before using Quant Procure. By using our platform, you agree to these terms and conditions.
             </p>
           </div>
 

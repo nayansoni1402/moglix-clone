@@ -203,7 +203,7 @@ const navItems: NavItem[] = [
     ],
   },
   {
-    name: "Moglix Express", link: "#", icon: <Rocket size={16} />, highlight: true,
+    name: "Quant Procure Express", link: "#", icon: <Rocket size={16} />, highlight: true,
 
     subs: [{ label: "Priority Delivery", href: "#" }],
   },

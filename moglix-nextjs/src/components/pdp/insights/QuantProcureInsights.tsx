@@ -10,7 +10,7 @@ interface Props {
   widget: ProductWidget;
 }
 
-// Strip HTML tags from Moglix widget messages
+// Strip HTML tags from Quant Procure widget messages
 function stripHtml(html: string): string {
   return html.replace(/<[^>]+>/g, "");
 }
@@ -30,7 +30,7 @@ function parseWidgetMessage(html: string) {
   return parts;
 }
 
-export default function MoglixInsights({ widget }: Props) {
+export default function QuantProcureInsights({ widget }: Props) {
   if (!widget?.brand && !widget?.price) return null;
 
   return (
@@ -38,7 +38,7 @@ export default function MoglixInsights({ widget }: Props) {
       <div className="flex items-center gap-2">
         <TrendingUp className="w-4 h-4 text-blue-600" />
         <span className="text-xs font-bold text-blue-700 uppercase tracking-wide">
-          Moglix Insights
+          Quant Procure Insights
         </span>
       </div>
 

@@ -12,7 +12,7 @@ const faqs = [
     items: [
       { q: "How do I track my order?", a: "Once your order is shipped, you will receive an SMS and email with your tracking number. You can also track your order from the 'My Orders' section in your account." },
       { q: "What are the delivery timeframes?", a: "Standard delivery takes 3–5 business days. Express delivery takes 1–2 business days. Same-day delivery is available in select metro cities for orders placed before 12 PM." },
-      { q: "Do you offer bulk/B2B orders?", a: "Yes! Moglix specializes in B2B procurement. Contact our enterprise team at b2b@moglix.com or call 1800-XXX-XXXX for bulk pricing and dedicated account management." },
+      { q: "Do you offer bulk/B2B orders?", a: "Yes! Quant Procure specializes in B2B procurement. Contact our enterprise team at b2b@moglix.com or call 1800-XXX-XXXX for bulk pricing and dedicated account management." },
     ],
   },
   {
@@ -36,7 +36,7 @@ const faqs = [
     category: "Products & Brands",
     icon: <Wrench size={18} />,
     items: [
-      { q: "Are the products genuine?", a: "Yes, all products on Moglix are 100% genuine and sourced directly from brands or authorized distributors. We guarantee authenticity on every purchase." },
+      { q: "Are the products genuine?", a: "Yes, all products on Quant Procure are 100% genuine and sourced directly from brands or authorized distributors. We guarantee authenticity on every purchase." },
       { q: "Do products come with a manufacturer warranty?", a: "Most products come with a standard manufacturer warranty. The warranty period is mentioned on each product page. Contact our support team to claim a warranty." },
     ],
   },

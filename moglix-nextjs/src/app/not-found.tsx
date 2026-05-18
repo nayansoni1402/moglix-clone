@@ -16,7 +16,7 @@ export default function NotFound() {
       <body>
         <ConfigProvider
           serverData={{
-            siteName: "Moglix Clone",
+            siteName: "Quant Procure Clone",
             siteDescription: "B2B E-commerce platform",
             faviconUrl: null,
             logoUrl: null,

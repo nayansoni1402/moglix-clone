@@ -115,7 +115,7 @@ const Contact = () => {
                   <div className="w-full h-[200px] bg-[#F4F5F9] rounded-lg flex items-center justify-center border border-gray-3">
                     <div className="flex flex-col items-center text-center">
                       <span className="text-blue/40 mb-3"><Map size={48} /></span>
-                      <p className="text-sm text-dark-4 font-bold">Moglix India Headquarters</p>
+                      <p className="text-sm text-dark-4 font-bold">Quant Procure India Headquarters</p>
                       <p className="text-xs text-dark-5 mt-1">B-25, Sector 58, Noida, Uttar Pradesh 201301</p>
                     </div>
                   </div>

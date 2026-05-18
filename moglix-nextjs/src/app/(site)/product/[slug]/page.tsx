@@ -12,7 +12,7 @@ interface Props {
 /**
  * The slug can be:
  * - a raw MSN like "msnq94pm8zwek0"
- * - or a full Moglix URL slug like "eapro-3500va-...-eglp1p450048solar"
+ * - or a full Quant Procure URL slug like "eapro-3500va-...-eglp1p450048solar"
  *
  * We attempt to fetch by the slug directly as an MSN first.
  */
@@ -33,7 +33,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       : undefined;
 
     return {
-      title: `${product.productName} | Moglix`,
+      title: `${product.productName} | Quant Procure`,
       description: product.productDescripton?.slice(0, 155) || product.productName,
       keywords: [
         product.productBrandDetails.brandName,

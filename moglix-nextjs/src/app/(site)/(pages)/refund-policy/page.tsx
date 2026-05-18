@@ -50,11 +50,11 @@ export default function RefundPolicyPage() {
                 },
                 {
                   title: "2. How to Initiate a Return",
-                  steps: ["Log in to your Moglix account and go to My Orders.", "Select the item and click &quot;Request Return&quot;.", "Choose the reason and upload a photo if the item is damaged.", "Our team will schedule a pickup within 48 hours."],
+                  steps: ["Log in to your Quant Procure account and go to My Orders.", "Select the item and click &quot;Request Return&quot;.", "Choose the reason and upload a photo if the item is damaged.", "Our team will schedule a pickup within 48 hours."],
                 },
                 {
                   title: "3. Refund Timeline",
-                  content: "Once we receive and inspect the returned item, your refund will be processed within 5–7 business days. Refunds are credited to your original payment method — UPI, credit/debit card, net banking, or Moglix wallet.",
+                  content: "Once we receive and inspect the returned item, your refund will be processed within 5–7 business days. Refunds are credited to your original payment method — UPI, credit/debit card, net banking, or Quant Procure wallet.",
                 },
                 {
                   title: "4. Damaged or Defective Items",
