@@ -212,11 +212,78 @@ const navItems: NavItem[] = [
 const Header = () => {
   const { logoUrl, isMobile, isDesktop } = useConfig();
   const [searchQuery, setSearchQuery] = useState("");
+  const [dynamicNavItems, setDynamicNavItems] = useState<NavItem[]>(navItems);
   const [navigationOpen, setNavigationOpen] = useState(false);
   const [stickyMenu, setStickyMenu] = useState(false);
   const [megaOpen, setMegaOpen] = useState<string | null>(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState<string | null>(null);
   const { openCartModal } = useCartModalContext();
+
+  useEffect(() => {
+    async function fetchCategories() {
+      try {
+        const baseUrl = process.env.NEXT_PUBLIC_STRAPI_API_URL || 'http://127.0.0.1:1337/api';
+        const response = await fetch(`${baseUrl}/categories?filters[parent][$null]=true&populate[children][fields][0]=name&populate[children][fields][1]=slug&populate[children][populate][children][fields][0]=name&populate[children][populate][children][fields][1]=slug`);
+        const json = await response.json();
+        
+        if (json && json.data && json.data.length > 0) {
+          const fetchedCategories: NavItem[] = json.data.map((dept: any) => {
+            const deptSlug = dept.slug || dept.name.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+            const categories = dept.children || [];
+            
+            // Construct Mega Menu columns dynamically from children categories
+            const megaCols: Col[] = categories.map((cat: any) => {
+              const catSlug = cat.slug || cat.name.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+              const subcategories = cat.children || [];
+              
+              return {
+                heading: cat.name,
+                href: `/category/${catSlug}`,
+                items: subcategories.map((sub: any) => {
+                  const subSlug = sub.slug || sub.name.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+                  return {
+                    label: sub.name,
+                    href: `/category/${subSlug}`
+                  };
+                })
+              };
+            });
+            
+            let IconComponent = Wrench;
+            const nameLower = dept.name.toLowerCase();
+            if (nameLower.includes("electric")) IconComponent = Lightbulb;
+            else if (nameLower.includes("safety") || nameLower.includes("guard")) IconComponent = ShieldCheck;
+            else if (nameLower.includes("tool") || nameLower.includes("weld")) IconComponent = Wrench;
+            else if (nameLower.includes("transmission") || nameLower.includes("motor")) IconComponent = Zap;
+            else if (nameLower.includes("fluid") || nameLower.includes("pneumatic") || nameLower.includes("hydraulic")) IconComponent = Building2;
+            else if (nameLower.includes("pump") || nameLower.includes("valve")) IconComponent = Wrench;
+            else if (nameLower.includes("supply") || nameLower.includes("lubricant") || nameLower.includes("filter")) IconComponent = FileBox;
+
+            return {
+              name: dept.name,
+              link: `/category/${deptSlug}`,
+              icon: <IconComponent size={16} />,
+              mega: megaCols.length > 0 ? megaCols : undefined
+            };
+          });
+
+          const finalNav: NavItem[] = fetchedCategories;
+ 
+          setDynamicNavItems(finalNav);
+        } else {
+          // If database is empty or Strapi hasn't loaded records yet, fall back to premium default navItems
+          setDynamicNavItems(navItems);
+        }
+      } catch (err) {
+        console.error("Failed to load header categories, falling back to mock:", err);
+        setDynamicNavItems(navItems);
+      }
+    }
+ 
+    fetchCategories();
+  }, []);
+
+
 
   const product = useAppSelector((state) => state.cartReducer.items);
   const wishlistItems = useAppSelector((state) => state.wishlistReducer.items);
@@ -315,7 +382,7 @@ const Header = () => {
       <div className="border-t border-gray-3 bg-white hidden lg:block" onMouseLeave={() => setMegaOpen(null)}>
         <div className="max-w-[1300px] mx-auto px-4 xl:px-0 relative">
           <div className="flex items-center justify-between">
-            {navItems.map((item, index) => (
+            {dynamicNavItems.map((item, index) => (
               <div key={index} className="relative group" onMouseEnter={() => setMegaOpen(item.mega ? item.name : null)}>
                 <Link
                   href={item.link}
@@ -339,14 +406,17 @@ const Header = () => {
           </div>
 
           {/* Desktop Mega Menu Panel */}
-          {navItems.map((item) => (
+          {dynamicNavItems.map((item) => (
             item.mega && megaOpen === item.name && (
               <div key={item.name} className="absolute left-0 right-0 top-full bg-white border-x border-b border-gray-3 rounded-b-2xl shadow-2xl z-50" onMouseEnter={() => setMegaOpen(item.name)}>
                 <div className="grid grid-cols-4 gap-0 divide-x divide-gray-3">
                   {item.mega.map((col, ci) => (
                     <div key={ci} className="p-7">
                       <h4 className="text-sm font-bold text-dark mb-5 pb-2 border-b border-gray-2 flex items-center gap-2">
-                        <span className="w-1 h-3 bg-blue rounded-full" /> {col.heading}
+                        <span className="w-1 h-3 bg-blue rounded-full" />
+                        <Link href={col.href} className="hover:text-blue transition-colors">
+                          {col.heading}
+                        </Link>
                       </h4>
                       <ul className="space-y-2.5">
                         {col.items.map((sub, si) => (
@@ -372,7 +442,7 @@ const Header = () => {
           </div>
 
           <div className="overflow-y-auto h-full pb-24">
-            {navItems.map((item, index) => (
+            {dynamicNavItems.map((item, index) => (
               <div key={index} className="border-b border-gray-2">
                 <div className="flex items-center justify-between p-4" onClick={() => setMobileMenuOpen(mobileMenuOpen === item.name ? null : item.name)}>
                   <Link href={item.link} className={`flex items-center gap-3 font-bold text-sm ${item.highlight ? "text-red" : "text-dark"}`} onClick={(e) => (item.mega || item.subs) && e.preventDefault()}>
@@ -385,7 +455,9 @@ const Header = () => {
                   <div className="bg-gray-1 px-5 py-3">
                     {item.mega ? item.mega.map((col, ci) => (
                       <div key={ci} className="mb-4">
-                        <p className="font-bold text-xs text-dark-3 mb-2">{col.heading}</p>
+                        <Link href={col.href} className="block font-bold text-xs text-dark-3 mb-2 hover:text-blue transition-colors" onClick={() => setNavigationOpen(false)}>
+                          {col.heading}
+                        </Link>
                         <div className="flex flex-col gap-2 pl-3 border-l-2 border-gray-3">
                           {col.items.map((sub, si) => (<Link key={si} href={sub.href} className="text-xs text-dark-4">{sub.label}</Link>))}
                         </div>

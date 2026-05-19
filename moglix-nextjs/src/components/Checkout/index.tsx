@@ -20,14 +20,14 @@ import {
 const Checkout = () => {
   const cartItems = useAppSelector((state) => state.cartReducer.items);
   const totalPrice = useSelector(selectTotalPrice);
-  const shipping = totalPrice > 999 ? 0 : 99;
-  const gst = Math.round(totalPrice * 0.18);
+  const shipping = totalPrice > 99 ? 0 : 9.99;
+  const gst = Math.round(totalPrice * 0.18 * 100) / 100;
   const grandTotal = totalPrice + shipping + gst;
 
   return (
     <>
       <Breadcrumb title={"Checkout"} pages={["checkout"]} />
-      <section className="pt-4 pb-16 bg-[#F4F5F9]">
+      <section className="pt-4 pb-16 bg-[#F4F5F9]" style={{ backgroundColor: "#F4F5F9" }}>
         <div className="max-w-[1170px] w-full mx-auto px-4 sm:px-8 xl:px-0">
 
           {/* Steps Indicator */}
@@ -150,7 +150,7 @@ const Checkout = () => {
                                 <span className="text-dark-5 ml-1">×{item.quantity}</span>
                               </p>
                               <p className="font-medium text-dark whitespace-nowrap">
-                                ₹{(item.discountedPrice * item.quantity).toLocaleString("en-IN")}
+                                ${(item.discountedPrice * item.quantity).toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                               </p>
                             </div>
                           ))
@@ -163,24 +163,24 @@ const Checkout = () => {
                       <div className="border-t border-gray-3 pt-4 space-y-2">
                         <div className="flex justify-between text-sm text-dark-4">
                           <span>Subtotal</span>
-                          <span className="font-medium text-dark">₹{totalPrice.toLocaleString("en-IN")}</span>
+                          <span className="font-medium text-dark">${totalPrice.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
                         </div>
                         <div className="flex justify-between text-sm text-dark-4">
                           <span>Shipping</span>
                           <span className={`font-medium flex items-center gap-1 ${shipping === 0 ? "text-green-600" : "text-dark"}`}>
-                            {shipping === 0 ? <><Sparkles size={14} /> FREE</> : `₹${shipping}`}
+                            {shipping === 0 ? <><Sparkles size={14} /> FREE</> : `$${shipping.toFixed(2)}`}
                           </span>
                         </div>
 
                         <div className="flex justify-between text-sm text-dark-4">
                           <span>GST (18%)</span>
-                          <span className="font-medium text-dark">₹{gst.toLocaleString("en-IN")}</span>
+                          <span className="font-medium text-dark">${gst.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
                         </div>
                       </div>
 
                       <div className="flex justify-between items-center border-t border-gray-3 pt-4 mt-4">
                         <p className="font-bold text-dark">Total</p>
-                        <p className="font-bold text-blue text-xl">₹{grandTotal.toLocaleString("en-IN")}</p>
+                        <p className="font-bold text-blue text-xl">${grandTotal.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</p>
                       </div>
 
                       {/* Place Order Button */}

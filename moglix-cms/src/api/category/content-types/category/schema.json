@@ -49,6 +49,18 @@
       "type": "media",
       "multiple": false,
       "allowedTypes": ["images"]
+    },
+    "showOnHomepage": {
+      "type": "boolean",
+      "default": false
+    },
+    "seoDescription": {
+      "type": "richtext"
+    },
+    "faqs": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.faq"
     }
   }
 }

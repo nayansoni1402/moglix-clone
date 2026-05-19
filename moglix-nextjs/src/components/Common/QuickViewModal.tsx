@@ -4,11 +4,13 @@ import React, { useEffect, useState } from "react";
 import { useModalContext } from "@/app/context/QuickViewModalContext";
 import { AppDispatch, useAppSelector } from "@/redux/store";
 import { addItemToCart } from "@/redux/features/cart-slice";
+import { addItemToWishlist, removeItemFromWishlist } from "@/redux/features/wishlist-slice";
 import { useDispatch } from "react-redux";
 import Image from "next/image";
 import { usePreviewSlider } from "@/app/context/PreviewSliderContext";
 import { resetQuickView } from "@/redux/features/quickView-slice";
 import { updateproductDetails } from "@/redux/features/product-details";
+import toast from "react-hot-toast";
 
 const QuickViewModal = () => {
   const { isModalOpen, closeModal } = useModalContext();
@@ -19,6 +21,11 @@ const QuickViewModal = () => {
 
   // get the product data
   const product = useAppSelector((state) => state.quickViewReducer.value);
+  const wishlistItems = useAppSelector((state) => state.wishlistReducer.items);
+
+  const slug = product.slug || product.title.toLowerCase().replace(/ /g, "-");
+  const msnHash = slug.split("").reduce((a, c) => a + c.charCodeAt(0), 0);
+  const isWishlisted = wishlistItems.some((wItem) => wItem.id === msnHash || wItem.id === product.id);
 
   const [activePreview, setActivePreview] = useState(0);
 
@@ -37,8 +44,28 @@ const QuickViewModal = () => {
         quantity,
       })
     );
-
+    toast.success(`${product.title.substring(0, 20)}... added to cart!`);
     closeModal();
+  };
+
+  const handleItemToWishList = () => {
+    if (isWishlisted) {
+      const matched = wishlistItems.find((wItem) => wItem.id === msnHash || wItem.id === product.id);
+      if (matched) {
+        dispatch(removeItemFromWishlist(matched.id));
+        toast.success("Removed from wishlist!");
+      }
+    } else {
+      dispatch(
+        addItemToWishlist({
+          ...product,
+          id: msnHash,
+          status: "available",
+          quantity: 1,
+        })
+      );
+      toast.success("Added to wishlist!");
+    }
   };
 
   useEffect(() => {
@@ -401,24 +428,29 @@ const QuickViewModal = () => {
                 </button>
 
                 <button
-                  className={`inline-flex items-center gap-2 font-medium text-white bg-dark py-3 px-6 rounded-md ease-out duration-200 hover:bg-opacity-95 `}
+                  onClick={handleItemToWishList}
+                  className={`inline-flex items-center gap-2 font-medium py-3 px-6 rounded-md ease-out duration-200 transition-colors ${
+                    isWishlisted
+                      ? "bg-red text-white hover:bg-red-dark"
+                      : "bg-dark text-white hover:bg-opacity-95"
+                  }`}
                 >
                   <svg
                     className="fill-current"
                     width="20"
                     height="20"
                     viewBox="0 0 20 20"
-                    fill="none"
+                    fill={isWishlisted ? "currentColor" : "none"}
                     xmlns="http://www.w3.org/2000/svg"
                   >
                     <path
                       fillRule="evenodd"
                       clipRule="evenodd"
                       d="M4.68698 3.68688C3.30449 4.31882 2.29169 5.82191 2.29169 7.6143C2.29169 9.44546 3.04103 10.8569 4.11526 12.0665C5.00062 13.0635 6.07238 13.8897 7.11763 14.6956C7.36588 14.8869 7.61265 15.0772 7.85506 15.2683C8.29342 15.6139 8.68445 15.9172 9.06136 16.1374C9.43847 16.3578 9.74202 16.4584 10 16.4584C10.258 16.4584 10.5616 16.3578 10.9387 16.1374C11.3156 15.9172 11.7066 15.6139 12.145 15.2683C12.3874 15.0772 12.6342 14.8869 12.8824 14.6956C13.9277 13.8897 14.9994 13.0635 15.8848 12.0665C16.959 10.8569 17.7084 9.44546 17.7084 7.6143C17.7084 5.82191 16.6955 4.31882 15.3131 3.68688C13.97 3.07295 12.1653 3.23553 10.4503 5.01733C10.3325 5.13974 10.1699 5.20891 10 5.20891C9.83012 5.20891 9.66754 5.13974 9.54972 5.01733C7.83474 3.23553 6.03008 3.07295 4.68698 3.68688ZM10 3.71573C8.07331 1.99192 5.91582 1.75077 4.16732 2.55002C2.32061 3.39415 1.04169 5.35424 1.04169 7.6143C1.04169 9.83557 1.9671 11.5301 3.18062 12.8966C4.15241 13.9908 5.34187 14.9067 6.39237 15.7155C6.63051 15.8989 6.8615 16.0767 7.0812 16.2499C7.50807 16.5864 7.96631 16.9453 8.43071 17.2166C8.8949 17.4879 9.42469 17.7084 10 17.7084C10.5754 17.7084 11.1051 17.4879 11.5693 17.2166C12.0337 16.9453 12.492 16.5864 12.9188 16.2499C13.1385 16.0767 13.3695 15.8989 13.6077 15.7155C14.6582 14.9067 15.8476 13.9908 16.8194 12.8966C18.0329 11.5301 18.9584 9.83557 18.9584 7.6143C18.9584 5.35424 17.6794 3.39415 15.8327 2.55002C14.0842 1.75077 11.9267 1.99192 10 3.71573Z"
-                      fill=""
+                      fill={isWishlisted ? "currentColor" : "none"}
                     />
                   </svg>
-                  Add to Wishlist
+                  {isWishlisted ? "Wishlisted" : "Add to Wishlist"}
                 </button>
               </div>
             </div>

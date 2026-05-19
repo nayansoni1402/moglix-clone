@@ -1,0 +1,19 @@
+{
+  "collectionName": "components_shared_links",
+  "info": {
+    "displayName": "Link",
+    "icon": "link",
+    "description": "Dynamic navigational link"
+  },
+  "options": {},
+  "attributes": {
+    "label": {
+      "type": "string",
+      "required": false
+    },
+    "href": {
+      "type": "string",
+      "required": false
+    }
+  }
+}

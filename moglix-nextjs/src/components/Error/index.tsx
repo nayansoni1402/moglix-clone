@@ -7,7 +7,7 @@ const Error = () => {
   return (
     <>
       <Breadcrumb title={"Error"} pages={["error"]} />
-      <section className="overflow-hidden pt-2 pb-10 sm:pb-20 bg-[#F4F5F9]">
+      <section className="overflow-hidden pt-2 pb-10 sm:pb-20 bg-[#F4F5F9]" style={{ backgroundColor: "#F4F5F9" }}>
         <div className="max-w-[1170px] w-full mx-auto px-4 sm:px-8 xl:px-0">
           <div className="bg-white rounded-xl shadow-sm border border-gray-3 px-4 py-10 sm:py-15 lg:py-20 xl:py-25">
             <div className="text-center">

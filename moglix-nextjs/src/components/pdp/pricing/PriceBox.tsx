@@ -9,6 +9,7 @@ import { AppDispatch } from "@/redux/store";
 import { addItemToCart } from "@/redux/features/cart-slice";
 import WishlistButton from "@/components/ui/WishlistButton";
 import { useCartModalContext } from "@/app/context/CartSidebarModalContext";
+import toast from "react-hot-toast";
 
 interface PriceBoxProps {
   product: ProductGroup;
@@ -45,6 +46,7 @@ export default function PriceBox({ product, msn }: PriceBoxProps) {
         imgs: { previews: [imgUrl], thumbnails: [imgUrl] },
       })
     );
+    toast.success(`${product.productName.substring(0, 20)}... added to cart!`);
     openCartModal();
   };
 
@@ -117,7 +119,7 @@ export default function PriceBox({ product, msn }: PriceBoxProps) {
                 </span>
                 <div className="flex items-center gap-2">
                   <span className="text-green font-bold">{b.discount}% OFF</span>
-                  <span className="text-body font-bold">₹{formatPriceRaw(b.bulkSellingPrice)}/pc</span>
+                  <span className="text-body font-bold">{formatPrice(b.bulkSellingPrice)}/pc</span>
                 </div>
               </div>
             ))}

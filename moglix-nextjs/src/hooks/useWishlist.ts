@@ -1,6 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/redux/store";
 import { addItemToWishlist, removeItemFromWishlist } from "@/redux/features/wishlist-slice";
+import toast from "react-hot-toast";
 
 export interface WishlistProductData {
   msn: string;
@@ -27,6 +28,7 @@ export function useWishlist() {
 
     if (isWishlisted) {
       dispatch(removeItemFromWishlist(msnHash));
+      toast.success("Removed from wishlist!");
     } else {
       dispatch(
         addItemToWishlist({
@@ -40,6 +42,7 @@ export function useWishlist() {
             : undefined,
         })
       );
+      toast.success("Added to wishlist!");
     }
   };
 

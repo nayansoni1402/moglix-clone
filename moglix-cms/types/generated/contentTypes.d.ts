@@ -579,6 +579,7 @@ export interface ApiCategoryCategory extends Struct.CollectionTypeSchema {
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     description: Schema.Attribute.Text;
+    faqs: Schema.Attribute.Component<'shared.faq', true>;
     image: Schema.Attribute.Media<'images'>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
@@ -590,6 +591,9 @@ export interface ApiCategoryCategory extends Struct.CollectionTypeSchema {
     parent: Schema.Attribute.Relation<'manyToOne', 'api::category.category'>;
     products: Schema.Attribute.Relation<'manyToMany', 'api::product.product'>;
     publishedAt: Schema.Attribute.DateTime;
+    seoDescription: Schema.Attribute.RichText;
+    showOnHomepage: Schema.Attribute.Boolean &
+      Schema.Attribute.DefaultTo<false>;
     slug: Schema.Attribute.UID;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
@@ -600,7 +604,7 @@ export interface ApiCategoryCategory extends Struct.CollectionTypeSchema {
 export interface ApiGlobalGlobal extends Struct.SingleTypeSchema {
   collectionName: 'globals';
   info: {
-    description: 'Define global settings';
+    description: 'Define dynamic global layout, header, footer and homepage banners';
     displayName: 'Global';
     pluralName: 'globals';
     singularName: 'global';
@@ -609,11 +613,22 @@ export interface ApiGlobalGlobal extends Struct.SingleTypeSchema {
     draftAndPublish: false;
   };
   attributes: {
+    appStoreUrl: Schema.Attribute.String & Schema.Attribute.DefaultTo<'#'>;
+    contactAddress: Schema.Attribute.String &
+      Schema.Attribute.DefaultTo<'685 Market Street, Las Vegas, LA 95820, United States.'>;
+    contactEmail: Schema.Attribute.String &
+      Schema.Attribute.DefaultTo<'support@quantprocure.com'>;
+    contactPhone: Schema.Attribute.String &
+      Schema.Attribute.DefaultTo<'(+099) 532-786-9843'>;
+    copyrightText: Schema.Attribute.String &
+      Schema.Attribute.DefaultTo<'All rights reserved by Quant Procure.'>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     defaultSeo: Schema.Attribute.Component<'shared.seo', false>;
     favicon: Schema.Attribute.Media<'images' | 'files' | 'videos'>;
+    footerSections: Schema.Attribute.Component<'shared.footer-section', true>;
+    heroBanners: Schema.Attribute.Component<'shared.banner', true>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
@@ -621,9 +636,14 @@ export interface ApiGlobalGlobal extends Struct.SingleTypeSchema {
     > &
       Schema.Attribute.Private;
     logo: Schema.Attribute.Media<'images'>;
+    offerStripBanners: Schema.Attribute.Component<'shared.banner', true>;
+    playStoreUrl: Schema.Attribute.String & Schema.Attribute.DefaultTo<'#'>;
+    promoBanners: Schema.Attribute.Component<'shared.promo-banner', true>;
     publishedAt: Schema.Attribute.DateTime;
-    siteDescription: Schema.Attribute.Text & Schema.Attribute.Required;
-    siteName: Schema.Attribute.String & Schema.Attribute.Required;
+    seoDescription: Schema.Attribute.RichText;
+    sideBanners: Schema.Attribute.Component<'shared.banner', true>;
+    siteDescription: Schema.Attribute.Text;
+    siteName: Schema.Attribute.String;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;

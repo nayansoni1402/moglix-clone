@@ -20,7 +20,7 @@ const Cart = () => {
       <Breadcrumb title={"Cart"} pages={["cart"]} />
 
       {cartItems.length > 0 ? (
-        <section className="overflow-hidden pt-4 pb-16 bg-[#F4F5F9]">
+        <section className="overflow-hidden pt-4 pb-16 bg-[#F4F5F9]" style={{ backgroundColor: "#F4F5F9" }}>
           <div className="max-w-[1170px] w-full mx-auto px-4 sm:px-8 xl:px-0">
 
             {/* Page Header */}
@@ -77,7 +77,7 @@ const Cart = () => {
           </div>
         </section>
       ) : (
-        <section className="pt-4 pb-20 bg-[#F4F5F9]">
+        <section className="pt-4 pb-20 bg-[#F4F5F9]" style={{ backgroundColor: "#F4F5F9" }}>
           <div className="max-w-[1170px] w-full mx-auto px-4 sm:px-8 xl:px-0">
             <div className="bg-white rounded-xl border border-gray-3 shadow-sm px-6 py-16 text-center">
               {/* Empty Cart Icon */}

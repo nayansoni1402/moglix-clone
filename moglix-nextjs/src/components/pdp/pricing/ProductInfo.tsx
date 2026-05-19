@@ -105,7 +105,7 @@ export default function ProductInfo({ product, msn, tags }: any) {
       {/* EMI */}
       <div className="flex items-center gap-2 text-xs text-dark-3 border border-gray-1 rounded-lg px-3 py-2 bg-white">
         <span className="text-blue font-bold">EMI</span>
-        <span>No Cost EMI available · Starting from ₹{Math.round(price.sellingPrice / 12).toLocaleString("en-IN")}/month</span>
+        <span>No Cost EMI available · Starting from {formatPrice(Math.round(price.sellingPrice / 12))}/month</span>
       </div>
 
       {/* Key Features */}

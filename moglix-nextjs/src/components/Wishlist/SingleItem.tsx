@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 
 import { removeItemFromWishlist } from "@/redux/features/wishlist-slice";
 import { addItemToCart } from "@/redux/features/cart-slice";
+import toast from "react-hot-toast";
 
 import Image from "next/image";
 
@@ -12,6 +13,7 @@ const SingleItem = ({ item }) => {
 
   const handleRemoveFromWishlist = () => {
     dispatch(removeItemFromWishlist(item.id));
+    toast.success("Removed from wishlist!");
   };
 
   const handleAddToCart = () => {
@@ -21,6 +23,7 @@ const SingleItem = ({ item }) => {
         quantity: 1,
       })
     );
+    toast.success(`${item.title.substring(0, 20)}... added to cart!`);
   };
 
   return (

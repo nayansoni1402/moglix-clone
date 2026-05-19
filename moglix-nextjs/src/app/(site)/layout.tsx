@@ -11,12 +11,7 @@ export default async function SiteLayout({
 
   return (
     <ClientLayout
-      serverData={{
-        siteName: g.siteName,
-        siteDescription: g.siteDescription,
-        faviconUrl: g.faviconUrl,
-        logoUrl: g.logoUrl,
-      }}
+      serverData={g}
     >
       {children}
     </ClientLayout>

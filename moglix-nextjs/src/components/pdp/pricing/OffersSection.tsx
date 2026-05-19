@@ -18,7 +18,7 @@ export default function OffersSection({ promo, prepaidDiscount }: OffersSectionP
     prepaidDiscount && {
       icon: <CreditCard size={16} className="text-green" />,
       title: "Prepaid Discount",
-      desc: `${prepaidDiscount.percentageDiscount}% off on prepaid orders above ₹${prepaidDiscount.minimumCartValue.toLocaleString("en-IN")}`,
+      desc: `${prepaidDiscount.percentageDiscount}% off on prepaid orders above $${prepaidDiscount.minimumCartValue.toLocaleString("en-US")}`,
       code: null,
       color: "border-green/20 bg-green/5",
     },

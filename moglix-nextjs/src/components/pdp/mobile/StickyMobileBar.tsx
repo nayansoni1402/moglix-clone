@@ -7,6 +7,7 @@ import { useDispatch } from "react-redux";
 import { AppDispatch } from "@/redux/store";
 import { addItemToCart } from "@/redux/features/cart-slice";
 import { useCartModalContext } from "@/app/context/CartSidebarModalContext";
+import toast from "react-hot-toast";
 
 interface StickyMobileBarProps {
   product: ProductGroup;
@@ -33,6 +34,7 @@ export default function StickyMobileBar({ product, msn }: StickyMobileBarProps) 
         imgs: { previews: [imgUrl], thumbnails: [imgUrl] },
       })
     );
+    toast.success(`${product.productName.substring(0, 20)}... added to cart!`);
     openCartModal();
   };
 

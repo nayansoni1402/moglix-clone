@@ -1,36 +1,130 @@
+"use client";
 import React from "react";
+import { useConfig } from "@/app/context/ConfigContext";
 
 const HomeSeoDescription = () => {
+  const { seoDescription } = useConfig();
+
   return (
     <section className="bg-gray-1 py-10 mt-10 border-t border-gray-3">
       <div className="max-w-[1300px] w-full mx-auto px-4 sm:px-8 xl:px-0">
-        <div className="text-sm text-dark-3 space-y-6">
-          <div>
-            <h2 className="text-lg font-semibold text-dark mb-2">Quant Procure – Trusted E-commerce Online Shopping Site for Industrial Products</h2>
-            <p>
-              Quant Procure is an e-commerce company that caters to both B2B and B2C operations. Quant Procure deals in various categories including industrial tools, electronic appliances, household appliances, office equipment and stationaries, agricultural tools, construction site products, medical equipment, and automotive parts. With over 800,000+ SKUs across 1500+ categories, Quant Procure is India's largest B2B e-commerce platform for industrial products. We provide digital procurement and supply chain solutions for various industries like agriculture, construction, healthcare, and automobiles.
-            </p>
+        {seoDescription ? (
+          <div className="text-sm text-dark-3 space-y-4">
+            {parseMarkdown(seoDescription)}
           </div>
+        ) : (
+          <div className="text-sm text-dark-3 space-y-6">
+            <div>
+              <h2 className="text-lg font-semibold text-dark mb-2">Quant Procure – Trusted E-commerce Online Shopping Site for Industrial Products</h2>
+              <p>
+                Quant Procure is an e-commerce company that caters to both B2B and B2C operations. Quant Procure deals in various categories including industrial tools, electronic appliances, household appliances, office equipment and stationaries, agricultural tools, construction site products, medical equipment, and automotive parts. With over 800,000+ SKUs across 1500+ categories, Quant Procure is India's largest B2B e-commerce platform for industrial products. We provide digital procurement and supply chain solutions for various industries like agriculture, construction, healthcare, and automobiles.
+              </p>
+            </div>
 
-          <div>
-            <h2 className="text-lg font-semibold text-dark mb-2">Some of our Top-Selling B2B Categories</h2>
-            <ul className="list-disc pl-5 space-y-2">
-              <li><strong>Home and Kitchen Appliances:</strong> In the home and kitchen category, we have a variety of products. It includes geysers, air conditioners, refrigerators, televisions, heaters, fans, mixer grinders, blenders, cookers, grillers, gas stoves, cooktops, etc.</li>
-              <li><strong>Industrial Tools:</strong> These tools can help hasten your project and provide ease in your DIY projects. Quant Procure has power tools products such as drills, grinders, pneumatic tools, material handling tools, precision measuring tools, cutting tools, and hand tools like saws, spanners, welding machines, tool kits, vices, clamps, etc.</li>
-              <li><strong>Electric Tools and Equipment:</strong> All electrical appliances must work at their optimum levels, ensuring precision and cost-effectiveness. Quant Procure has many tools, such as wires, circuit breakers, fuses, switches, generators, transformers, solar inverters, and much more.</li>
-            </ul>
-          </div>
+            <div>
+              <h2 className="text-lg font-semibold text-dark mb-2">Some of our Top-Selling B2B Categories</h2>
+              <ul className="list-disc pl-5 space-y-2">
+                <li><strong>Home and Kitchen Appliances:</strong> In the home and kitchen category, we have a variety of products. It includes geysers, air conditioners, refrigerators, televisions, heaters, fans, mixer grinders, blenders, cookers, grillers, gas stoves, cooktops, etc.</li>
+                <li><strong>Industrial Tools:</strong> These tools can help hasten your project and provide ease in your DIY projects. Quant Procure has power tools products such as drills, grinders, pneumatic tools, material handling tools, precision measuring tools, cutting tools, and hand tools like saws, spanners, welding machines, tool kits, vices, clamps, etc.</li>
+                <li><strong>Electric Tools and Equipment:</strong> All electrical appliances must work at their optimum levels, ensuring precision and cost-effectiveness. Quant Procure has many tools, such as wires, circuit breakers, fuses, switches, generators, transformers, solar inverters, and much more.</li>
+              </ul>
+            </div>
 
-          <div>
-            <h2 className="text-lg font-semibold text-dark mb-2">Why do Industrial Shopping Online from Moglix?</h2>
-            <p>
-              Quant Procure has an extensive base of over 1,50,000 SMEs and large enterprises across India that source all their industrial supplies from us. Over 10,000+ sellers upload products to the website. There are 8,00,000+ products available for customers to choose from. We have a Trustpilot rating of 4.2 out of 5 stars. Quant Procure also offers nationwide delivery to more than 25,000+ PIN codes.
-            </p>
+            <div>
+              <h2 className="text-lg font-semibold text-dark mb-2">Why do Industrial Shopping Online from Moglix?</h2>
+              <p>
+                Quant Procure has an extensive base of over 1,5,000 SMEs and large enterprises across India that source all their industrial supplies from us. Over 10,000+ sellers upload products to the website. There are 8,00,000+ products available for customers to choose from. We have a Trustpilot rating of 4.2 out of 5 stars. Quant Procure also offers nationwide delivery to more than 25,000+ PIN codes.
+              </p>
+            </div>
           </div>
-        </div>
+        )}
       </div>
     </section>
   );
 };
+
+// Simple yet extremely robust custom Markdown parser to avoid large NPM dependencies
+function parseMarkdown(md: string) {
+  if (!md) return null;
+  
+  // Split by any number of newlines to process line-by-line safely
+  const lines = md.split(/\n+/);
+  
+  return lines.map((line, idx) => {
+    const trimmed = line.trim();
+    if (!trimmed) return null;
+    
+    // 1. Heading: Starts and ends with ** (like **Heading Title**)
+    if (trimmed.startsWith("**") && trimmed.endsWith("**")) {
+      return (
+        <h2 key={idx} className="text-lg font-semibold text-dark mt-6 mb-2 block">
+          {trimmed.slice(2, -2)}
+        </h2>
+      );
+    }
+    
+    // 2. Standard Markdown Headings
+    if (trimmed.startsWith("### ")) {
+      return (
+        <h3 key={idx} className="text-base font-semibold text-dark mt-6 mb-2 block">
+          {renderInline(trimmed.substring(4))}
+        </h3>
+      );
+    }
+    if (trimmed.startsWith("## ")) {
+      return (
+        <h2 key={idx} className="text-lg font-semibold text-dark mt-6 mb-2 block">
+          {renderInline(trimmed.substring(3))}
+        </h2>
+      );
+    }
+    if (trimmed.startsWith("# ")) {
+      return (
+        <h1 key={idx} className="text-xl font-bold text-dark mt-6 mb-2 block">
+          {renderInline(trimmed.substring(2))}
+        </h1>
+      );
+    }
+    
+    // 3. Bullet points
+    if (trimmed.startsWith("- ") || trimmed.startsWith("* ")) {
+      const cleanItem = trimmed.replace(/^[-*]\s+/, "");
+      return (
+        <ul key={idx} className="list-disc pl-5 my-2">
+          <li>{renderInline(cleanItem)}</li>
+        </ul>
+      );
+    }
+    
+    // 4. Auto-bold prefix list items (e.g. "Category Name: Description of category")
+    const colonIndex = trimmed.indexOf(":");
+    if (colonIndex > 0 && colonIndex < 40) {
+      const prefix = trimmed.substring(0, colonIndex);
+      const suffix = trimmed.substring(colonIndex + 1);
+      return (
+        <p key={idx} className="mb-3 leading-relaxed">
+          <strong>{prefix}:</strong>{renderInline(suffix)}
+        </p>
+      );
+    }
+    
+    // 5. Standard paragraph
+    return (
+      <p key={idx} className="mb-3 leading-relaxed">
+        {renderInline(trimmed)}
+      </p>
+    );
+  });
+}
+
+function renderInline(text: string) {
+  const parts = text.split(/\*\*([^*]+)\*\*/g);
+  return parts.map((part, index) => {
+    if (index % 2 === 1) {
+      return <strong key={index}>{part}</strong>;
+    }
+    return part;
+  });
+}
 
 export default HomeSeoDescription;

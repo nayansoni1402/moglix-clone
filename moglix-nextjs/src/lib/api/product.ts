@@ -1,4 +1,5 @@
 import type { ProductApiResponse } from "@/types/product";
+import { NO_IMAGE_URL } from "@/lib/utils/product";
 
 const IMAGE_BASE = "https://img.moglimg.com/";
 
@@ -21,12 +22,19 @@ export const getProductDetails = async (msn: string): Promise<ProductApiResponse
 };
 
 export const getImageUrl = (path: string, size: "large" | "xlarge" | "xxlarge" | "medium" | "thumbnail" = "xxlarge") => {
-  if (!path) return "/images/placeholder.png";
-  if (path.startsWith("http")) return path;
-  return `${IMAGE_BASE}${path}`;
+  return NO_IMAGE_URL;
 };
 
 export const getProductImageUrl = (moglixImageNumber: string, size: string = "xxlarge") => {
-  if (!moglixImageNumber) return "/images/placeholder.png";
-  return `${IMAGE_BASE}p/${moglixImageNumber}-${size}.jpg`;
+  return NO_IMAGE_URL;
+};
+
+export const getStrapiProductDetails = async (slug: string): Promise<any> => {
+  const baseUrl = process.env.NEXT_PUBLIC_STRAPI_API_URL || 'http://127.0.0.1:1337/api';
+  const response = await fetch(`${baseUrl}/products?filters[slug][$eq]=${slug}&populate=*`, { cache: 'no-store' });
+  if (!response.ok) {
+    throw new Error(`Failed to fetch product from Strapi: ${response.statusText}`);
+  }
+  const json = await response.json();
+  return json.data?.[0] || null;
 };

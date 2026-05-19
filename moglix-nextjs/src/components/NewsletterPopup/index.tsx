@@ -64,7 +64,7 @@ const AuthPopup = () => {
                 {isLogin ? "Welcome Back" : "Sign Up & Save"}
               </h2>
               <p className="text-dark-4 text-xs font-bold uppercase tracking-wide">
-                {isLogin ? "Sign in to your account" : "Get ₹500 OFF on your first order"}
+                {isLogin ? "Sign in to your account" : "Get $50 OFF on your first order"}
               </p>
             </div>
 

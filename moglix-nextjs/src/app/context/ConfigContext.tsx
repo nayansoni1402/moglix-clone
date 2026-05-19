@@ -13,6 +13,18 @@ export interface SiteConfig {
   siteDescription: string;
   faviconUrl: string | null;
   logoUrl: string | null;
+  heroBanners: Array<{ id: number; image: string; link: string }>;
+  sideBanners: Array<{ id: number; image: string; link: string }>;
+  offerStripBanners: Array<{ id: number; image: string; link: string }>;
+  promoBanners: Array<{ id: number; title: string; subtitle: string; bgColor: string; link: string }>;
+  footerSections: Array<{ heading: string; links: Array<{ label: string; href: string }> }>;
+  contactAddress: string;
+  contactPhone: string;
+  contactEmail: string;
+  copyrightText: string;
+  appStoreUrl: string;
+  playStoreUrl: string;
+  seoDescription: string | null;
   isMobile: boolean;
   isTablet: boolean;
   isDesktop: boolean;
@@ -20,11 +32,42 @@ export interface SiteConfig {
 
 // Server-side data shape (passed from server component)
 export interface SiteConfigServerData {
-  siteName: string;
-  siteDescription: string;
-  faviconUrl: string | null;
-  logoUrl: string | null;
+  siteName?: string;
+  siteDescription?: string;
+  faviconUrl?: string | null;
+  logoUrl?: string | null;
+  heroBanners?: Array<{ id: number; image: string; link: string }>;
+  sideBanners?: Array<{ id: number; image: string; link: string }>;
+  offerStripBanners?: Array<{ id: number; image: string; link: string }>;
+  promoBanners?: Array<{ id: number; title: string; subtitle: string; bgColor: string; link: string }>;
+  footerSections?: Array<{ heading: string; links: Array<{ label: string; href: string }> }>;
+  contactAddress?: string;
+  contactPhone?: string;
+  contactEmail?: string;
+  copyrightText?: string;
+  appStoreUrl?: string;
+  playStoreUrl?: string;
+  seoDescription?: string | null;
 }
+
+const defaultServerData: Required<SiteConfigServerData> = {
+  siteName: "Quant Procure Clone",
+  siteDescription: "B2B E-commerce platform",
+  faviconUrl: null,
+  logoUrl: null,
+  heroBanners: [],
+  sideBanners: [],
+  offerStripBanners: [],
+  promoBanners: [],
+  footerSections: [],
+  contactAddress: "",
+  contactPhone: "",
+  contactEmail: "",
+  copyrightText: "© 2026 Moglix Clone. All rights reserved.",
+  appStoreUrl: "#",
+  playStoreUrl: "#",
+  seoDescription: null,
+};
 
 // ── Context ─────────────────────────────────────────────────
 const ConfigContext = createContext<SiteConfig | null>(null);
@@ -75,8 +118,13 @@ export function ConfigProvider({
     return () => window.removeEventListener("resize", onResize);
   }, []);
 
-  const value: SiteConfig = {
+  const mergedServerData = {
+    ...defaultServerData,
     ...serverData,
+  };
+
+  const value: SiteConfig = {
+    ...mergedServerData,
     ...device,
   };
 

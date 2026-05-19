@@ -16,6 +16,8 @@ export interface CategoryData {
     categoryFaqs?: Array<{ question: string; answer: string }>;
     categoryMainImageLink?: string;
     redirectionLink?: string;
+    subcategories?: Array<{ name: string; slug: string }>;
+    filterMetadata?: { brands: string[]; maxPrice: number };
 }
 
 // Since the API returns the data directly without a status/data wrapper

@@ -23,7 +23,7 @@ const Contact = () => {
     <>
       <Breadcrumb title={"Contact"} pages={["contact"]} />
 
-      <section className="pt-4 pb-16 bg-[#F4F5F9]">
+      <section className="pt-4 pb-16 bg-[#F4F5F9]" style={{ backgroundColor: "#F4F5F9" }}>
         <div className="max-w-[1170px] w-full mx-auto px-4 sm:px-8 xl:px-0">
 
           {/* Header */}

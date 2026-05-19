@@ -5,7 +5,7 @@
     "singularName": "global",
     "pluralName": "globals",
     "displayName": "Global",
-    "description": "Define global settings"
+    "description": "Define dynamic global layout, header, footer and homepage banners"
   },
   "options": {
     "draftAndPublish": false
@@ -14,7 +14,7 @@
   "attributes": {
     "siteName": {
       "type": "string",
-      "required": true
+      "required": false
     },
     "favicon": {
       "type": "media",
@@ -30,12 +30,64 @@
     },
     "siteDescription": {
       "type": "text",
-      "required": true
+      "required": false
     },
     "defaultSeo": {
       "type": "component",
       "repeatable": false,
       "component": "shared.seo"
+    },
+    "heroBanners": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.banner"
+    },
+    "sideBanners": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.banner"
+    },
+    "offerStripBanners": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.banner"
+    },
+    "promoBanners": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.promo-banner"
+    },
+    "footerSections": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.footer-section"
+    },
+    "contactAddress": {
+      "type": "string",
+      "default": "685 Market Street, Las Vegas, LA 95820, United States."
+    },
+    "contactPhone": {
+      "type": "string",
+      "default": "(+099) 532-786-9843"
+    },
+    "contactEmail": {
+      "type": "string",
+      "default": "support@quantprocure.com"
+    },
+    "copyrightText": {
+      "type": "string",
+      "default": "All rights reserved by Quant Procure."
+    },
+    "appStoreUrl": {
+      "type": "string",
+      "default": "#"
+    },
+    "playStoreUrl": {
+      "type": "string",
+      "default": "#"
+    },
+    "seoDescription": {
+      "type": "richtext"
     }
   }
 }

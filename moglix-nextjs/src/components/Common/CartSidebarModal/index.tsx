@@ -31,7 +31,7 @@ const CartSidebarModal = () => {
     };
   }, [isCartModalOpen, closeCartModal]);
 
-  const shipping = totalPrice > 999 ? 0 : 99;
+  const shipping = totalPrice > 99 ? 0 : 9.99;
   const grandTotal = totalPrice + shipping;
 
   return (
@@ -68,21 +68,21 @@ const CartSidebarModal = () => {
         </div>
 
         {/* Free Shipping Banner */}
-        {totalPrice > 0 && totalPrice < 999 && (
+        {totalPrice > 0 && totalPrice < 99 && (
           <div className="mx-4 mt-3 px-4 py-2 bg-blue/10 border border-blue/30 rounded-lg">
             <p className="text-xs text-blue font-medium text-center flex items-center justify-center gap-1.5">
-              <Sparkles size={14} /> Add ₹{999 - totalPrice} more for <strong>FREE Shipping!</strong>
+              <Sparkles size={14} /> Add ${Math.ceil(99 - totalPrice)} more for <strong>FREE Shipping!</strong>
             </p>
 
             <div className="mt-1.5 bg-gray-3 rounded-full h-1.5">
               <div
                 className="bg-blue h-1.5 rounded-full transition-all duration-500"
-                style={{ width: `${Math.min((totalPrice / 999) * 100, 100)}%` }}
+                style={{ width: `${Math.min((totalPrice / 99) * 100, 100)}%` }}
               />
             </div>
           </div>
         )}
-        {totalPrice >= 999 && (
+        {totalPrice >= 99 && (
           <div className="mx-4 mt-3 px-4 py-2 bg-green-50 border border-green-300 rounded-lg">
             <p className="text-xs text-green-700 font-medium text-center flex items-center justify-center gap-1.5">
               <CheckCircle2 size={14} /> You got FREE Shipping!
@@ -115,17 +115,17 @@ const CartSidebarModal = () => {
             <div className="space-y-2 mb-4">
               <div className="flex justify-between text-sm text-dark-4">
                 <span>Subtotal ({cartItems.length} items)</span>
-                <span className="font-medium text-dark">₹{totalPrice.toLocaleString("en-IN")}</span>
+                <span className="font-medium text-dark">${totalPrice.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
               </div>
               <div className="flex justify-between text-sm text-dark-4">
                 <span>Shipping</span>
                 <span className={shipping === 0 ? "text-green-600 font-medium" : "font-medium text-dark"}>
-                  {shipping === 0 ? "FREE" : `₹${shipping}`}
+                  {shipping === 0 ? "FREE" : `$${shipping.toFixed(2)}`}
                 </span>
               </div>
               <div className="flex justify-between pt-2 border-t border-gray-3">
                 <span className="font-bold text-dark">Total</span>
-                <span className="font-bold text-blue text-lg">₹{grandTotal.toLocaleString("en-IN")}</span>
+                <span className="font-bold text-blue text-lg">${grandTotal.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
               </div>
             </div>
 

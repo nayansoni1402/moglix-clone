@@ -1,7 +1,8 @@
 import { Suspense } from "react";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
-import { getProductDetails } from "@/lib/api/product";
+import { getProductDetails, getStrapiProductDetails } from "@/lib/api/product";
+import { mapStrapiProductToProductDetails } from "@/utils/product-mapper";
 import type { ProductDetails } from "@/types/product";
 import PDPClient from "./PDPClient";
 
@@ -24,41 +25,62 @@ function extractMsn(slug: string): string {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const msn = extractMsn(slug);
+  
+  let data: ProductDetails | null = null;
   try {
     const res = await getProductDetails(msn);
-    if (!res.status || !res.data) return { title: "Product Not Found" };
-    const product = res.data.productGroup;
-    const imageUrl = product.productAllImages[0]
-      ? `https://img.moglimg.com/p/${product.productAllImages[0].moglixImageNumber}-xlarge.jpg`
-      : undefined;
-
-    return {
-      title: `${product.productName} | Quant Procure`,
-      description: product.productDescripton?.slice(0, 155) || product.productName,
-      keywords: [
-        product.productBrandDetails.brandName,
-        product.productCategoryDetails.categoryName,
-        msn.toUpperCase(),
-      ],
-      openGraph: {
-        title: product.productName,
-        description: product.productDescripton?.slice(0, 155),
-        images: imageUrl ? [{ url: imageUrl }] : [],
-        type: "website",
-      },
-      twitter: {
-        card: "summary_large_image",
-        title: product.productName,
-        description: product.productDescripton?.slice(0, 155),
-        images: imageUrl ? [imageUrl] : [],
-      },
-      alternates: {
-        canonical: `/product/${product.canonicalUrl}`,
-      },
-    };
+    if (res && res.status && res.data) {
+      data = res.data;
+    }
   } catch {
-    return { title: "Product" };
+    // Ignore and try fallback
   }
+
+  if (!data) {
+    try {
+      const strapiProduct = await getStrapiProductDetails(slug);
+      if (strapiProduct) {
+        data = mapStrapiProductToProductDetails(strapiProduct);
+      }
+    } catch {
+      // Ignore
+    }
+  }
+
+  if (!data) return { title: "Product Not Found" };
+
+  const product = data.productGroup;
+  const rawImage = product.productAllImages[0]?.moglixImageNumber;
+  const imageUrl = rawImage
+    ? (rawImage.startsWith("http") || rawImage.startsWith("/") 
+        ? rawImage 
+        : `https://img.moglimg.com/p/${rawImage}-xlarge.jpg`)
+    : undefined;
+
+  return {
+    title: `${product.productName} | Quant Procure`,
+    description: product.productDescripton?.slice(0, 155) || product.productName,
+    keywords: [
+      product.productBrandDetails.brandName,
+      product.productCategoryDetails.categoryName,
+      msn.toUpperCase(),
+    ],
+    openGraph: {
+      title: product.productName,
+      description: product.productDescripton?.slice(0, 155),
+      images: imageUrl ? [{ url: imageUrl }] : [],
+      type: "website",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: product.productName,
+      description: product.productDescripton?.slice(0, 155),
+      images: imageUrl ? [imageUrl] : [],
+    },
+    alternates: {
+      canonical: `/product/${product.canonicalUrl}`,
+    },
+  };
 }
 
 function buildJsonLd(data: ProductDetails) {
@@ -102,12 +124,28 @@ export default async function ProductPage({ params }: Props) {
   const { slug } = await params;
   const msn = extractMsn(slug);
 
-  let data: ProductDetails;
+  let data: ProductDetails | null = null;
   try {
     const res = await getProductDetails(msn);
-    if (!res.status || !res.data) notFound();
-    data = res.data;
+    if (res && res.status && res.data) {
+      data = res.data;
+    }
   } catch {
+    // Ignore and try fallback
+  }
+
+  if (!data) {
+    try {
+      const strapiProduct = await getStrapiProductDetails(slug);
+      if (strapiProduct) {
+        data = mapStrapiProductToProductDetails(strapiProduct);
+      }
+    } catch (err) {
+      console.error("Failed to load product details from Strapi:", err);
+    }
+  }
+
+  if (!data) {
     notFound();
   }
 

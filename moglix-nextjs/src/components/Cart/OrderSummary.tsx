@@ -9,7 +9,7 @@ import { ChevronRight, Sparkles, Lock, Truck, RotateCcw } from "lucide-react";
 const OrderSummary = () => {
   const cartItems = useAppSelector((state) => state.cartReducer.items);
   const totalPrice = useSelector(selectTotalPrice);
-  const shipping = totalPrice > 999 ? 0 : 99;
+  const shipping = totalPrice > 99 ? 0 : 9.99;
   const grandTotal = totalPrice + shipping;
 
   return (
@@ -30,7 +30,7 @@ const OrderSummary = () => {
                   <span className="text-dark-5 ml-1">×{item.quantity}</span>
                 </p>
                 <p className="text-dark font-medium whitespace-nowrap">
-                  ₹{(item.discountedPrice * item.quantity).toLocaleString("en-IN")}
+                  ${(item.discountedPrice * item.quantity).toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                 </p>
               </div>
             ))}
@@ -40,19 +40,19 @@ const OrderSummary = () => {
           <div className="border-t border-gray-3 pt-4 space-y-2">
             <div className="flex justify-between text-sm text-dark-4">
               <span>Subtotal</span>
-              <span className="font-medium text-dark">₹{totalPrice.toLocaleString("en-IN")}</span>
+              <span className="font-medium text-dark">${totalPrice.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
             </div>
             <div className="flex justify-between text-sm text-dark-4">
               <span>Shipping</span>
               <span className={`font-medium flex items-center gap-1 ${shipping === 0 ? "text-green-600" : "text-dark"}`}>
-                {shipping === 0 ? <><Sparkles size={14} /> FREE</> : `₹${shipping}`}
+                {shipping === 0 ? <><Sparkles size={14} /> FREE</> : `$${shipping.toFixed(2)}`}
               </span>
 
             </div>
             <div className="flex justify-between text-sm text-dark-4">
               <span>Taxes (18% GST)</span>
               <span className="font-medium text-dark">
-                ₹{Math.round(totalPrice * 0.18).toLocaleString("en-IN")}
+                ${(totalPrice * 0.18).toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
               </span>
             </div>
           </div>
@@ -61,7 +61,7 @@ const OrderSummary = () => {
           <div className="flex justify-between items-center border-t border-gray-3 pt-4 mt-4">
             <p className="font-bold text-dark text-base">Total</p>
             <p className="font-bold text-blue text-xl">
-              ₹{(grandTotal + Math.round(totalPrice * 0.18)).toLocaleString("en-IN")}
+              ${(grandTotal + totalPrice * 0.18).toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
             </p>
           </div>
 

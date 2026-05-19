@@ -2,7 +2,7 @@ export async function fetchStrapi(
   endpoint: string,
   queryParams?: Record<string, string | string[]>
 ) {
-  const baseUrl = process.env.NEXT_PUBLIC_STRAPI_API_URL || "http://localhost:1337/api";
+  const baseUrl = process.env.NEXT_PUBLIC_STRAPI_API_URL || "http://127.0.0.1:1337/api";
   const url = new URL(`${baseUrl}${endpoint}`);
 
   if (queryParams) {
@@ -19,7 +19,6 @@ export async function fetchStrapi(
   const response = await fetch(url.toString(), {
     headers: {
       "Content-Type": "application/json",
-      "Accept-Encoding": "identity",
     },
     next: { revalidate: 60 },
   });

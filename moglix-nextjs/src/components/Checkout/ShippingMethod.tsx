@@ -31,7 +31,7 @@ const ShippingMethod = () => {
             <Image src="/images/checkout/fedex.svg" alt="fedex" width={55} height={16} />
             <span className="text-xs text-dark-4">Standard Shipping (3-5 days)</span>
           </div>
-          <span className="text-sm font-bold text-dark">₹89</span>
+          <span className="text-sm font-bold text-dark">$8.99</span>
         </div>
       </label>
 
@@ -47,7 +47,7 @@ const ShippingMethod = () => {
             <Image src="/images/checkout/dhl.svg" alt="dhl" width={55} height={18} />
             <span className="text-xs text-dark-4">Express Delivery (1-2 days)</span>
           </div>
-          <span className="text-sm font-bold text-dark">₹149</span>
+          <span className="text-sm font-bold text-dark">$14.99</span>
         </div>
       </label>
     </div>

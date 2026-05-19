@@ -15,6 +15,7 @@ import ScrollToTop from "@/components/Common/ScrollToTop";
 import PreLoader from "@/components/Common/PreLoader";
 import NewsletterPopup from "@/components/NewsletterPopup";
 import { ConfigProvider, type SiteConfigServerData } from "../context/ConfigContext";
+import { Toaster } from "react-hot-toast";
 
 export default function ClientLayout({
   children,
@@ -43,6 +44,8 @@ export default function ClientLayout({
                     <Header />
                     {children}
                     <NewsletterPopup />
+                    <Footer />
+                    <Toaster position="top-right" reverseOrder={false} />
 
                     <QuickViewModal />
                     <CartSidebarModal />
@@ -53,7 +56,6 @@ export default function ClientLayout({
             </ReduxProvider>
           </ConfigProvider>
           <ScrollToTop />
-          <Footer />
         </>
       )}
     </>

@@ -33,8 +33,8 @@ const FilterSidebar = () => {
               className="w-full h-1 bg-gray-3 rounded-lg appearance-none cursor-pointer"
             />
             <div className="flex justify-between text-custom-sm text-dark-3">
-              <span>₹0</span>
-              <span>₹{priceRange}</span>
+              <span>$0</span>
+              <span>${priceRange}</span>
             </div>
           </div>
         </div>

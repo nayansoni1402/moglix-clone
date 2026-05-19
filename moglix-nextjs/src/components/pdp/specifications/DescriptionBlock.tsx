@@ -35,10 +35,9 @@ export default function DescriptionBlock({ product }: DescriptionBlockProps) {
       {/* Description Text */}
       {description && (
         <div className="prose prose-sm max-w-none">
-          <div
-            className="text-sm text-dark-3 leading-relaxed font-medium space-y-3"
-            dangerouslySetInnerHTML={{ __html: sanitizeHtml(description) }}
-          />
+          <div className="text-sm text-dark-3 leading-relaxed font-medium">
+            {parseDescription(description)}
+          </div>
         </div>
       )}
 
@@ -70,4 +69,64 @@ export default function DescriptionBlock({ product }: DescriptionBlockProps) {
       </div>
     </div>
   );
+}
+
+function parseDescription(desc: string) {
+  if (!desc) return null;
+  
+  // If it looks like HTML, render it directly
+  if (desc.trim().startsWith("<") || /<\/?[a-z][\s\S]*>/i.test(desc)) {
+    return (
+      <div dangerouslySetInnerHTML={{ __html: sanitizeHtml(desc) }} className="space-y-3" />
+    );
+  }
+  
+  // Parse simple Markdown
+  const lines = desc.split(/\n+/);
+  return (
+    <div className="space-y-3">
+      {lines.map((line, idx) => {
+        const trimmed = line.trim();
+        if (!trimmed) return null;
+
+        if (trimmed.startsWith("### ")) {
+          return (
+            <h3 key={idx} className="text-base font-bold text-dark mt-4 mb-2">
+              {renderInline(trimmed.substring(4))}
+            </h3>
+          );
+        }
+        if (trimmed.startsWith("## ")) {
+          return (
+            <h2 key={idx} className="text-lg font-bold text-dark mt-4 mb-2">
+              {renderInline(trimmed.substring(3))}
+            </h2>
+          );
+        }
+        if (trimmed.startsWith("- ") || trimmed.startsWith("* ")) {
+          return (
+            <ul key={idx} className="list-disc pl-5 space-y-1">
+              <li>{renderInline(trimmed.replace(/^[-*]\s+/, ""))}</li>
+            </ul>
+          );
+        }
+
+        return (
+          <p key={idx} className="leading-relaxed">
+            {renderInline(trimmed)}
+          </p>
+        );
+      })}
+    </div>
+  );
+}
+
+function renderInline(text: string) {
+  const parts = text.split(/\*\*([^*]+)\*\*/g);
+  return parts.map((part, index) => {
+    if (index % 2 === 1) {
+      return <strong key={index} className="font-bold text-dark">{part}</strong>;
+    }
+    return part;
+  });
 }

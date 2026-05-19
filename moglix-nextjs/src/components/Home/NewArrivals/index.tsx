@@ -1,10 +1,11 @@
 "use client";
-import React, { useRef, useCallback } from "react";
+import React, { useRef, useCallback, useState, useEffect } from "react";
 import Link from "next/link";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
 import ProductItem from "@/components/Common/ProductItem";
 import shopData from "@/components/Shop/shopData";
+import { mapStrapiProduct } from "@/utils/product-mapper";
 
 import "swiper/css";
 import "swiper/css/navigation";
@@ -16,6 +17,34 @@ interface Props {
 
 const NewArrival = ({ title = "New Arrivals", viewAllLink = "/shop-with-sidebar" }: Props) => {
   const sliderRef = useRef<any>(null);
+  const [products, setProducts] = useState<any[]>([]);
+
+  const categorySlug = viewAllLink.startsWith("/category/")
+    ? viewAllLink.replace("/category/", "")
+    : "";
+
+  useEffect(() => {
+    async function fetchProducts() {
+      try {
+        let url = `${process.env.NEXT_PUBLIC_STRAPI_API_URL || 'http://127.0.0.1:1337/api'}/products?populate=*&pagination[pageSize]=12`;
+        if (categorySlug && categorySlug !== "deals") {
+          url += `&filters[$or][0][categories][slug][$eq]=${categorySlug}&filters[$or][1][categories][parent][slug][$eq]=${categorySlug}&filters[$or][2][categories][parent][parent][slug][$eq]=${categorySlug}`;
+        }
+        
+        const response = await fetch(url);
+        const json = await response.json();
+        
+        if (json && json.data) {
+          const mapped = json.data.map(mapStrapiProduct);
+          setProducts(mapped);
+        }
+      } catch (err) {
+        console.error("Failed to load products for", title, err);
+      }
+    }
+
+    fetchProducts();
+  }, [categorySlug, title]);
 
   const handlePrev = useCallback(() => {
     if (!sliderRef.current) return;
@@ -79,7 +108,7 @@ const NewArrival = ({ title = "New Arrivals", viewAllLink = "/shop-with-sidebar"
               1280: { slidesPerView: 5.5 },
             }}
           >
-            {shopData.map((item, key) => (
+            {products.map((item, key) => (
               <SwiperSlide key={key} className="h-auto">
                 <ProductItem item={item} />
               </SwiperSlide>
@@ -93,4 +122,3 @@ const NewArrival = ({ title = "New Arrivals", viewAllLink = "/shop-with-sidebar"
 };
 
 export default NewArrival;
-

@@ -29,7 +29,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning={true} className={cn("font-sans", geist.variable)}>
-      <body suppressHydrationWarning={true}>
+      <body suppressHydrationWarning={true} className="bg-[#F4F5F9]" style={{ backgroundColor: "#F4F5F9" }}>
         <ReactQueryProvider>{children}</ReactQueryProvider>
       </body>
     </html>

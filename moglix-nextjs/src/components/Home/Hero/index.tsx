@@ -20,7 +20,14 @@ const rightBanners = [
   { id: 2, image: "/images/hero/side-banner-2.png", link: "/bulk-orders" },
 ];
 
+import { useConfig } from "@/app/context/ConfigContext";
+
 const Hero = () => {
+  const { heroBanners, sideBanners } = useConfig();
+
+  const displayBanners = heroBanners && heroBanners.length > 0 ? heroBanners : banners;
+  const displayRightBanners = sideBanners && sideBanners.length > 0 ? sideBanners : rightBanners;
+
   return (
     <section className="w-full bg-[#F4F5F9] py-4">
       <div className="max-w-[1300px] mx-auto px-4 sm:px-8 xl:px-0 flex flex-col md:flex-row gap-4">
@@ -37,7 +44,7 @@ const Hero = () => {
             modules={[Autoplay, Pagination, Navigation]}
             className="w-full h-full moglix-hero-swiper"
           >
-            {banners.map((banner) => (
+            {displayBanners.map((banner) => (
               <SwiperSlide key={banner.id}>
                 <Link href={banner.link} className="block w-full h-full relative bg-gray-3">
                   <Image
@@ -59,7 +66,7 @@ const Hero = () => {
 
         {/* Right Side Banners (Image Based) */}
         <div className="w-full md:w-[26%] flex flex-row md:flex-col gap-4">
-          {rightBanners.map((b) => (
+          {displayRightBanners.map((b) => (
             <Link
               key={b.id}
               href={b.link}

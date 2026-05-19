@@ -10,6 +10,7 @@
     "dev": "strapi develop",
     "develop": "strapi develop",
     "seed:example": "node ./scripts/seed.js",
+    "import:mro": "node ./scripts/import-mro.js",
     "scrape:all": "node ./scripts/scrape-all.js",
     "start": "strapi start",
     "strapi": "strapi",

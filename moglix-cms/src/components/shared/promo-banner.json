@@ -1,0 +1,25 @@
+{
+  "collectionName": "components_shared_promo_banners",
+  "info": {
+    "displayName": "Promo Banner",
+    "icon": "layout",
+    "description": "Dynamic promo banner for categories"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "subtitle": {
+      "type": "string"
+    },
+    "bgColor": {
+      "type": "string",
+      "default": "bg-green-light-5 text-green-dark"
+    },
+    "link": {
+      "type": "string"
+    }
+  }
+}
