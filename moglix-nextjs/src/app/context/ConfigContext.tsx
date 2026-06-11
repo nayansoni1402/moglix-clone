@@ -63,7 +63,7 @@ const defaultServerData: Required<SiteConfigServerData> = {
   contactAddress: "",
   contactPhone: "",
   contactEmail: "",
-  copyrightText: "© 2026 Moglix Clone. All rights reserved.",
+  copyrightText: "© 2026 Quant Procure. All rights reserved.",
   appStoreUrl: "#",
   playStoreUrl: "#",
   seoDescription: null,

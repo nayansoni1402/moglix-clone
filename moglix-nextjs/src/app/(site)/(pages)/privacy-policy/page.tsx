@@ -2,7 +2,7 @@ import Breadcrumb from "@/components/Common/Breadcrumb";
 import Link from "next/link";
 import { Calendar, ShieldCheck, Check, ChevronRight } from "lucide-react";
 
-export const metadata = { title: "Privacy Policy | Moglix" };
+export const metadata = { title: "Privacy Policy | Quant Procure" };
 
 const sections = [
   {
@@ -33,7 +33,7 @@ const sections = [
   {
     title: "6. Your Rights",
     content:
-      "You have the right to access, correct, or delete your personal data at any time. To exercise these rights, please contact us at privacy@moglix.com. We will respond to your request within 30 days.",
+      "You have the right to access, correct, or delete your personal data at any time. To exercise these rights, please contact us at privacy@quantprocure.com. We will respond to your request within 30 days.",
   },
   {
     title: "7. Contact Us",
@@ -57,7 +57,7 @@ export default function PrivacyPolicyPage() {
 
             <h1 className="text-2xl font-bold text-dark mt-3 mb-2">Privacy Policy</h1>
             <p className="text-dark-4 text-sm max-w-[600px]">
-              At Moglix, we are committed to protecting your privacy. This policy explains how we collect, use, and safeguard your personal information.
+              At Quant Procure, we are committed to protecting your privacy. This policy explains how we collect, use, and safeguard your personal information.
             </p>
           </div>
 

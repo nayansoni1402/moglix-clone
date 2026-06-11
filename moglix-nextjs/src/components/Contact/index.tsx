@@ -146,7 +146,7 @@ const Contact = () => {
 
                       <div>
                         <p className="font-semibold text-sm">Email Support</p>
-                        <p className="text-white/80 text-sm">support@moglix.com</p>
+                        <p className="text-white/80 text-sm">support@quantprocure.com</p>
                         <p className="text-white/60 text-xs">Response within 2–4 hours</p>
                       </div>
                     </li>
@@ -163,7 +163,7 @@ const Contact = () => {
 
                       <div>
                         <p className="font-semibold text-sm">B2B / Enterprise</p>
-                        <p className="text-white/80 text-sm">b2b@moglix.com</p>
+                        <p className="text-white/80 text-sm">b2b@quantprocure.com</p>
                         <p className="text-white/60 text-xs">Bulk orders & procurement</p>
                       </div>
                     </li>

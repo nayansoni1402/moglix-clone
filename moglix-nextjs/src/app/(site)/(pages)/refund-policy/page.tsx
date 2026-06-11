@@ -2,7 +2,7 @@ import Breadcrumb from "@/components/Common/Breadcrumb";
 import Link from "next/link";
 import { Calendar, RotateCcw, Zap, Truck, X, ChevronRight } from "lucide-react";
 
-export const metadata = { title: "Refund Policy | Moglix" };
+export const metadata = { title: "Refund Policy | Quant Procure" };
 
 export default function RefundPolicyPage() {
   return (
@@ -58,7 +58,7 @@ export default function RefundPolicyPage() {
                 },
                 {
                   title: "4. Damaged or Defective Items",
-                  content: "If you received a damaged or defective product, please contact us within 48 hours of delivery at support@moglix.com with your order ID and photos. We will arrange an immediate replacement or full refund.",
+                  content: "If you received a damaged or defective product, please contact us within 48 hours of delivery at support@quantprocure.com with your order ID and photos. We will arrange an immediate replacement or full refund.",
                 },
               ].map((sec, i, arr) => (
                 <div key={i} className={`px-7 py-6 ${i !== arr.length - 1 ? "border-b border-gray-3" : ""}`}>

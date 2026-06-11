@@ -55,7 +55,7 @@ export default function CategoryClient({ initialData, slug, categoryID, initialP
         staleTime: 1000 * 60 * 5, // 5 minutes
     });
 
-    const isFilterLoading = status === "pending" || (isFetching && !isFetchingNextPage);
+    const isFilterLoading = (status as string) === "pending" || (isFetching && !isFetchingNextPage);
 
     const observer = useRef<IntersectionObserver | null>(null);
     const lastProductElementRef = useCallback(

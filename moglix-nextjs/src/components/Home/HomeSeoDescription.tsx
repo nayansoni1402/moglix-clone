@@ -15,25 +15,40 @@ const HomeSeoDescription = () => {
         ) : (
           <div className="text-sm text-dark-3 space-y-6">
             <div>
-              <h2 className="text-lg font-semibold text-dark mb-2">Quant Procure – Trusted E-commerce Online Shopping Site for Industrial Products</h2>
+              <h2 className="text-lg font-semibold text-dark mb-2">Quant Procure – Trusted B2B & B2C E-commerce Platform for Industrial Products</h2>
+              <p className="mb-3">
+                Quant Procure is a leading e-commerce platform serving both B2B and B2C customers with a wide range of industrial and business products. We provide a seamless digital procurement experience for industries, businesses, and individual buyers across India.
+              </p>
+              <p className="mb-3">
+                Quant Procure offers products across multiple categories, including industrial tools, electrical equipment, home appliances, office supplies, agricultural tools, construction products, medical equipment, safety products, and automotive parts.
+              </p>
               <p>
-                Quant Procure is an e-commerce company that caters to both B2B and B2C operations. Quant Procure deals in various categories including industrial tools, electronic appliances, household appliances, office equipment and stationaries, agricultural tools, construction site products, medical equipment, and automotive parts. With over 800,000+ SKUs across 1500+ categories, Quant Procure is India's largest B2B e-commerce platform for industrial products. We provide digital procurement and supply chain solutions for various industries like agriculture, construction, healthcare, and automobiles.
+                With 800,000+ SKUs across 1,500+ categories, Quant Procure helps businesses simplify procurement, manage supply chains, and source quality products from trusted sellers. We support industries such as manufacturing, agriculture, construction, healthcare, automotive, and commercial sectors with reliable solutions and nationwide delivery.
               </p>
             </div>
 
             <div>
-              <h2 className="text-lg font-semibold text-dark mb-2">Some of our Top-Selling B2B Categories</h2>
+              <h2 className="text-lg font-semibold text-dark mb-2">Top-Selling B2B Categories</h2>
               <ul className="list-disc pl-5 space-y-2">
-                <li><strong>Home and Kitchen Appliances:</strong> In the home and kitchen category, we have a variety of products. It includes geysers, air conditioners, refrigerators, televisions, heaters, fans, mixer grinders, blenders, cookers, grillers, gas stoves, cooktops, etc.</li>
-                <li><strong>Industrial Tools:</strong> These tools can help hasten your project and provide ease in your DIY projects. Quant Procure has power tools products such as drills, grinders, pneumatic tools, material handling tools, precision measuring tools, cutting tools, and hand tools like saws, spanners, welding machines, tool kits, vices, clamps, etc.</li>
-                <li><strong>Electric Tools and Equipment:</strong> All electrical appliances must work at their optimum levels, ensuring precision and cost-effectiveness. Quant Procure has many tools, such as wires, circuit breakers, fuses, switches, generators, transformers, solar inverters, and much more.</li>
+                <li><strong>Home & Kitchen Appliances:</strong> Quant Procure provides a wide range of home and kitchen appliances including air conditioners, refrigerators, televisions, geysers, heaters, fans, mixer grinders, blenders, cookers, gas stoves, cooktops, and more from trusted brands.</li>
+                <li><strong>Industrial Tools:</strong> Improve productivity and efficiency with Quant Procure’s industrial tool range. Our products include power tools, drills, grinders, pneumatic tools, material handling equipment, precision measuring tools, cutting tools, welding machines, tool kits, saws, spanners, vices, clamps, and other professional tools.</li>
+                <li><strong>Electrical Tools & Equipment:</strong> Find reliable electrical products designed for industrial and commercial requirements. Our range includes wires, cables, switches, circuit breakers, fuses, generators, transformers, solar inverters, electrical accessories, and more.</li>
+                <li><strong>Safety & Industrial Supplies:</strong> Quant Procure also offers essential industrial supplies including safety equipment, workplace tools, maintenance products, and construction essentials to help businesses operate efficiently.</li>
               </ul>
             </div>
 
             <div>
-              <h2 className="text-lg font-semibold text-dark mb-2">Why do Industrial Shopping Online from Moglix?</h2>
+              <h2 className="text-lg font-semibold text-dark mb-2">Why Choose Quant Procure for Industrial Shopping?</h2>
+              <ul className="list-disc pl-5 space-y-2 mb-3">
+                <li>Trusted by 1,50,000+ SMEs and enterprises across India</li>
+                <li>Access to 8,00,000+ products across multiple categories</li>
+                <li>Partner network of 10,000+ sellers</li>
+                <li>Digital procurement solutions for businesses of all sizes</li>
+                <li>Nationwide delivery across 25,000+ PIN codes</li>
+                <li>Reliable sourcing for industrial, commercial, and everyday business needs</li>
+              </ul>
               <p>
-                Quant Procure has an extensive base of over 1,5,000 SMEs and large enterprises across India that source all their industrial supplies from us. Over 10,000+ sellers upload products to the website. There are 8,00,000+ products available for customers to choose from. We have a Trustpilot rating of 4.2 out of 5 stars. Quant Procure also offers nationwide delivery to more than 25,000+ PIN codes.
+                Quant Procure makes industrial procurement simple, faster, and more efficient by bringing thousands of products and trusted suppliers together on one platform.
               </p>
             </div>
           </div>
