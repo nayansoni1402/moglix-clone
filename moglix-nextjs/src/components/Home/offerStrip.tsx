@@ -20,7 +20,7 @@ const OfferStrip = () => {
     : brands.map(b => ({ name: b.name, img: b.img, link: "/category/top-brands" }));
 
   return (
-    <section className="bg-white py-6 mt-6">
+    <section className="bg-white py-6 mt-0">
       <div className="w-full px-2 sm:px-4">
 
         {/* Grid Layout */}

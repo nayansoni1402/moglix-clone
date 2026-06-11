@@ -61,13 +61,13 @@ const Home = () => {
     : fallbackCarousels;
 
   return (
-    <main className="bg-[#F4F5F9] pt-[180px]">
+    <main className="bg-[#F4F5F9] pt-[136px]">
       <Hero />
       
       <OfferStrip />
       
       {/* Dynamic Product Carousels and Banner Integrations */}
-      <div className="flex flex-col mt-4">
+      <div className="flex flex-col mt-6">
         {/* Always display Deals of the Day first */}
         <NewArrival title="Deals of the Day" viewAllLink="/category/deals" />
         

@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import Breadcrumb from "../Common/Breadcrumb";
 import Link from "next/link";

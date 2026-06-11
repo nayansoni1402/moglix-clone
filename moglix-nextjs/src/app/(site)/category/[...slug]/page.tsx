@@ -5,14 +5,114 @@ import { notFound } from "next/navigation";
 import FaqItem from "./FaqItem";
 import Link from "next/link";
 import { ChevronRight, Home } from "lucide-react";
+import type { Metadata } from "next";
+
+interface Props {
+  params: Promise<{ slug: string[] }>;
+  searchParams: Promise<{ page?: string }>;
+}
+
+export async function generateMetadata({ params }: { params: Promise<{ slug: string[] }> }): Promise<Metadata> {
+  const resolvedParams = await params;
+  const slugArray = resolvedParams.slug;
+  const categoryID = slugArray[slugArray.length - 1];
+
+  try {
+    const apiData = await getCategoryData(categoryID, 0);
+    if (!apiData || !apiData.categoryName) {
+      return { title: "Category Not Found | Quant Procure" };
+    }
+
+    // Clean markdown characters from description for meta description
+    const rawDescription = apiData.categoryDescription || "";
+    const cleanDescription = rawDescription
+      .replace(/\*\*([^*]+)\*\*/g, "$1") // remove bold formatting
+      .replace(/###?\s+[^\n]+/g, "")      // remove headers
+      .replace(/[-*]\s+/g, "")           // remove list marks
+      .replace(/\s+/g, " ")
+      .trim();
+      
+    const finalDescription = cleanDescription.length > 155 
+      ? cleanDescription.substring(0, 152) + "..." 
+      : cleanDescription || `Buy ${apiData.categoryName} Online at Best Prices in India. Sourced from certified dealers and top-tier global brands.`;
+
+    const categoryUrl = `/category/${slugArray.join("/")}`;
+
+    return {
+      title: `Buy ${apiData.categoryName} Online at Best Prices in India | Quant Procure`,
+      description: finalDescription,
+      keywords: [
+        apiData.categoryName,
+        "procurement",
+        "industrial supplies",
+        "Quant Procure",
+        ...(apiData.filterMetadata?.brands || []),
+      ],
+      openGraph: {
+        title: `Buy ${apiData.categoryName} Online at Best Prices in India`,
+        description: finalDescription,
+        type: "website",
+      },
+      twitter: {
+        card: "summary_large_image",
+        title: `Buy ${apiData.categoryName} Online at Best Prices in India`,
+        description: finalDescription,
+      },
+      alternates: {
+        canonical: categoryUrl,
+      },
+    };
+  } catch (error) {
+    console.error("Error generating metadata for category:", error);
+    return { title: "Buy Online | Quant Procure" };
+  }
+}
+
+function buildJsonLd(apiData: any, slugArray: string[], breadcrumbItems: { name: string; path: string }[]) {
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://quantprocure.com";
+
+  const breadcrumbList = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": baseUrl
+      },
+      ...breadcrumbItems.map((item, idx) => ({
+        "@type": "ListItem",
+        "position": idx + 2,
+        "name": item.name,
+        "item": `${baseUrl}${item.path}`
+      }))
+    ]
+  };
+
+  let faqPage = null;
+  if (apiData.categoryFaqs && apiData.categoryFaqs.length > 0) {
+    faqPage = {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": apiData.categoryFaqs.map((faq: { question: string; answer: string }) => ({
+        "@type": "Question",
+        "name": faq.question,
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": faq.answer
+        }
+      }))
+    };
+  }
+
+  return { breadcrumbList, faqPage };
+}
 
 export default async function CategoryPage({ 
   params, 
   searchParams 
-}: { 
-  params: Promise<{ slug: string[] }>,
-  searchParams: Promise<{ page?: string }> 
-}) {
+}: Props) {
   const resolvedParams = await params;
   const resolvedSearchParams = await searchParams;
   const slugArray = resolvedParams.slug;
@@ -37,66 +137,81 @@ export default async function CategoryPage({
       return { name, path };
     });
 
-    return (
-        <main className="bg-[#F4F5F9] min-h-screen pt-[160px] pb-10">
-            <div className="max-w-[1300px] mx-auto px-4 sm:px-8 xl:px-0">
-                
-                {/* Breadcrumb & Header - Server Side for SEO */}
-                <div className="mb-6">
-                    <nav aria-label="Breadcrumb" className="mb-4">
-                        <ol className="flex items-center gap-1 text-xs text-gray-5 overflow-x-auto whitespace-nowrap scrollbar-hide py-1">
-                            <li className="flex items-center shrink-0">
-                                <Link
-                                    href="/"
-                                    className="flex items-center gap-1 text-blue hover:text-blue-dark transition-colors font-medium"
-                                >
-                                    <Home size={13} />
-                                    <span>Home</span>
-                                </Link>
-                            </li>
-                            <li className="flex items-center gap-1 shrink-0">
-                                <ChevronRight size={12} className="text-gray-4" />
-                                <span className="text-gray-5 font-medium">Category</span>
-                            </li>
-                            {breadcrumbItems.map((item, idx) => {
-                                const isLast = idx === breadcrumbItems.length - 1;
-                                return (
-                                    <li key={idx} className="flex items-center gap-1 shrink-0">
-                                        <ChevronRight size={12} className="text-gray-4" />
-                                        {isLast ? (
-                                            <span className="text-body font-semibold truncate max-w-[200px] sm:max-w-[400px]">
-                                                {item.name}
-                                            </span>
-                                        ) : (
-                                            <Link
-                                                href={item.path}
-                                                className="text-blue hover:text-blue-dark transition-colors font-medium hover:underline"
-                                            >
-                                                {item.name}
-                                            </Link>
-                                        )}
-                                    </li>
-                                );
-                            })}
-                        </ol>
-                    </nav>
-                    <h1 className="text-2xl font-bold text-dark mb-3 flex items-center gap-3">
-                        <span className="w-1.5 h-8 bg-blue rounded-full block flex-shrink-0" />
-                        <span>{apiData.categoryName}</span>
-                        <span className="text-sm font-normal text-dark-4 bg-gray-2 px-3 py-1 rounded-full">({totalProducts} Products)</span>
-                    </h1>
-                </div>
+    const { breadcrumbList, faqPage } = buildJsonLd(apiData, slugArray, breadcrumbItems);
 
-                {/* Categories and Filter Columns */}
-                <div className="w-full">
-                    <CategoryClient 
-                        initialData={apiData} 
-                        slug={slug} 
-                        categoryID={categoryID}
-                        initialPage={currentPage}
-                    />
+    return (
+        <>
+            {/* JSON-LD Structured Data */}
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbList) }}
+            />
+            {faqPage && (
+                <script
+                    type="application/ld+json"
+                    dangerouslySetInnerHTML={{ __html: JSON.stringify(faqPage) }}
+                />
+            )}
+            
+            <main className="bg-[#F4F5F9] min-h-screen pt-[160px] pb-10">
+                <div className="max-w-[1300px] mx-auto px-4 sm:px-8 xl:px-0">
+                    
+                    {/* Breadcrumb & Header - Server Side for SEO */}
+                    <div className="mb-6">
+                        <nav aria-label="Breadcrumb" className="mb-4">
+                            <ol className="flex items-center gap-1 text-xs text-gray-4 overflow-x-auto whitespace-nowrap scrollbar-hide py-1">
+                                <li className="flex items-center shrink-0">
+                                    <Link
+                                        href="/"
+                                        className="flex items-center gap-1 text-blue hover:text-blue-dark transition-colors font-medium"
+                                    >
+                                        <Home size={13} />
+                                        <span>Home</span>
+                                    </Link>
+                                </li>
+                                <li className="flex items-center gap-1 shrink-0">
+                                    <ChevronRight size={12} className="text-gray-4" />
+                                    <span className="text-gray-5 font-medium">Category</span>
+                                </li>
+                                {breadcrumbItems.map((item, idx) => {
+                                    const isLast = idx === breadcrumbItems.length - 1;
+                                    return (
+                                        <li key={idx} className="flex items-center gap-1 shrink-0">
+                                            <ChevronRight size={12} className="text-gray-4" />
+                                            {isLast ? (
+                                                <span className="text-body font-semibold truncate max-w-[200px] sm:max-w-[400px]">
+                                                    {item.name}
+                                                </span>
+                                            ) : (
+                                                <Link
+                                                    href={item.path}
+                                                    className="text-blue hover:text-blue-dark transition-colors font-medium hover:underline"
+                                                >
+                                                    {item.name}
+                                                </Link>
+                                            )}
+                                        </li>
+                                    );
+                                })}
+                            </ol>
+                        </nav>
+                        <h1 className="text-2xl font-bold text-dark mb-3 flex items-center gap-3">
+                            <span className="w-1.5 h-8 bg-blue rounded-full block flex-shrink-0" />
+                            <span>{apiData.categoryName}</span>
+                            <span className="text-sm font-normal text-dark-4 bg-gray-2 px-3 py-1 rounded-full">({totalProducts} Products)</span>
+                        </h1>
+                    </div>
+
+                    {/* Categories and Filter Columns */}
+                    <div className="w-full">
+                        <CategoryClient 
+                            initialData={apiData} 
+                            slug={slug} 
+                            categoryID={categoryID}
+                            initialPage={currentPage}
+                        />
+                    </div>
                 </div>
-            </div>
 
             {/* Category FAQ Section - Server Side for SEO */}
             {apiData.categoryFaqs && apiData.categoryFaqs.length > 0 && (
@@ -112,6 +227,7 @@ export default async function CategoryPage({
                 </section>
             )}
         </main>
+        </>
     );
   } catch (error) {
     console.error("Error fetching category data:", error);

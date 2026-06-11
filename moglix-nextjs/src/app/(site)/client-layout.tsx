@@ -1,5 +1,4 @@
 "use client";
-import { useState, useEffect } from "react";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 
@@ -12,7 +11,6 @@ import { PreviewSliderProvider } from "../context/PreviewSliderContext";
 import PreviewSliderModal from "@/components/Common/PreviewSlider";
 
 import ScrollToTop from "@/components/Common/ScrollToTop";
-import PreLoader from "@/components/Common/PreLoader";
 import NewsletterPopup from "@/components/NewsletterPopup";
 import { ConfigProvider, type SiteConfigServerData } from "../context/ConfigContext";
 import { Toaster } from "react-hot-toast";
@@ -24,40 +22,28 @@ export default function ClientLayout({
   children: React.ReactNode;
   serverData: SiteConfigServerData;
 }) {
-  const [loading, setLoading] = useState<boolean>(true);
-
-  useEffect(() => {
-    setTimeout(() => setLoading(false), 1000);
-  }, []);
-
   return (
     <>
-      {loading ? (
-        <PreLoader />
-      ) : (
-        <>
-          <ConfigProvider serverData={serverData}>
-            <ReduxProvider>
-              <CartModalProvider>
-                <ModalProvider>
-                  <PreviewSliderProvider>
-                    <Header />
-                    {children}
-                    <NewsletterPopup />
-                    <Footer />
-                    <Toaster position="top-right" reverseOrder={false} />
+      <ConfigProvider serverData={serverData}>
+        <ReduxProvider>
+          <CartModalProvider>
+            <ModalProvider>
+              <PreviewSliderProvider>
+                <Header />
+                {children}
+                <NewsletterPopup />
+                <Footer />
+                <Toaster position="top-right" reverseOrder={false} />
 
-                    <QuickViewModal />
-                    <CartSidebarModal />
-                    <PreviewSliderModal />
-                  </PreviewSliderProvider>
-                </ModalProvider>
-              </CartModalProvider>
-            </ReduxProvider>
-          </ConfigProvider>
-          <ScrollToTop />
-        </>
-      )}
+                <QuickViewModal />
+                <CartSidebarModal />
+                <PreviewSliderModal />
+              </PreviewSliderProvider>
+            </ModalProvider>
+          </CartModalProvider>
+        </ReduxProvider>
+      </ConfigProvider>
+      <ScrollToTop />
     </>
   );
 }
