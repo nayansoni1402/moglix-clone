@@ -1,3 +1,4 @@
+
 "use client";
 
 import React from "react";
@@ -7,7 +8,7 @@ import Link from "next/link";
 const brands = [
   { name: "Banner 2", img: "/images/offer_strips/Gold-Banner1.webp" },
   { name: "Banner 3", img: "/images/offer_strips/Goldbanner1stdesktop2xgif.gif" },
-  { name: "Banner 4", img: "/images/offer_strips/GoldBanner1stGIF2x.gif" },
+
 ];
 
 import { useConfig } from "@/app/context/ConfigContext";
@@ -20,33 +21,42 @@ const OfferStrip = () => {
     : brands.map(b => ({ name: b.name, img: b.img, link: "/category/top-brands" }));
 
   return (
-    <section className="bg-white py-6 mt-6">
-      <div className="w-full px-2 sm:px-4">
+    <section className=" mt-6">
+  <div className="max-w-[1300px] w-full mx-auto px-4 sm:px-8 xl:px-0">
 
-        {/* Grid Layout */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+    <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-3">
 
-          {displayOfferBanners.map((brand, index) => (
-            <Link
-              key={index}
-              href={brand.link}
-              className="rounded-xl overflow-hidden shadow-sm hover:shadow-md transition"
-            >
-              <div className="relative w-full h-[140px] sm:h-[160px] md:h-[180px] lg:h-[200px]">
-                <Image
-                  src={brand.img}
-                  alt={brand.name}
-                  fill
-                  className="object-cover"
-                  priority={index === 0}
-                />
-              </div>
-            </Link>
-          ))}
+      {displayOfferBanners.map((brand, index) => (
+        <Link
+          key={index}
+          href={brand.link}
+          className="
+            relative block overflow-hidden rounded-xl
+            hover:brightness-105 active:brightness-95
+            transition-all duration-200
+            focus-visible:outline-2 focus-visible:outline-blue-500
+          "
+        >
+          {/* Aspect ratio box — keeps proportions on every screen size */}
+          <div className="relative w-full aspect-[2.4/1]">
+            <Image
+              src={brand.img}
+              alt={brand.name}
+              fill
+              sizes="
+                (max-width: 640px)  50vw,
+                (max-width: 1280px) 25vw,
+                325px
+              "
+              className="object-cover object-center"
+            />
+          </div>
+        </Link>
+      ))}
 
-        </div>
-      </div>
-    </section>
+    </div>
+  </div>
+</section>
   );
 };
 
