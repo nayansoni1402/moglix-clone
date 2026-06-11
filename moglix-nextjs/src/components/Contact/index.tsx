@@ -1,6 +1,7 @@
 import React from "react";
 import Breadcrumb from "../Common/Breadcrumb";
 import Link from "next/link";
+import { useConfig } from "@/app/context/ConfigContext";
 import { 
   Mail, 
   MapPin, 
@@ -19,6 +20,7 @@ const inputClass =
 const labelClass = "block text-sm font-medium text-dark-3 mb-1.5";
 
 const Contact = () => {
+  const { contactAddress, contactPhone, contactEmail } = useConfig();
   return (
     <>
       <Breadcrumb title={"Contact"} pages={["contact"]} />
@@ -116,7 +118,7 @@ const Contact = () => {
                     <div className="flex flex-col items-center text-center">
                       <span className="text-blue/40 mb-3"><Map size={48} /></span>
                       <p className="text-sm text-dark-4 font-bold">Quant Procure India Headquarters</p>
-                      <p className="text-xs text-dark-5 mt-1">B-25, Sector 58, Noida, Uttar Pradesh 201301</p>
+                      <p className="text-xs text-dark-5 mt-1">{contactAddress}</p>
                     </div>
                   </div>
                 </div>
@@ -137,7 +139,7 @@ const Contact = () => {
 
                       <div>
                         <p className="font-semibold text-sm">Phone / WhatsApp</p>
-                        <p className="text-white/80 text-sm">+91 1800-XXX-XXXX</p>
+                        <p className="text-white/80 text-sm">{contactPhone}</p>
                         <p className="text-white/60 text-xs">Mon–Sat, 9 AM – 8 PM</p>
                       </div>
                     </li>
@@ -146,7 +148,7 @@ const Contact = () => {
 
                       <div>
                         <p className="font-semibold text-sm">Email Support</p>
-                        <p className="text-white/80 text-sm">support@quantprocure.com</p>
+                        <p className="text-white/80 text-sm">{contactEmail}</p>
                         <p className="text-white/60 text-xs">Response within 2–4 hours</p>
                       </div>
                     </li>
@@ -155,7 +157,7 @@ const Contact = () => {
 
                       <div>
                         <p className="font-semibold text-sm">Head Office</p>
-                        <p className="text-white/80 text-sm leading-5">B-25, Sector 58, Noida,<br />Uttar Pradesh 201301</p>
+                        <p className="text-white/80 text-sm leading-5">{contactAddress}</p>
                       </div>
                     </li>
                     <li className="flex items-start gap-3">

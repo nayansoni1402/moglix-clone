@@ -381,15 +381,15 @@ const Header = () => {
       {/* Desktop Categories Navigation */}
       <div className="border-t border-gray-3 bg-white hidden lg:block" onMouseLeave={() => setMegaOpen(null)}>
         <div className="max-w-[1300px] mx-auto px-4 xl:px-0 relative">
-          <div className="flex items-center justify-between">
+          <div className="flex items-center justify-start gap-6 xl:gap-8 overflow-x-auto no-scrollbar whitespace-nowrap">
             {dynamicNavItems.map((item, index) => (
-              <div key={index} className="relative group" onMouseEnter={() => setMegaOpen(item.mega ? item.name : null)}>
+              <div key={index} className="relative group flex-shrink-0" onMouseEnter={() => setMegaOpen(item.mega ? item.name : null)}>
                 <Link
                   href={item.link}
-                  className={`flex items-center gap-1.5 py-3.5 text-xs xl:text-sm font-bold border-b-2 transition-all duration-200 ${item.highlight ? "text-red border-transparent hover:border-red" : `text-dark-2 border-transparent ${megaOpen === item.name ? "text-blue border-blue" : "group-hover:text-blue group-hover:border-blue"}`
+                  className={`flex items-center gap-1.5 py-3 text-[11px] xl:text-[12px] font-semibold border-b-2 transition-all duration-200 ${item.highlight ? "text-red border-transparent hover:border-red" : `text-dark-2 border-transparent ${megaOpen === item.name ? "text-blue border-blue" : "group-hover:text-blue group-hover:border-blue"}`
                     }`}
                 >
-                  <span className="text-sm xl:text-base">{item.icon}</span> {item.name}
+                  <span className="text-[12px] xl:text-xs [&_svg]:w-3.5 [&_svg]:h-3.5 flex items-center">{item.icon}</span> {item.name}
                 </Link>
 
                 {item.subs && !item.mega && (
