@@ -136,7 +136,7 @@ export default function CategoryClient({ initialData, slug, categoryID, initialP
                                 {sidebarSubcategories.map((sub: any, si: number) => (
                                     <li key={si}>
                                         <Link 
-                                            href={`/category/${slug}/${sub.slug}`} 
+                                            href={`/category/${sub.slug}`} 
                                             className="hover:text-blue transition-colors flex items-center justify-between"
                                         >
                                             <span>{sub.name}</span>

@@ -246,21 +246,42 @@ export default factories.createCoreService('api::product.product', ({ strapi }) 
 
       for (const cat of categoriesToCreate) {
         const catName = cat.categoryName;
-        const rawLinkSlug = cat.categoryLink ? cat.categoryLink.split('/').filter(Boolean).pop() : null;
-        const slug = rawLinkSlug || slugify(catName, { lower: true, strict: true });
 
-        // Check if category exists
+        // Check if category exists by name
         let category = (await strapi.documents('api::category.category').findFirst({
-          filters: {
-            $or: [
-              { slug: slug },
-              { name: catName }
-            ]
-          },
+          filters: { name: catName },
           populate: ['parent']
         })) as any;
 
         if (!category) {
+          const baseSlug = slugify(catName, { lower: true, strict: true });
+          let slug = baseSlug;
+          let isUnique = false;
+          let counter = 0;
+
+          while (!isUnique) {
+            const checkSlug = counter === 0 ? slug : `${slug}-${counter}`;
+            const collision = await strapi.documents('api::category.category').findFirst({
+              filters: { slug: checkSlug }
+            });
+            if (!collision) {
+              slug = checkSlug;
+              isUnique = true;
+            } else {
+              // Prepend parent slug to resolve collision
+              if (counter === 0 && parentDocId) {
+                const parentCat = await strapi.documents('api::category.category').findFirst({
+                  filters: { documentId: parentDocId }
+                });
+                if (parentCat) {
+                  slug = `${parentCat.slug}-${slug}`;
+                  counter--; // Run checks again on this new prefix slug
+                }
+              }
+              counter++;
+            }
+          }
+
           category = (await strapi.documents('api::category.category').create({
             data: {
               name: catName,
