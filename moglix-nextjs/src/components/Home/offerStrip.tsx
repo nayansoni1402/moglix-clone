@@ -21,8 +21,8 @@ const OfferStrip = () => {
     : brands.map(b => ({ name: b.name, img: b.img, link: "/category/top-brands" }));
 
   return (
-    <section className="bg-white py-6 mt-0">
-      <div className="w-full px-2 sm:px-16">
+    <section className="bg-white py-4 mt-0">
+  <div className="w-full px-2 sm:px-16">
 
     <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-3">
 
@@ -37,18 +37,19 @@ const OfferStrip = () => {
             focus-visible:outline-2 focus-visible:outline-blue-500
           "
         >
-          {/* Aspect ratio box — keeps proportions on every screen size */}
-          <div className="relative w-full aspect-[2.4/1]">
+          {/* aspect-[2.1/1] matches your banner proportions in screenshot */}
+          <div className="relative w-full aspect-[2.1/1]">
             <Image
               src={brand.img}
               alt={brand.name}
               fill
               sizes="
                 (max-width: 640px)  50vw,
-                (max-width: 1280px) 25vw,
-                325px
+                (max-width: 1024px) 50vw,
+                25vw
               "
               className="object-cover object-center"
+              priority={index < 2}
             />
           </div>
         </Link>
