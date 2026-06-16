@@ -22,7 +22,7 @@ const OfferStrip = () => {
 
   return (
     <section className="bg-white py-6 mt-0">
-      <div className="w-full px-2 sm:px-4">
+      <div className="w-full px-2 sm:px-16">
 
     <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-3">
 
