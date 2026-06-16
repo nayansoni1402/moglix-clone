@@ -32,6 +32,7 @@
     "react-dom": "^18.0.0",
     "react-router-dom": "^6.0.0",
     "slugify": "^1.6.9",
+    "ssh2": "^1.17.0",
     "styled-components": "^6.0.0"
   },
   "devDependencies": {

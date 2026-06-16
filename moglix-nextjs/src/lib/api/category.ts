@@ -1,4 +1,5 @@
 import { CategoryApiResponse } from "@/types/category";
+import { getMoglixImageUrl } from "@/lib/utils/product";
 
 export const getCategoryData = async (
     categoryID: string, 
@@ -60,10 +61,9 @@ export const getCategoryData = async (
             
             // Map Strapi products to the expected Moglix shape
             const products = strapiProducts.map((p: any) => {
-                const imageUrl = p.image?.url || p.images?.[0]?.url || p.mainImageUrl || "/placeholder.png";
-                const absoluteImgUrl = imageUrl.startsWith("http") 
-                    ? imageUrl 
-                    : `${process.env.NEXT_PUBLIC_STRAPI_API_URL?.replace("/api", "") || 'http://127.0.0.1:1337'}${imageUrl}`;
+                const relativePath = p.mainImageUrl || 
+                    (p.images?.[0]?.url ? `/uploads/${p.documentId || p.id}/${p.images[0].url.replace(/^\/uploads\//, "")}` : "");
+                const absoluteImgUrl = relativePath ? getMoglixImageUrl(relativePath) : "/placeholder.png";
                 
                 return {
                     moglixPartNumber: p.documentId || String(p.id),

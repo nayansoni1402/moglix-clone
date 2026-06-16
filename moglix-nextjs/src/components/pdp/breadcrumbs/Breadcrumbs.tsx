@@ -21,17 +21,20 @@ export default function Breadcrumbs({ items, productName }: BreadcrumbsProps) {
           </Link>
         </li>
 
-        {items.slice(0, -1).map((item, idx) => (
-          <li key={idx} className="flex items-center gap-1 shrink-0">
-            <ChevronRight size={12} className="text-gray-4" />
-            <Link
-              href={`/${item.categoryLink}`}
-              className="text-blue hover:text-blue-dark transition-colors font-medium hover:underline"
-            >
-              {item.categoryName}
-            </Link>
-          </li>
-        ))}
+        {items.slice(0, -1).map((item, idx) => {
+          if (item.categoryName.toLowerCase() === "home") return null;
+          return (
+            <li key={idx} className="flex items-center gap-1 shrink-0">
+              <ChevronRight size={12} className="text-gray-4" />
+              <Link
+                href={`/${item.categoryLink}`}
+                className="text-blue hover:text-blue-dark transition-colors font-medium hover:underline"
+              >
+                {item.categoryName}
+              </Link>
+            </li>
+          );
+        })}
 
         <li className="flex items-center gap-1 shrink-0">
           <ChevronRight size={12} className="text-gray-4" />
