@@ -52,6 +52,7 @@ const HomeSeoDescription = () => {
               <p>
                 Quant Procure makes industrial procurement simple, faster, and more efficient by bringing thousands of products and trusted suppliers together on one platform.
               </p>
+              
             </div>
           </div>
         )}
