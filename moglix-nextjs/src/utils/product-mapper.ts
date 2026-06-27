@@ -14,7 +14,7 @@ export function mapStrapiProduct(item: any): Product {
   }
 
   // Get image URL
-  const imageUrl = NO_IMAGE_URL;
+  const imageUrl = item.mainImageUrl || NO_IMAGE_URL;
 
   const price = Math.ceil(Number(item.mrp || item.price || 0));
   const discountedPrice = Math.ceil(Number(item.price || 0));
@@ -34,7 +34,7 @@ export function mapStrapiProduct(item: any): Product {
 }
 
 export function mapStrapiProductToProductDetails(strapiProduct: any): ProductDetails {
-  const absoluteImgUrl = NO_IMAGE_URL;
+  const absoluteImgUrl = strapiProduct.mainImageUrl || NO_IMAGE_URL;
 
   const productImages: ProductImage[] = [
     {

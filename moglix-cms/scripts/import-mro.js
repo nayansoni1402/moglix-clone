@@ -13,7 +13,7 @@ const slugify = (text) => {
 
 async function importMroCatalog() {
   const htmlPath = 'C:\\Users\\admin\\Downloads\\youtube\\MRO_Punchout_Catalog_Interactive.html';
-  
+
   console.log(`\n📖 Reading and parsing local MRO Catalog HTML from: ${htmlPath}`);
   if (!fs.existsSync(htmlPath)) {
     console.error(`❌ HTML Catalog file not found at: ${htmlPath}`);
@@ -31,7 +31,7 @@ async function importMroCatalog() {
   console.log(`✅ Loaded ${catalog.length} items from HTML Catalog.`);
 
   console.log('🔄 Cleaning up existing catalog, products, and brands databases to avoid duplicates...');
-  
+
   // Clean products
   const existingProds = await strapi.documents('api::product.product').findMany({ limit: 10000 });
   console.log(`🗑️ Deleting ${existingProds.length} existing products...`);
@@ -59,7 +59,7 @@ async function importMroCatalog() {
 
   console.log('\n🚀 Phase 1: Importing Unique Brands (Makes)...');
   const uniqueBrands = [...new Set(catalog.map(item => item.make).filter(Boolean))];
-  
+
   for (const brandName of uniqueBrands) {
     const brandDoc = await strapi.documents('api::brand.brand').create({
       data: {
@@ -180,7 +180,7 @@ async function importMroCatalog() {
 
   console.log('\n🚀 Phase 3: Seeding 1,161 Products with full details & relations...');
   let productCount = 0;
-  
+
   for (const item of catalog) {
     const brandId = brandsMap.get(item.make);
     const subKey = `${item.category}::${item.subcategory}`;
