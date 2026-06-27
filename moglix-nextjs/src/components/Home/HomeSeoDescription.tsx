@@ -27,8 +27,10 @@ const HomeSeoDescription = () => {
               </p>
             </div>
 
+
             <div>
-              <h2 className="text-lg font-semibold text-dark mb-2">Top-Selling B2B Categories</h2>
+
+              <h2 className="text-lg font-semibold text-dark mb-2">Top-Selling B2B Categories </h2>
               <ul className="list-disc pl-5 space-y-2">
                 <li><strong>Home & Kitchen Appliances:</strong> Quant Procure provides a wide range of home and kitchen appliances including air conditioners, refrigerators, televisions, geysers, heaters, fans, mixer grinders, blenders, cookers, gas stoves, cooktops, and more from trusted brands.</li>
                 <li><strong>Industrial Tools:</strong> Improve productivity and efficiency with Quant Procure’s industrial tool range. Our products include power tools, drills, grinders, pneumatic tools, material handling equipment, precision measuring tools, cutting tools, welding machines, tool kits, saws, spanners, vices, clamps, and other professional tools.</li>
@@ -50,6 +52,7 @@ const HomeSeoDescription = () => {
               <p>
                 Quant Procure makes industrial procurement simple, faster, and more efficient by bringing thousands of products and trusted suppliers together on one platform.
               </p>
+              
             </div>
           </div>
         )}

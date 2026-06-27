@@ -130,12 +130,10 @@ export default async function CategoryPage({
     }
 
     const totalProducts = apiData.productSearchResult.totalProducts;
-    const taxonomyNames = apiData.taxonomy ? apiData.taxonomy.split(">").map(t => t.trim()) : [];
-    const breadcrumbItems = slugArray.map((segment, idx) => {
-      const path = `/category/${slugArray.slice(0, idx + 1).join("/")}`;
-      const name = (taxonomyNames[idx]) || segment.replace(/-/g, " ").replace(/\b\w/g, c => c.toUpperCase());
-      return { name, path };
-    });
+    const breadcrumbItems = (apiData.hierarchy || []).map((item) => ({
+      name: item.name,
+      path: `/category/${item.slug}`
+    }));
 
     const { breadcrumbList, faqPage } = buildJsonLd(apiData, slugArray, breadcrumbItems);
 
@@ -168,10 +166,6 @@ export default async function CategoryPage({
                                         <Home size={13} />
                                         <span>Home</span>
                                     </Link>
-                                </li>
-                                <li className="flex items-center gap-1 shrink-0">
-                                    <ChevronRight size={12} className="text-gray-4" />
-                                    <span className="text-gray-5 font-medium">Category</span>
                                 </li>
                                 {breadcrumbItems.map((item, idx) => {
                                     const isLast = idx === breadcrumbItems.length - 1;

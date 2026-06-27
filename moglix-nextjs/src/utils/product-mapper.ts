@@ -1,5 +1,5 @@
 import { Product, ProductDetails, ProductImage } from "@/types/product";
-import { NO_IMAGE_URL } from "@/lib/utils/product";
+import { NO_IMAGE_URL, getMoglixImageUrl } from "@/lib/utils/product";
 
 export function mapStrapiProduct(item: any): Product {
   if (!item) {
@@ -14,7 +14,9 @@ export function mapStrapiProduct(item: any): Product {
   }
 
   // Get image URL
-  const imageUrl = item.mainImageUrl || NO_IMAGE_URL;
+  const relativePath = item.mainImageUrl || 
+    (item.images?.[0]?.url ? `/uploads/${item.documentId || item.id}/${item.images[0].url.replace(/^\/uploads\//, "")}` : "");
+  const imageUrl = relativePath ? getMoglixImageUrl(relativePath) : NO_IMAGE_URL;
 
   const price = Math.ceil(Number(item.mrp || item.price || 0));
   const discountedPrice = Math.ceil(Number(item.price || 0));
@@ -34,10 +36,42 @@ export function mapStrapiProduct(item: any): Product {
 }
 
 export function mapStrapiProductToProductDetails(strapiProduct: any): ProductDetails {
-  const absoluteImgUrl = strapiProduct.mainImageUrl || NO_IMAGE_URL;
+  const relativePath = strapiProduct.mainImageUrl || 
+    (strapiProduct.images?.[0]?.url ? `/uploads/${strapiProduct.documentId || strapiProduct.id}/${strapiProduct.images[0].url.replace(/^\/uploads\//, "")}` : "");
+  const absoluteImgUrl = relativePath ? getMoglixImageUrl(relativePath) : NO_IMAGE_URL;
 
-  const productImages: ProductImage[] = [
-    {
+  const productImages: ProductImage[] = [];
+
+  if (strapiProduct.images && strapiProduct.images.length > 0) {
+    strapiProduct.images.forEach((img: any, idx: number) => {
+      let imgUrl = img.url;
+      if (imgUrl && !imgUrl.startsWith("http")) {
+        const docId = strapiProduct.documentId || strapiProduct.id;
+        const filename = imgUrl.replace(/^\/uploads\//, "");
+        imgUrl = getMoglixImageUrl(`/uploads/${docId}/${filename}`);
+      }
+      if (imgUrl) {
+        productImages.push({
+          links: {
+            small: imgUrl,
+            thumbnail: imgUrl,
+            default: imgUrl,
+            large: imgUrl,
+            xlarge: imgUrl,
+            icon: imgUrl,
+            xxlarge: imgUrl,
+            medium: imgUrl,
+          },
+          moglixImageNumber: imgUrl,
+          altTag: strapiProduct.name,
+          position: idx + 1,
+        });
+      }
+    });
+  }
+
+  if (productImages.length === 0) {
+    productImages.push({
       links: {
         small: absoluteImgUrl,
         thumbnail: absoluteImgUrl,
@@ -51,8 +85,8 @@ export function mapStrapiProductToProductDetails(strapiProduct: any): ProductDet
       moglixImageNumber: absoluteImgUrl,
       altTag: strapiProduct.name,
       position: 1,
-    }
-  ];
+    });
+  }
 
   const price = Math.ceil(Number(strapiProduct.mrp || strapiProduct.price * 1.25 || 100));
   const discountedPrice = Math.ceil(Number(strapiProduct.price || 80));
@@ -121,17 +155,31 @@ export function mapStrapiProductToProductDetails(strapiProduct: any): ProductDet
   const breadcrumb = [
     {
       categoryName: "Home",
-      categoryLink: "/",
+      categoryLink: "",
       taxonomy: "Home"
     }
   ];
-  if (strapiProduct.categories?.[0]) {
-    breadcrumb.push({
-      categoryName: strapiProduct.categories[0].name,
-      categoryLink: `/category/${strapiProduct.categories[0].slug}`,
-      taxonomy: strapiProduct.categories[0].name
+
+  if (strapiProduct.categories && strapiProduct.categories.length > 0) {
+    const sortedCategories = [...strapiProduct.categories].sort((a: any, b: any) => {
+      return String(a.slug || '').localeCompare(String(b.slug || ''));
     });
+    
+    for (const cat of sortedCategories) {
+      breadcrumb.push({
+        categoryName: cat.name,
+        categoryLink: `category/${cat.slug}`,
+        taxonomy: cat.name
+      });
+    }
   }
+
+  // Push product itself as the last element so that Breadcrumbs component's items.slice(0, -1) works correctly
+  breadcrumb.push({
+    categoryName: strapiProduct.name,
+    categoryLink: `product/${strapiProduct.slug}`,
+    taxonomy: strapiProduct.name
+  });
 
   return {
     _id: strapiProduct.documentId || String(strapiProduct.id),

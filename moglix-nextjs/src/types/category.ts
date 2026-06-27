@@ -12,6 +12,7 @@ export interface CategoryData {
     categoryName: string;
     categoryId: string; // Note: lowercase 'id' in API
     taxonomy: string;
+    hierarchy?: Array<{ name: string; slug: string }>;
     categoryDescription?: string;
     categoryFaqs?: Array<{ question: string; answer: string }>;
     categoryMainImageLink?: string;

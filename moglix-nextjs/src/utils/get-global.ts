@@ -94,6 +94,7 @@ export const getGlobalData = cache(async (): Promise<GlobalData> => {
     const fallbackOfferBanners = [
       { id: 1, image: "/images/offer_strips/Gold-Banner1.webp", link: "/category/top-brands" },
       { id: 2, image: "/images/offer_strips/Goldbanner1stdesktop2xgif.gif", link: "/category/top-brands" },
+      { id: 3, image: "/images/offer_strips/Gold-Banner-eecocool.png", link: "/category/top-brands" },
       { id: 3, image: "/images/offer_strips/GoldBanner1stGIF2x.gif", link: "/category/top-brands" },
     ];
 

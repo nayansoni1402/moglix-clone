@@ -7,6 +7,15 @@ import { useInfiniteQuery } from "@tanstack/react-query";
 import { getCategoryData } from "@/lib/api/category";
 import { mapCategoryProductToProductItem } from "@/utils/product";
 import Link from "next/link";
+import {
+    Drawer,
+    DrawerClose,
+    DrawerContent,
+    DrawerHeader,
+    DrawerTitle,
+    DrawerTrigger,
+} from "@/components/ui/drawer";
+import { SlidersHorizontal, ChevronDown } from "lucide-react";
 
 interface CategoryClientProps {
     initialData: any;
@@ -117,101 +126,166 @@ export default function CategoryClient({ initialData, slug, categoryID, initialP
     // Subcategories list from initial dynamic data
     const sidebarSubcategories = initialData.subcategories || [];
 
+    const activeFiltersCount = useMemo(() => {
+        return selectedBrands.length + (maxPriceFilter > 0 ? 1 : 0);
+    }, [selectedBrands, maxPriceFilter]);
+
+    const renderFilterContent = () => (
+        <>
+            {/* Dynamic Subcategories */}
+            {sidebarSubcategories.length > 0 && (
+                <div className="mb-6">
+                    <h3 className="font-semibold text-dark text-base mb-3 border-b border-gray-3 pb-2 flex items-center gap-2">
+                        <span className="w-1 h-3 bg-blue rounded-full" /> Subcategories
+                    </h3>
+                    <ul className="flex flex-col gap-2.5 text-dark-3 text-custom-sm">
+                        {sidebarSubcategories.map((sub: any, si: number) => (
+                            <li key={si}>
+                                <Link 
+                                    href={`/category/${sub.slug}`} 
+                                    className="hover:text-blue transition-colors flex items-center justify-between"
+                                >
+                                    <span>{sub.name}</span>
+                                    <span className="text-[10px] bg-gray-2 text-dark-4 px-1.5 py-0.5 rounded-full font-medium">explore</span>
+                                </Link>
+                            </li>
+                        ))}
+                    </ul>
+                </div>
+            )}
+
+            {/* Dynamic Price Slider */}
+            <div className="mb-6">
+                <h3 className="font-semibold text-dark text-base mb-3 border-b border-gray-3 pb-2 flex items-center gap-2">
+                    <span className="w-1 h-3 bg-blue rounded-full" /> Price Range
+                </h3>
+                <div className="flex flex-col gap-3">
+                    <input
+                        type="range"
+                        min="0"
+                        max={maxProductPrice}
+                        value={currentMaxPriceBound}
+                        onChange={(e) => setMaxPriceFilter(Number(e.target.value))}
+                        className="w-full h-1 bg-gray-3 rounded-lg appearance-none cursor-pointer accent-blue"
+                    />
+                    <div className="flex justify-between text-custom-sm text-dark-3 font-medium">
+                        <span>$0</span>
+                        <span className="text-blue">${currentMaxPriceBound}</span>
+                    </div>
+                </div>
+            </div>
+
+            {/* Dynamic Brands Checkbox Filter */}
+            {uniqueBrands.length > 0 && (
+                <div className="mb-6">
+                    <h3 className="font-semibold text-dark text-base mb-3 border-b border-gray-3 pb-2 flex items-center gap-2">
+                        <span className="w-1 h-3 bg-blue rounded-full" /> Brands
+                    </h3>
+                    <div className="flex flex-col gap-2.5 max-h-[220px] overflow-y-auto pr-1">
+                        {uniqueBrands.map((brand) => (
+                            <label key={brand} className="flex items-center gap-2.5 text-custom-sm text-dark-3 cursor-pointer hover:text-blue transition-colors">
+                                <input 
+                                    type="checkbox" 
+                                    checked={selectedBrands.includes(brand)}
+                                    onChange={() => toggleBrand(brand)}
+                                    className="w-4 h-4 rounded border-gray-3 text-blue focus:ring-blue cursor-pointer" 
+                                />
+                                <span>{brand}</span>
+                            </label>
+                        ))}
+                    </div>
+                </div>
+            )}
+
+            {/* Standard Premium Features */}
+            <div>
+                <h3 className="font-semibold text-dark text-base mb-3 border-b border-gray-3 pb-2 flex items-center gap-2">
+                    <span className="w-1 h-3 bg-blue rounded-full" /> Customer Rating
+                </h3>
+                <div className="flex flex-col gap-2.5">
+                    {["4★ & above", "3★ & above", "2★ & above"].map((ratingStr, ri) => (
+                        <label key={ri} className="flex items-center gap-2.5 text-custom-sm text-dark-3 cursor-pointer hover:text-blue transition-colors">
+                            <input type="radio" name="rating-filter" className="w-4 h-4 border-gray-3 text-blue focus:ring-blue cursor-pointer" />
+                            <span>{ratingStr}</span>
+                        </label>
+                    ))}
+                </div>
+            </div>
+        </>
+    );
+
     return (
         <div className="flex flex-col lg:flex-row gap-8 w-full">
-            {/* Dynamic Filter Sidebar integrated directly inside CategoryClient */}
-            <div className="w-full lg:w-1/4 xl:w-[270px] flex-shrink-0">
+            {/* Dynamic Filter Sidebar - Desktop Only */}
+            <div className="hidden lg:block w-[270px] flex-shrink-0">
                 <div 
                     className="bg-white p-5 rounded-md border border-gray-3 shadow-sm sticky top-[100px] max-h-[calc(100vh-130px)] overflow-y-auto pr-3"
                     style={{ scrollbarWidth: 'thin' }}
                 >
-                    
-                    {/* Dynamic Subcategories */}
-                    {sidebarSubcategories.length > 0 && (
-                        <div className="mb-6">
-                            <h3 className="font-semibold text-dark text-base mb-3 border-b border-gray-3 pb-2 flex items-center gap-2">
-                                <span className="w-1 h-3 bg-blue rounded-full" /> Subcategories
-                            </h3>
-                            <ul className="flex flex-col gap-2.5 text-dark-3 text-custom-sm">
-                                {sidebarSubcategories.map((sub: any, si: number) => (
-                                    <li key={si}>
-                                        <Link 
-                                            href={`/category/${slug}/${sub.slug}`} 
-                                            className="hover:text-blue transition-colors flex items-center justify-between"
-                                        >
-                                            <span>{sub.name}</span>
-                                            <span className="text-[10px] bg-gray-2 text-dark-4 px-1.5 py-0.5 rounded-full font-medium">explore</span>
-                                        </Link>
-                                    </li>
-                                ))}
-                            </ul>
-                        </div>
-                    )}
-
-                    {/* Dynamic Price Slider */}
-                    <div className="mb-6">
-                        <h3 className="font-semibold text-dark text-base mb-3 border-b border-gray-3 pb-2 flex items-center gap-2">
-                            <span className="w-1 h-3 bg-blue rounded-full" /> Price Range
-                        </h3>
-                        <div className="flex flex-col gap-3">
-                            <input
-                                type="range"
-                                min="0"
-                                max={maxProductPrice}
-                                value={currentMaxPriceBound}
-                                onChange={(e) => setMaxPriceFilter(Number(e.target.value))}
-                                className="w-full h-1 bg-gray-3 rounded-lg appearance-none cursor-pointer accent-blue"
-                            />
-                            <div className="flex justify-between text-custom-sm text-dark-3 font-medium">
-                                <span>$0</span>
-                                <span className="text-blue">${currentMaxPriceBound}</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    {/* Dynamic Brands Checkbox Filter */}
-                    {uniqueBrands.length > 0 && (
-                        <div className="mb-6">
-                            <h3 className="font-semibold text-dark text-base mb-3 border-b border-gray-3 pb-2 flex items-center gap-2">
-                                <span className="w-1 h-3 bg-blue rounded-full" /> Brands
-                            </h3>
-                            <div className="flex flex-col gap-2.5 max-h-[220px] overflow-y-auto pr-1">
-                                {uniqueBrands.map((brand) => (
-                                    <label key={brand} className="flex items-center gap-2.5 text-custom-sm text-dark-3 cursor-pointer hover:text-blue transition-colors">
-                                        <input 
-                                            type="checkbox" 
-                                            checked={selectedBrands.includes(brand)}
-                                            onChange={() => toggleBrand(brand)}
-                                            className="w-4 h-4 rounded border-gray-3 text-blue focus:ring-blue cursor-pointer" 
-                                        />
-                                        <span>{brand}</span>
-                                    </label>
-                                ))}
-                            </div>
-                        </div>
-                    )}
-
-                    {/* Standard Premium Features */}
-                    <div>
-                        <h3 className="font-semibold text-dark text-base mb-3 border-b border-gray-3 pb-2 flex items-center gap-2">
-                            <span className="w-1 h-3 bg-blue rounded-full" /> Customer Rating
-                        </h3>
-                        <div className="flex flex-col gap-2.5">
-                            {["4★ & above", "3★ & above", "2★ & above"].map((ratingStr, ri) => (
-                                <label key={ri} className="flex items-center gap-2.5 text-custom-sm text-dark-3 cursor-pointer hover:text-blue transition-colors">
-                                    <input type="radio" name="rating-filter" className="w-4 h-4 border-gray-3 text-blue focus:ring-blue cursor-pointer" />
-                                    <span>{ratingStr}</span>
-                                </label>
-                            ))}
-                        </div>
-                    </div>
+                    {renderFilterContent()}
                 </div>
             </div>
 
             {/* Dynamic Grid Column */}
             <div className="w-full lg:w-3/4">
-                {/* Sort & Stats Bar */}
-                <div className="bg-white p-4 rounded-md border border-gray-3 shadow-sm mb-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+                {/* Mobile Filter & Sort Sticky/Action Bar */}
+                <div className="lg:hidden flex flex-col gap-3 mb-6 w-full">
+                    <div className="flex items-center justify-between bg-white px-4 py-2 rounded-md border border-gray-3 shadow-sm">
+                        <span className="text-dark-3 text-custom-sm">
+                            Showing <strong>{filteredAndSortedProducts.length}</strong> of <strong>{totalProducts}</strong> products
+                        </span>
+                    </div>
+                    <div className="flex gap-3 w-full">
+                        <div className="w-1/2">
+                            <Drawer>
+                                <DrawerTrigger asChild>
+                                    <button className="flex items-center justify-center gap-2 border border-gray-3 bg-white px-4 py-2.5 rounded-md text-custom-sm font-semibold text-dark shadow-sm w-full h-[42px] hover:bg-gray-1">
+                                        <SlidersHorizontal size={14} className="text-dark-3" />
+                                        <span>Filters</span>
+                                        {activeFiltersCount > 0 && (
+                                            <span className="bg-blue text-white text-[10px] rounded-full w-4 h-4 flex items-center justify-center font-bold">
+                                                {activeFiltersCount}
+                                            </span>
+                                        )}
+                                    </button>
+                                </DrawerTrigger>
+                                <DrawerContent className="bg-white">
+                                    <DrawerHeader className="border-b border-gray-2 text-left">
+                                        <DrawerTitle className="text-base font-bold text-dark flex items-center justify-between">
+                                            <span>Filters</span>
+                                            <DrawerClose asChild>
+                                                <button className="text-xs text-blue font-semibold hover:underline">Apply</button>
+                                            </DrawerClose>
+                                        </DrawerTitle>
+                                    </DrawerHeader>
+                                    <div className="p-5 overflow-y-auto max-h-[65vh] text-left">
+                                        {renderFilterContent()}
+                                    </div>
+                                </DrawerContent>
+                            </Drawer>
+                        </div>
+                        <div className="w-1/2">
+                            <div className="relative w-full h-[42px]">
+                                <select 
+                                    value={sortBy}
+                                    onChange={(e) => setSortBy(e.target.value)}
+                                    className="w-full h-full border border-gray-3 rounded-md px-3 text-custom-sm text-dark outline-none font-semibold bg-white cursor-pointer appearance-none text-center"
+                                >
+                                    <option>Popularity</option>
+                                    <option>Price: Low to High</option>
+                                    <option>Price: High to Low</option>
+                                    <option>Newest Arrivals</option>
+                                </select>
+                                <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-gray-500">
+                                    <ChevronDown size={14} />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                {/* Sort & Stats Bar - Desktop Only */}
+                <div className="hidden lg:flex bg-white p-4 rounded-md border border-gray-3 shadow-sm mb-6 items-center justify-between gap-4">
                     <span className="text-dark-3 text-custom-sm">
                         Showing <strong>{filteredAndSortedProducts.length}</strong> of <strong>{totalProducts}</strong> products
                     </span>

@@ -1,13 +1,13 @@
 export const formatPrice = (price: number): string => {
-  return new Intl.NumberFormat("en-US", {
+  return new Intl.NumberFormat("en-IN", {
     style: "currency",
-    currency: "USD",
+    currency: "INR",
     maximumFractionDigits: 0,
   }).format(price);
 };
 
 export const formatPriceRaw = (price: number): string => {
-  return new Intl.NumberFormat("en-US", {
+  return new Intl.NumberFormat("en-IN", {
     maximumFractionDigits: 0,
   }).format(price);
 };
@@ -23,7 +23,18 @@ export const getMoglixImageUrl = (
   moglixImageNumber: string,
   size: "thumbnail" | "small" | "medium" | "large" | "xlarge" | "xxlarge" = "xxlarge"
 ): string => {
-  return NO_IMAGE_URL;
+  if (!moglixImageNumber) return NO_IMAGE_URL;
+  if (moglixImageNumber.startsWith("http") || moglixImageNumber.startsWith("data:")) {
+    return moglixImageNumber;
+  }
+  if (moglixImageNumber.startsWith("/")) {
+    const base = process.env.NEXT_PUBLIC_IMAGE_BASE_URL || 
+                 process.env.NEXT_PUBLIC_STRAPI_API_URL?.replace("/api", "") || 
+                 "http://127.0.0.1:1337";
+    const mappedPath = moglixImageNumber.replace(/^\/uploads\//, "/");
+    return `${base}${mappedPath}`;
+  }
+  return `https://cdn.moglix.com/${moglixImageNumber}`;
 };
 
 export const getTagImageUrl = (imageUrl: string): string => {

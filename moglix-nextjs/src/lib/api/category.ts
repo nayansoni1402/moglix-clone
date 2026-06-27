@@ -1,4 +1,5 @@
 import { CategoryApiResponse } from "@/types/category";
+import { getMoglixImageUrl } from "@/lib/utils/product";
 
 export const getCategoryData = async (
     categoryID: string, 
@@ -14,7 +15,7 @@ export const getCategoryData = async (
         const baseUrl = process.env.NEXT_PUBLIC_STRAPI_API_URL || 'http://127.0.0.1:1337/api';
         
         // Find category by slug (populated safely without wildcard categories to avoid articles schema crash)
-        const catRes = await fetch(`${baseUrl}/categories?filters[slug][$eq]=${categoryID}&populate[children][fields][0]=name&populate[children][fields][1]=slug&populate[parent][fields][0]=name&populate[parent][fields][1]=slug&populate[faqs]=*`, { cache: 'no-store' });
+        const catRes = await fetch(`${baseUrl}/categories?filters[slug][$eq]=${categoryID}&populate[children][fields][0]=name&populate[children][fields][1]=slug&populate[parent][fields][0]=name&populate[parent][fields][1]=slug&populate[parent][populate][parent][fields][0]=name&populate[parent][populate][parent][fields][1]=slug&populate[parent][populate][parent][populate][parent][fields][0]=name&populate[parent][populate][parent][populate][parent][fields][1]=slug&populate[faqs]=*`, { cache: 'no-store' });
         const catJson = await catRes.json();
         
         if (catJson && catJson.data && catJson.data.length > 0) {
@@ -60,10 +61,9 @@ export const getCategoryData = async (
             
             // Map Strapi products to the expected Moglix shape
             const products = strapiProducts.map((p: any) => {
-                const imageUrl = p.image?.url || p.images?.[0]?.url || p.mainImageUrl || "/placeholder.png";
-                const absoluteImgUrl = imageUrl.startsWith("http") 
-                    ? imageUrl 
-                    : `${process.env.NEXT_PUBLIC_STRAPI_API_URL?.replace("/api", "") || 'http://127.0.0.1:1337'}${imageUrl}`;
+                const relativePath = p.mainImageUrl || 
+                    (p.images?.[0]?.url ? `/uploads/${p.documentId || p.id}/${p.images[0].url.replace(/^\/uploads\//, "")}` : "");
+                const absoluteImgUrl = relativePath ? getMoglixImageUrl(relativePath) : "/placeholder.png";
                 
                 return {
                     moglixPartNumber: p.documentId || String(p.id),
@@ -85,10 +85,23 @@ export const getCategoryData = async (
                 answer: faq.answer || "",
             }));
             
+            // Build parent category hierarchy
+            const hierarchyList: Array<{ name: string; slug: string }> = [];
+            let current = category;
+            while (current) {
+                hierarchyList.unshift({
+                    name: current.name,
+                    slug: current.slug
+                });
+                current = current.parent;
+            }
+            const taxonomy = hierarchyList.map(h => h.name).join(" > ");
+            
             return {
                 categoryName: category.name,
                 categoryId: category.slug,
-                taxonomy: category.parent ? `${category.parent.name} > ${category.name}` : category.name,
+                taxonomy: taxonomy,
+                hierarchy: hierarchyList,
                 categoryDescription: category.seoDescription || category.description || "",
                 categoryFaqs: faqs,
                 subcategories: (category.children || []).map((sub: any) => ({
